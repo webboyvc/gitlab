@@ -123,7 +123,7 @@ module LabelsHelper
   end
 
   def label_subscription_toggle_button_text(label)
-    label.subscribed?(current_user) ? 'Unsubscribe' : 'Subscribe'
+    label.subscribed?(current_user) ? 'È¡Ïû¶©ÔÄ' : '¶©ÔÄ'
   end
 
   # Required for Banzai::Filter::LabelReferenceFilter

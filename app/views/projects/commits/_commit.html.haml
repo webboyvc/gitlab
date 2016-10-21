@@ -27,8 +27,9 @@
           = preserve(markdown(escape_once(commit.description), pipeline: :single_line))
 
     .commit-row-info
-      by
       = commit_author_link(commit, avatar: true, size: 24)
+      ÔÚ
       .committed_ago
-        #{time_ago_with_tooltip(commit.committed_date)} &nbsp;
+        #{time_ago_with_tooltip(commit.committed_date)}
+      Ìá½»
       = link_to_browse_code(project, commit)

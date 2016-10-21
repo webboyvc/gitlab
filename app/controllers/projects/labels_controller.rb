@@ -65,7 +65,7 @@ class Projects::LabelsController < Projects::ApplicationController
     respond_to do |format|
       format.html do
         redirect_to(namespace_project_labels_path(@project.namespace, @project),
-                    notice: 'Label was removed')
+                    notice: '±ê¼ÇÒÑÉ¾³ý')
       end
       format.js
     end

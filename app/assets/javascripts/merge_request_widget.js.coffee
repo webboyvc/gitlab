@@ -131,7 +131,7 @@ class @MergeRequestWidget
       @setMergeButtonClass('btn-danger')
 
   showCICoverage: (coverage) ->
-    text = 'Coverage ' + coverage + '%'
+    text = '¸²¸ÇÂÊ ' + coverage + '%'
     $('.ci_widget:visible .ci-coverage').text(text)
 
   setMergeButtonClass: (css_class) ->

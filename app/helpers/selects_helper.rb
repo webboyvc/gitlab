@@ -11,7 +11,7 @@ module SelectsHelper
     html = {
       class: css_class,
       data: {
-        placeholder: opts[:placeholder]   || 'Search for a user',
+        placeholder: opts[:placeholder]   || 'ËÑË÷ÓÃ»§',
         null_user: opts[:null_user]       || false,
         any_user: opts[:any_user]         || false,
         email_user: opts[:email_user]     || false,

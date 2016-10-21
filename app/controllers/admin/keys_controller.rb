@@ -15,9 +15,9 @@ class Admin::KeysController < Admin::ApplicationController
 
     respond_to do |format|
       if key.destroy
-        format.html { redirect_to [:admin, user], notice: 'User key was successfully removed.' }
+        format.html { redirect_to [:admin, user], notice: 'ÓÃ»§ÃÜÔ¿É¾³ý³É¹¦¡£' }
       else
-        format.html { redirect_to [:admin, user], alert: 'Failed to remove user key.' }
+        format.html { redirect_to [:admin, user], alert: 'ÓÃ»§ÃÜÔ¿É¾³ýÊ§°Ü¡£' }
       end
     end
   end
