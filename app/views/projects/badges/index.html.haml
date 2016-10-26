@@ -1,10 +1,10 @@
-- page_title 'Badges'
+- page_title '徽章'
 - badges_path = namespace_project_badges_path(@project.namespace, @project)
 
 .prepend-top-10
   .panel.panel-default
     .panel-heading
-      %b Builds badge &middot;
+      %b 构建徽章 &middot;
       = @build_badge.to_html
       .pull-right
         = render 'shared/ref_switcher', destination: 'badges', align_right: true

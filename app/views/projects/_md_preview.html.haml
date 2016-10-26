@@ -3,19 +3,19 @@
     %ul.nav-links.clearfix
       %li.active
         %a.js-md-write-button{ href: "#md-write-holder", tabindex: -1 }
-          Write
+          编写
       %li
         %a.js-md-preview-button{ href: "#md-preview-holder", tabindex: -1 }
-          Preview
+          预览
 
       - if defined?(@issue) && @issue.confidential?
         %li.confidential-issue-warning
           = icon('warning')
-          %span This is a confidential issue. Your comment will not be visible to the public.
+          %span 这是一个保密问题。 您的评论不会公开显示。
           
       %li.pull-right
         %button.zen-control.zen-control-full.js-zen-enter{ type: 'button', tabindex: -1 }
-          Go full screen
+          转到全屏
 
   .md-write-holder
     = yield
@@ -25,8 +25,8 @@
     %div.referenced-users.hide
       %span
         = icon('exclamation-triangle')
-        You are about to add
+        你添加了
         %strong
           %span.js-referenced-users-count 0
-          people
-        to the discussion. Proceed with caution.
+          人
+        到此讨论。请谨慎行事。
