@@ -16,7 +16,7 @@
             在
           %a{ href: "##{dom_id(note)}" }
             = time_ago_with_tooltip(note.created_at, placement: 'bottom', html_class: 'note-created-ago')
-			评论
+            评论
         .note-actions
           - access = note.project.team.human_max_access(note.author.id)
           - if access and not note.system

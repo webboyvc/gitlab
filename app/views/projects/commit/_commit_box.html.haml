@@ -53,7 +53,7 @@
 - if @commit.status
   .commit-info-row
     = pluralize(@commit.pipelines.count, '个管道', '个管道')
-    的构建	
+    的构建
     = link_to builds_namespace_project_commit_path(@project.namespace, @project, @commit.id), class: "ci-status-link ci-status-icon-#{@commit.status}" do
       = ci_icon_for_status(@commit.status)
       = ci_label_for_status(@commit.status)

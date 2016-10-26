@@ -65,7 +65,7 @@ module IssuablesHelper
       author_output = link_to_member(project, issuable.author, size: 24, mobile_classes: "hidden-xs")
       author_output << link_to_member(project, issuable.author, size: 24, by_username: true, avatar: false, mobile_classes: "hidden-sm hidden-md hidden-lg")
     end
-	output << " 打开".html_safe
+    output << " 打开".html_safe
   end
 
   def issuable_todo(issuable)

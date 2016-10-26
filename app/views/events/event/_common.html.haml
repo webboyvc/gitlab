@@ -1,21 +1,23 @@
 .event-title
   %span.author_name= link_to_author event
   %span.event_label{class: event.action_name}
-  - if event.target
     = event.action_name
-    %strong
-      = link_to [event.project.namespace.becomes(Namespace), event.project, event.target], class: 'has-tooltip', title: event.target_title do
-        = event.target_type.titleize.downcase
-        = event.target.reference_link_text
-  - else
-    = event_action_name(event)
 
-  = event_preposition(event)
+  - if !event.target_type
+    项目
 
   - if event.project
     = link_to_project event.project
   - else
     = event.project_name
+
+  - if event.target
+    的
+    = event.target_type_zh
+    %strong
+      = link_to [event.project.namespace.becomes(Namespace), event.project, event.target], class: 'has-tooltip', title: event.target_title do
+        = event.target_type.titleize.downcase
+        = event.target.reference_link_text
 
 - if event.target.respond_to?(:title)
   .event-body
