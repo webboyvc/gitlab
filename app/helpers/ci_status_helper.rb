@@ -13,15 +13,43 @@ module CiStatusHelper
       content_tag :span, content, class: klass
     end
   end
-
+  
+  def ci_status_zh(status)
+    case status
+      when 'pending'
+        '排队'
+      when 'running'
+        '运行'
+      when 'failed'
+        '失败'
+      when 'canceled'
+        '取消'
+      else
+         '未知'
+    end
+  end
+  
+  def ci_stage_zh(stage)
+    case stage
+      when 'build'
+        '构建'
+      when 'deploy'
+        '部署'
+      when 'test'
+        '测试'
+      else
+        stage.titleize
+    end
+  end
+  
   def ci_label_for_status(status)
     case status
     when 'success'
-      'passed'
+      '成功'
     when 'success_with_warnings'
-      'passed with warnings'
+      '成功(有警告)'
     else
-      status
+      ci_status_zh(status)
     end
   end
 
@@ -68,7 +96,7 @@ module CiStatusHelper
     link_to ci_icon_for_status(status),
             path,
             class: "ci-status-link ci-status-icon-#{status.dasherize} #{cssclass}",
-            title: "#{type.titleize}: #{ci_label_for_status(status)}",
+            title: "#{type}: #{ci_label_for_status(status)}",
             data: { toggle: 'tooltip', placement: tooltip_placement }
   end
 end

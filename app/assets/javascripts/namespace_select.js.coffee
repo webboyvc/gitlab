@@ -26,7 +26,7 @@ class @NamespaceSelect
         Api.namespaces term, (namespaces) ->
           if showAny
             anyNamespace =
-              text: 'Any namespace'
+              text: '所有的命名空间'
               id: null
 
             namespaces.unshift(anyNamespace)

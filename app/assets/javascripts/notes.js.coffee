@@ -120,7 +120,7 @@ class @Notes
         discussionNoteForm = $textarea.closest('.js-discussion-note-form')
         if discussionNoteForm.length
           if $textarea.val() isnt ''
-            return unless confirm('Are you sure you want to cancel creating this comment?')
+            return unless confirm('您确定要取消创建此评论吗？')
 
           @removeDiscussionNoteForm(discussionNoteForm)
           return
@@ -130,7 +130,7 @@ class @Notes
           originalText = $textarea.closest('form').data('original-note')
           newText = $textarea.val()
           if originalText isnt newText
-            return unless confirm('Are you sure you want to cancel editing this comment?')
+            return unless confirm('您确定要取消编辑此评论吗？')
 
           @removeNoteEditForm(editNote)
 
@@ -194,7 +194,7 @@ class @Notes
   renderNote: (note) ->
     unless note.valid
       if note.award
-        new Flash('You have already awarded this emoji!', 'alert')
+        new Flash('你已经获得这个表情符号！', 'alert')
       return
 
     if note.award
@@ -358,7 +358,7 @@ class @Notes
     @renderNote(note)
 
   addNoteError: (xhr, note, status) =>
-    new Flash('Your comment could not be submitted! Please check your network connection and try again.', 'alert', @parentTimeline)
+    new Flash('无法提交你的评论！请检查你的网络连接后重试。', 'alert', @parentTimeline)
 
   ###
   Called in response to the new note form being submitted
