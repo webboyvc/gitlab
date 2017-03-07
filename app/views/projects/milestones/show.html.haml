@@ -11,7 +11,6 @@
       - elsif @milestone.expired?
         已过期
       - else
-        = link_to '重新打开里程碑', namespace_project_milestone_path(@project.namespace, @project, @milestone, milestone: {state_event: :activate }), method: :put, class: "btn btn-reopen btn-nr btn-grouped"
         打开
     .header-text-content
       %span.identifier
