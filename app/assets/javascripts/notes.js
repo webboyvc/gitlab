@@ -6,15 +6,17 @@
 
 import $ from 'jquery';
 import Cookies from 'js-cookie';
+import autosize from 'vendor/autosize';
+import Dropzone from 'dropzone';
+import 'vendor/jquery.caret'; // required by jquery.atwho
+import 'vendor/jquery.atwho';
 import CommentTypeToggle from './comment_type_toggle';
+import './autosave';
+import './dropzone_input';
+import './task_list';
 
-require('./autosave');
-window.autosize = require('vendor/autosize');
-window.Dropzone = require('dropzone');
-require('./dropzone_input');
-require('vendor/jquery.caret'); // required by jquery.atwho
-require('vendor/jquery.atwho');
-require('./task_list');
+window.autosize = autosize;
+window.Dropzone = Dropzone;
 
 const normalizeNewlines = function(str) {
   return str.replace(/\r\n/g, '\n');
@@ -858,11 +860,12 @@ const normalizeNewlines = function(str) {
 
     Notes.prototype.onAddDiffNote = function(e) {
       e.preventDefault();
-      const $link = $(e.currentTarget || e.target);
+      const link = e.currentTarget || e.target;
+      const $link = $(link);
       const showReplyInput = !$link.hasClass('js-diff-comment-avatar');
       this.toggleDiffNote({
         target: $link,
-        lineType: $link.data('lineType'),
+        lineType: link.dataset.lineType,
         showReplyInput
       });
     };
