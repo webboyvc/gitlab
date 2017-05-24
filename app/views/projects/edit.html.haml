@@ -245,14 +245,16 @@
     .row.prepend-top-default
       .col-lg-3
         %h4.prepend-top-0.danger-title
-          转移项目
+          转移项目到新的群组
+        %p.append-bottom-0
+          请在右侧的下拉列表中选择要转移此项目的群组。
       .col-lg-9
-        = form_for([@project.namespace.becomes(Namespace), @project], url: transfer_namespace_project_path(@project.namespace, @project), method: :put, remote: true) do |f|
+        = form_for([@project.namespace.becomes(Namespace), @project], url: transfer_namespace_project_path(@project.namespace, @project), method: :put, remote: true, html: { class: 'js-project-transfer-form' } ) do |f|
           .form-group
             = label_tag :new_namespace_id, nil, class: 'label-light' do
-              %span 命名空间
+              %span  选择一个新的命名空间
             .form-group
-              = select_tag :new_namespace_id, namespaces_options(@project.namespace_id), { prompt: '选择一个项目命名空间', class: 'select2' }
+              = select_tag :new_namespace_id, namespaces_options(nil), include_blank: true, class: 'select2'
             %ul
               %li 请注意：更改项目的命名空间可能有意想不到的副作用。
               %li 只能将项目转移到能管理到的命名空间。
