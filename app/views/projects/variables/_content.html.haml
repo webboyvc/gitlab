@@ -1,5 +1,6 @@
 %h4.prepend-top-0
-  私密变量
+  保密变量
+  = link_to icon('question-circle'), help_page_path('ci/variables/README', anchor: 'secret-variables'), target: '_blank'
 %p
   这些变量将会设置为 runner 的环境变量，且不会显示在构建日志中。
 %p

@@ -15,7 +15,7 @@
           %strong= parent.full_path + '/'
       = f.text_field :path, placeholder: 'open-source', class: 'form-control',
         autofocus: local_assigns[:autofocus] || false, required: true,
-        pattern: Gitlab::Regex::NAMESPACE_REGEX_STR_JS,
+        pattern: Gitlab::PathRegex::NAMESPACE_FORMAT_REGEX_JS,
         title: '请选择一个不包含特殊字符的群组名称。',
         "data-bind-in" => "#{'create_chat_team' if Gitlab.config.mattermost.enabled}"
       - if parent

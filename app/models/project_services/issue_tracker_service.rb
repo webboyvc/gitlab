@@ -76,7 +76,7 @@ class IssueTrackerService < Service
         message = "#{self.type} 尝试连接 #{self.project_url} 收到响应 #{response.code} "
         result = true
       end
-    rescue HTTParty::Error, Timeout::Error, SocketError, Errno::ECONNRESET, Errno::ECONNREFUSED => error
+    rescue HTTParty::Error, Timeout::Error, SocketError, Errno::ECONNRESET, Errno::ECONNREFUSED, OpenSSL::SSL::SSLError => error
       message = "#{self.type} 尝试连接 #{self.project_url} 发生错误 #{error.message}"
     end
     Rails.logger.info(message)

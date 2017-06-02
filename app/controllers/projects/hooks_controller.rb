@@ -1,7 +1,9 @@
 class Projects::HooksController < Projects::ApplicationController
+  include HooksExecution
+
   # Authorize
   before_action :authorize_admin_project!
-  before_action :hook, only: :edit
+  before_action :hook_logs, only: :edit
 
   respond_to :html
 
@@ -34,13 +36,7 @@ class Projects::HooksController < Projects::ApplicationController
     if !@project.empty_repo?
       status, message = TestHookService.new.execute(hook, current_user)
 
-      if status && status >= 200 && status < 400
-        flash[:notice] = "钩子执行成功：HTTP #{status}"
-      elsif status
-        flash[:alert] = "钩子执行成功但返回 HTTP #{status} #{message}"
-      else
-        flash[:alert] = "钩子执行失败：#{message}"
-      end
+      set_hook_execution_notice(status, message)
     else
       flash[:alert] = '钩子执行失败。确保项目已提交。'
     end
@@ -58,6 +54,11 @@ class Projects::HooksController < Projects::ApplicationController
 
   def hook
     @hook ||= @project.hooks.find(params[:id])
+  end
+
+  def hook_logs
+    @hook_logs ||=
+      Kaminari.paginate_array(hook.web_hook_logs.order(created_at: :desc)).page(params[:page])
   end
 
   def hook_params

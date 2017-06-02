@@ -16,7 +16,7 @@ describe 'Dropdown author', js: true, feature: true do
     end
 
     sleep 0.5
-    wait_for_ajax
+    wait_for_requests
   end
 
   def dropdown_author_size
@@ -65,7 +65,7 @@ describe 'Dropdown author', js: true, feature: true do
     it 'should load all the authors when opened' do
       send_keys_to_filtered_search('author:')
 
-      expect(dropdown_author_size).to eq(3)
+      expect(dropdown_author_size).to eq(4)
     end
 
     it 'shows current user at top of dropdown' do

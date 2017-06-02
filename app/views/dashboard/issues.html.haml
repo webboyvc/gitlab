@@ -8,7 +8,7 @@
   .nav-controls
     = link_to params.merge(rss_url_options), class: 'btn has-tooltip', title: '订阅' do
       = icon('rss')
-    = render 'shared/new_project_item_select', path: 'issues/new', label: "新建问题"
+    = render 'shared/new_project_item_select', path: 'issues/new', label: "新建问题", with_feature_enabled: 'issues'
 
 = render 'shared/issuable/filter', type: :issues
 = render 'shared/issues'

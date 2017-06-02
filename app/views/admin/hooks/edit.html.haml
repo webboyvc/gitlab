@@ -12,3 +12,9 @@
   = render partial: 'form', locals: { form: f, hook: @hook }
   .form-actions
     = f.submit '保存修改', class: 'btn btn-create'
+    = link_to '测试钩子', test_admin_hook_path(@hook), class: 'btn btn-default'
+    = link_to '删除', admin_hook_path(@hook), method: :delete, class: 'btn btn-remove pull-right', data: { confirm: '确定删除钩子？' }
+
+%hr
+
+= render partial: 'admin/hook_logs/index', locals: { hook: @hook, hook_logs: @hook_logs }

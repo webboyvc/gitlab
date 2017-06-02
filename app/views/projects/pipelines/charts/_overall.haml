@@ -1,14 +1,14 @@
 %h4 整体统计
 %ul
   %li
-    整体统计:
-    %strong= pluralize @project.builds.count(:all), '次构建', '次构建'
+    总体：
+    %strong= pluralize @project.builds.count(:all), 'job'
   %li
-    成功:
-    %strong= pluralize @project.builds.success.count(:all), '次构建', '次构建'
+    成功：
+    %strong= pluralize @project.builds.success.count(:all), 'job'
   %li
-    失败:
-    %strong= pluralize @project.builds.failed.count(:all), '次构建', '次构建'
+    失败：
+    %strong= pluralize @project.builds.failed.count(:all), 'job'
   %li
     成功率:
     %strong

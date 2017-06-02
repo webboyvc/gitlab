@@ -8,7 +8,7 @@
         = f.text_field :name, class: "form-control top", required: true, title: "必填项。"
       .username.form-group
         = f.label :username, "用户名"
-        = f.text_field :username, class: "form-control middle", pattern: Gitlab::Regex::NAMESPACE_REGEX_STR_JS, required: true, title: '用户名只能包含阿拉伯字符。'
+        = f.text_field :username, class: "form-control middle", pattern: Gitlab::PathRegex::NAMESPACE_FORMAT_REGEX_JS, required: true, title: 'Please create a username with only alphanumeric characters.'
         %p.validation-error.hide 用户名已经被使用。
         %p.validation-success.hide 用户名有效。
         %p.validation-pending.hide 正在检查用户名有效性...

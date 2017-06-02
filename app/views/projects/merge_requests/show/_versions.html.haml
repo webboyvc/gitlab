@@ -87,9 +87,9 @@
         = icon('info-circle')
         评论没有全部显示，因为您正在
         - if @start_version
-          比较合并请求的两个版本。
+          比较差异的两个版本。
         - else
-          查看合并请求的旧版本。
+          查看差异的旧版本。
 
         .pull-right
           = link_to '显示最新版本', diffs_namespace_project_merge_request_path(@project.namespace, @project, @merge_request), class: 'btn btn-sm'

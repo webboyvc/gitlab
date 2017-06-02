@@ -32,10 +32,9 @@
             - elsif discussion.diff_discussion?
               于
               = conditional_link_to url.present?, url do
-                - if discussion.active?
-                  差异
-                - else
+                - unless discussion.active?
                   一个过时的差异
+                差异
 
             = time_ago_with_tooltip(discussion.created_at, placement: "bottom", html_class: "note-created-ago")
           = render "discussions/headline", discussion: discussion

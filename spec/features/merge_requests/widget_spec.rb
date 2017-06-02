@@ -27,7 +27,7 @@ describe 'Merge request', :feature, :js do
     it 'shows widget status after creating new merge request' do
       click_button 'Submit merge request'
 
-      wait_for_ajax
+      wait_for_requests
 
       expect(page).to have_selector('.accept-merge-request')
       expect(find('.accept-merge-request')['disabled']).not_to be(true)
@@ -48,7 +48,7 @@ describe 'Merge request', :feature, :js do
     end
 
     it 'shows environments link' do
-      wait_for_ajax
+      wait_for_requests
 
       page.within('.mr-widget-heading') do
         expect(page).to have_content("Deployed to #{environment.name}")
@@ -58,7 +58,7 @@ describe 'Merge request', :feature, :js do
 
     it 'shows green accept merge request button' do
       # Wait for the `ci_status` and `merge_check` requests
-      wait_for_ajax
+      wait_for_requests
       expect(page).to have_selector('.accept-merge-request')
       expect(find('.accept-merge-request')['disabled']).not_to be(true)
     end
@@ -76,7 +76,7 @@ describe 'Merge request', :feature, :js do
 
     it 'has danger button while waiting for external CI status' do
       # Wait for the `ci_status` and `merge_check` requests
-      wait_for_ajax
+      wait_for_requests
       expect(page).to have_selector('.accept-merge-request.btn-danger')
     end
   end
@@ -97,7 +97,7 @@ describe 'Merge request', :feature, :js do
 
     it 'has danger button when not succeeded' do
       # Wait for the `ci_status` and `merge_check` requests
-      wait_for_ajax
+      wait_for_requests
       expect(page).to have_selector('.accept-merge-request.btn-danger')
     end
   end
@@ -141,7 +141,7 @@ describe 'Merge request', :feature, :js do
 
     it 'has info button when MWBS button' do
       # Wait for the `ci_status` and `merge_check` requests
-      wait_for_ajax
+      wait_for_requests
       expect(page).to have_selector('.accept-merge-request.btn-info')
     end
   end
@@ -159,7 +159,7 @@ describe 'Merge request', :feature, :js do
 
     it 'shows information about the merge error' do
       # Wait for the `ci_status` and `merge_check` requests
-      wait_for_ajax
+      wait_for_requests
 
       page.within('.mr-widget-body') do
         expect(page).to have_content('Something went wrong')
@@ -180,7 +180,7 @@ describe 'Merge request', :feature, :js do
 
     it 'shows information about the merge error' do
       # Wait for the `ci_status` and `merge_check` requests
-      wait_for_ajax
+      wait_for_requests
 
       page.within('.mr-widget-body') do
         expect(page).to have_content('Something went wrong')
@@ -200,6 +200,27 @@ describe 'Merge request', :feature, :js do
       page.within('.mr-widget-body') do
         expect(page).to have_content('Conflicts detected during merge')
       end
+    end
+  end
+
+  context 'user can merge into source project but cannot push to fork', js: true do
+    let(:fork_project) { create(:project, :public) }
+    let(:user2) { create(:user) }
+
+    before do
+      project.team << [user2, :master]
+      logout
+      login_as user2
+      merge_request.update(target_project: fork_project)
+      visit namespace_project_merge_request_path(project.namespace, project, merge_request)
+    end
+
+    it 'user can merge into the source project' do
+      expect(page).to have_button('Merge', disabled: false)
+    end
+
+    it 'user cannot remove source branch' do
+      expect(page).to have_field('remove-source-branch-input', disabled: true)
     end
   end
 end

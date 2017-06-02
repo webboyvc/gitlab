@@ -1,13 +1,15 @@
+- @no_container = true
+
 - page_title "星标项目"
 - header_title "项目", dashboard_projects_path
 
-= render 'dashboard/projects_head'
+= render "projects/last_push"
 
-- if @last_push
-  = render "events/event_last_push", event: @last_push
+%div{ class: container_class }
+  = render 'dashboard/projects_head'
 
-- if @projects.any? || params[:filter_projects]
-  = render 'projects'
-- else
-  %h3 你还没有给任何项目加注星标
-  %p.slead 访问项目页面然后按下星标图标即可将项目显示在此页面。
+  - if @projects.any? || params[:filter_projects]
+    = render 'projects'
+  - else
+    %h3 你还没有给任何项目加注星标
+    %p.slead 访问项目页面然后按下星标图标即可将项目显示在此页面。

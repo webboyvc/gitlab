@@ -8,35 +8,17 @@
 .row.prepend-top-default
   .col-lg-3.profile-settings-sidebar
     %h4.prepend-top-0
-      = incoming_email_token_enabled? ? "私有令牌" : "私有令牌"
+      私有令牌
     %p
-      确保
-      = incoming_email_token_enabled? ? "这些令牌" : "这个令牌"
-      的安全， 因为任何人都可以通过他们来访问GitLab。
+      确保这些令牌的安全，
+      因为任何人都可以通过他们来访问GitLab。
   .col-lg-9.private-tokens-reset
-    .reset-action
-      %p.cgray
-        - if current_user.private_token
-          = label_tag "private-token", "私有令牌", class: "label-light"
-          = text_field_tag "private-token", current_user.private_token, class: "form-control", readonly: true, onclick: "this.select()"
-        - else
-          %span 您还没有私有令牌，请点击创建按钮来修复。
-        %p.help-block
-          您的私有令牌通常在 RSS 和 API 中用来做免用户名/密码认证。
-      .prepend-top-default
-        - if current_user.private_token
-          = link_to '重置私有令牌', reset_private_token_profile_path, method: :put, data: { confirm: "您确定要重置私有令牌？" }, class: "btn btn-default private-token"
-        - else
-          = f.submit '创建', class: "btn btn-default"
+    = render partial: 'reset_token', locals: { label: '私有令牌', button_label: '重置私有令牌', help_text: '您的私有令牌可在 ATOM 和 API 中用来做免用户名/密码认证。' }
+
+    = render partial: 'reset_token', locals: { label: 'RSS 令牌', button_label: '重置 RSS 令牌', help_text: '您的 RSS 令牌可用于创建个性化 RSS 源的 URL。' }
+
     - if incoming_email_token_enabled?
-      .reset-action
-        %p.cgray
-          = label_tag "incoming-email-token", "传入邮件令牌", class: 'label-light'
-          = text_field_tag "incoming-email-token", current_user.incoming_email_token, class: "form-control", readonly: true, onclick: "this.select()"
-        %p.help-block
-          您的传入邮件令牌可用于通过邮件创建问题，它将包含在项目指定的邮件地址中。
-        .prepend-top-default
-          = link_to '重置传入邮件令牌', reset_incoming_email_token_profile_path, method: :put, data: { confirm: "您确定要重置传入邮件令牌？" }, class: "btn btn-default incoming-email-token"
+      = render partial: 'reset_token', locals: { label: '传入邮件令牌', button_label: 'Reset incoming email token', help_text: '您的传入邮件令牌可用于通过邮件创建问题，它将包含在项目指定的邮件地址中。' }
 
 %hr
 .row.prepend-top-default
