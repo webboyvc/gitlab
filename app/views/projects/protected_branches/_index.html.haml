@@ -1,20 +1,25 @@
+- expanded = Rails.env.test?
 - content_for :page_specific_javascripts do
   = page_specific_javascript_bundle_tag('protected_branches')
 
-.row.prepend-top-default.append-bottom-default
-  .col-lg-3
-    %h4.prepend-top-0
+%section.settings
+  .settings-header
+    %h4
       保护分支
-    %p 保护稳定分支的安全并强制开发者使用合并请求功能
-    %p.prepend-top-20
+    %button.btn.js-settings-toggle
+      = expanded ? '关闭' : '展开'
+    %p
+      保护稳定分支的安全并强制开发者使用合并请求功能
+  .settings-content.no-animate{ class: ('expanded' if expanded) }
+    %p
       默认情况下，保护分支被设计为：
       %ul
         %li 除了主程序员外，禁止其他所有人员创建分支
         %li 除了主程序员外，禁止其他所有人员推送
         %li 禁止<strong>任何人</strong> 强制推送此分支
         %li 禁止<strong>任何人</strong> 删除此分支
-      %p.append-bottom-0 点击 #{link_to "保护分支", help_page_path("user/project/protected_branches"), class: "underlined-link"} 和 #{link_to "项目权限", help_page_path("user/permissions"), class: "underlined-link"}了解更多。
-  .col-lg-9
+      %p 点击 #{link_to "保护分支", help_page_path("user/project/protected_branches"), class: "underlined-link"} 和 #{link_to "项目权限", help_page_path("user/permissions"), class: "underlined-link"}了解更多。
+
     - if can? current_user, :admin_project, @project
       = render 'projects/protected_branches/create_protected_branch'
 

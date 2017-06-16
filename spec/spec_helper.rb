@@ -3,6 +3,7 @@ SimpleCovEnv.start!
 
 ENV["RAILS_ENV"] ||= 'test'
 ENV["IN_MEMORY_APPLICATION_SETTINGS"] = 'true'
+# ENV['prometheus_multiproc_dir'] = 'tmp/prometheus_multiproc_dir_test'
 
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
@@ -25,6 +26,9 @@ if ENV['CI'] && !ENV['NO_KNAPSACK']
   require 'knapsack'
   Knapsack::Adapters::RSpecAdapter.bind
 end
+
+# require rainbow gem String monkeypatch, so we can test SystemChecks
+require 'rainbow/ext/string'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -52,6 +56,7 @@ RSpec.configure do |config|
   config.include StubGitlabCalls
   config.include StubGitlabData
   config.include ApiHelpers, :api
+  config.include MigrationsHelpers, :migration
 
   config.infer_spec_type_from_file_location!
 
@@ -69,10 +74,18 @@ RSpec.configure do |config|
     TestEnv.cleanup
   end
 
+  config.before(:example, :request_store) do
+    RequestStore.begin!
+  end
+
+  config.after(:example, :request_store) do
+    RequestStore.end!
+    RequestStore.clear!
+  end
+
   if ENV['CI']
-    # Retry only on feature specs that use JS
-    config.around :each, :js do |ex|
-      ex.run_with_retry retry: 3
+    config.around(:each) do |ex|
+      ex.run_with_retry retry: 2
     end
   end
 
@@ -91,6 +104,15 @@ RSpec.configure do |config|
 
     Gitlab::Redis.with(&:flushall)
     Sidekiq.redis(&:flushall)
+  end
+
+  config.before(:example, :migration) do
+    ActiveRecord::Migrator
+      .migrate(migrations_paths, previous_migration.version)
+  end
+
+  config.after(:example, :migration) do
+    ActiveRecord::Migrator.migrate(migrations_paths)
   end
 
   config.around(:each, :nested_groups) do |example|

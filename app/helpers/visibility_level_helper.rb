@@ -29,22 +29,22 @@ module VisibilityLevelHelper
   def project_visibility_level_description(level)
     case level
     when Gitlab::VisibilityLevel::PRIVATE
-      "项目必须明确授权给每个用户访问。"
+      _("Project access must be granted explicitly to each user.")
     when Gitlab::VisibilityLevel::INTERNAL
-      "项目可以被所有已登录用户克隆。"
+      _("The project can be accessed by any logged in user.")
     when Gitlab::VisibilityLevel::PUBLIC
-      "项目可以被任何用户克隆。"
+      _("The project can be accessed without any authentication.")
     end
   end
 
   def group_visibility_level_description(level)
     case level
     when Gitlab::VisibilityLevel::PRIVATE
-      "该群组和其项目只有其成员能以看到。"
+      "The group and its projects can only be viewed by members."
     when Gitlab::VisibilityLevel::INTERNAL
-      "该群组和其内部项目只有已登录用户能看到。"
+      "The group and any internal projects can be viewed by any logged in user."
     when Gitlab::VisibilityLevel::PUBLIC
-      "该群组和其公开项目可以被任何授权的用户看到。"
+      "The group and any public projects can be viewed without any authentication."
     end
   end
 
@@ -52,14 +52,14 @@ module VisibilityLevelHelper
     case level
     when Gitlab::VisibilityLevel::PRIVATE
       if snippet.is_a? ProjectSnippet
-        "该代码片段只有项目成员能看到。"
+        "The snippet is visible only to project members."
       else
-        "该代码片段只有自己能看到。"
+        "The snippet is visible only to me."
       end
     when Gitlab::VisibilityLevel::INTERNAL
-      "该代码片段任何已登录用户都可以看到。"
+      "The snippet is visible to any logged in user."
     when Gitlab::VisibilityLevel::PUBLIC
-      "该代码片段可以被任何授权的用户访问。"
+      "The snippet can be accessed without any authentication."
     end
   end
 
@@ -81,7 +81,9 @@ module VisibilityLevelHelper
   end
 
   def visibility_level_label(level)
-    Project.visibility_levels.key(level)
+    # The visibility level can be:
+    # 'VisibilityLevel|Private', 'VisibilityLevel|Internal', 'VisibilityLevel|Public'
+    s_(Project.visibility_levels.key(level))
   end
 
   def restricted_visibility_levels(show_all = false)

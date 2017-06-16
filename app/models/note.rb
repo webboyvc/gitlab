@@ -13,6 +13,7 @@ class Note < ActiveRecord::Base
   include AfterCommitQueue
   include ResolvableNote
   include IgnorableColumn
+  include Editable
 
   ignore_column :original_discussion_id
 
@@ -40,7 +41,7 @@ class Note < ActiveRecord::Base
   participant :author
 
   belongs_to :project
-  belongs_to :noteable, polymorphic: true, touch: true
+  belongs_to :noteable, polymorphic: true, touch: true # rubocop:disable Cop/PolymorphicAssociations
   belongs_to :author, class_name: "User"
   belongs_to :updated_by, class_name: "User"
   belongs_to :last_edited_by, class_name: 'User'

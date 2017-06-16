@@ -430,6 +430,7 @@ gitlab:assets:compile:
     USE_DB: "false"
     SKIP_STORAGE_VALIDATION: "true"
     WEBPACK_REPORT: "true"
+    NO_COMPRESSION: "true"
   script:
     - yarn install --pure-lockfile --production --cache-folder .yarn-cache
     - bundle exec rake gitlab:assets:compile
@@ -454,6 +455,21 @@ karma:
     expire_in: 31d
     paths:
     - coverage-javascript/
+
+codeclimate:
+  before_script: []
+  image: docker:latest
+  stage: test
+  variables:
+    SETUP_DB: "false"
+    DOCKER_DRIVER: overlay
+  services:
+    - docker:dind
+  script:
+    - docker pull codeclimate/codeclimate
+    - docker run --env CODECLIMATE_CODE="$PWD" --volume "$PWD":/code --volume /var/run/docker.sock:/var/run/docker.sock --volume /tmp/cc:/tmp/cc codeclimate/codeclimate analyze -f json > codeclimate.json
+  artifacts:
+    paths: [codeclimate.json]
 
 coverage:
   stage: post-test

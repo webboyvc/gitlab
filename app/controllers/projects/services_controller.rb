@@ -4,6 +4,7 @@ class Projects::ServicesController < Projects::ApplicationController
   # Authorize
   before_action :authorize_admin_project!
   before_action :service, only: [:edit, :update, :test]
+  before_action :update_service, only: [:update, :test]
 
   respond_to :html
 
@@ -13,35 +14,45 @@ class Projects::ServicesController < Projects::ApplicationController
   end
 
   def update
-    @service.assign_attributes(service_params[:service])
     if @service.save(context: :manual_change)
-      redirect_to(
-        edit_namespace_project_service_path(@project.namespace, @project, @service.to_param),
-        notice: '已更新成功。'
-      )
+      redirect_to(namespace_project_settings_integrations_path(@project.namespace, @project), notice: success_message)
     else
       render 'edit'
     end
   end
 
   def test
-    return render_404 unless @service.can_test?
+    message = {}
 
-    data = @service.test_data(project, current_user)
-    outcome = @service.test(data)
+    if @service.can_test?
+      data = @service.test_data(project, current_user)
+      outcome = @service.test(data)
 
-    if outcome[:success]
-      message = { notice: '已发送请求到提供的链接' }
+      unless outcome[:success]
+        message = { error: true, message: 'Test failed.', service_response: outcome[:result].to_s }
+      end
+
+      status = :ok
     else
-      error_message = "已发送请求到提供的链接，但收到一个错误回应"
-      error_message << ": #{outcome[:result]}" if outcome[:result].present?
-      message = { alert: error_message }
+      status = :not_found
     end
 
-    redirect_back_or_default(options: message)
+    render json: message, status: status
   end
 
   private
+
+  def success_message
+    if @service.active?
+      "#{@service.title} 已激活。"
+    else
+      "#{@service.title} 设置已保存，但是未激活。"
+    end
+  end
+
+  def update_service
+    @service.assign_attributes(service_params[:service])
+  end
 
   def service
     @service ||= @project.find_or_initialize_service(params[:id])

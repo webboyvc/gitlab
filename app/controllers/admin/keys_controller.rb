@@ -15,9 +15,9 @@ class Admin::KeysController < Admin::ApplicationController
 
     respond_to do |format|
       if key.destroy
-        format.html { redirect_to [:admin, user], notice: '用户密钥删除成功。' }
+        format.html { redirect_to keys_admin_user_path(user), status: 302, notice: '用户密钥删除成功。' }
       else
-        format.html { redirect_to [:admin, user], alert: '用户密钥删除失败。' }
+        format.html { redirect_to keys_admin_user_path(user), status: 302, alert: '用户密钥删除失败。' }
       end
     end
   end

@@ -138,10 +138,10 @@ class Admin::UsersController < Admin::ApplicationController
   end
 
   def destroy
-    DeleteUserWorker.perform_async(current_user.id, user.id)
+    user.delete_async(deleted_by: current_user, params: params.permit(:hard_delete))
 
     respond_to do |format|
-      format.html { redirect_to admin_users_path, notice: "用户删除成功。" }
+      format.html { redirect_to admin_users_path, status: 302, notice: "用户删除成功。" }
       format.json { head :ok }
     end
   end

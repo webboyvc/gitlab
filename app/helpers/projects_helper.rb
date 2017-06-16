@@ -22,7 +22,7 @@ module ProjectsHelper
     default_opts = { avatar: true, name: true, size: 16, author_class: 'author', title: ":name", tooltip: false }
     opts = default_opts.merge(opts)
 
-    return "(已删除)" unless author
+    return "(deleted)" unless author
 
     author_html = ""
 
@@ -70,15 +70,18 @@ module ProjectsHelper
   end
 
   def remove_project_message(project)
-    "将要删除 #{project.name_with_namespace}.\n 删除项目后无法恢复！\n 百分之百确定要继续么？"
+    _("You are going to remove %{project_name_with_namespace}.\nRemoved project CANNOT be restored!\nAre you ABSOLUTELY sure?") %
+      { project_name_with_namespace: project.name_with_namespace }
   end
 
   def transfer_project_message(project)
-    "将要转移 #{project.name_with_namespace} 给其他人。百分之百确定要继续么？"
+    _("You are going to transfer %{project_name_with_namespace} to another owner. Are you ABSOLUTELY sure?") %
+      { project_name_with_namespace: project.name_with_namespace }
   end
 
   def remove_fork_project_message(project)
-    "将要删除与源项目 #{@project.forked_from_project.name_with_namespace} 的派生关系。百分之百确定要继续么？"
+    _("You are going to remove the fork relationship to source project %{forked_from_project}.  Are you ABSOLUTELY sure?") %
+      { forked_from_project: @project.forked_from_project.name_with_namespace }
   end
 
   def project_nav_tabs
@@ -138,11 +141,15 @@ module ProjectsHelper
 
     if @project.private?
       level = @project.project_feature.send(field)
-      options.delete('公开访问')
-      highest_available_option = options.values.max if level == ProjectFeature::ENABLED
+      disabled_option = ProjectFeature::ENABLED
+      highest_available_option = ProjectFeature::PRIVATE if level == disabled_option
     end
 
-    options = options_for_select(options, selected: highest_available_option || @project.project_feature.public_send(field))
+    options = options_for_select(
+      options.invert,
+      selected: highest_available_option || @project.project_feature.public_send(field),
+      disabled: disabled_option
+    )
 
     content_tag(
       :select,
@@ -155,12 +162,13 @@ module ProjectsHelper
   end
 
   def link_to_autodeploy_doc
-    link_to 'About auto deploy', help_page_path('ci/autodeploy/index'), target: '_blank'
+    link_to _('About auto deploy'), help_page_path('ci/autodeploy/index'), target: '_blank'
   end
 
   def autodeploy_flash_notice(branch_name)
-    "Branch <strong>#{truncate(sanitize(branch_name))}</strong> was created. To set up auto deploy, \
-      choose a GitLab CI Yaml template and commit your changes. #{link_to_autodeploy_doc}".html_safe
+    translation = _("Branch <strong>%{branch_name}</strong> was created. To set up auto deploy, choose a GitLab CI Yaml template and commit your changes. %{link_to_autodeploy_doc}") %
+      { branch_name: truncate(sanitize(branch_name)), link_to_autodeploy_doc: link_to_autodeploy_doc }
+    translation.html_safe
   end
 
   def project_list_cache_key(project)
@@ -210,6 +218,10 @@ module ProjectsHelper
       nav_tabs << :container_registry
     end
 
+    if project.builds_enabled? && can?(current_user, :read_pipeline, project)
+      nav_tabs << :pipelines
+    end
+
     tab_ability_map.each do |tab, ability|
       if can?(current_user, ability, project)
         nav_tabs << tab
@@ -223,7 +235,6 @@ module ProjectsHelper
     {
       environments: :read_environment,
       milestones:   :read_milestone,
-      pipelines:    :read_pipeline,
       snippets:     :read_project_snippet,
       settings:     :admin_project,
       builds:       :read_build,
@@ -246,11 +257,11 @@ module ProjectsHelper
   def project_lfs_status(project)
     if project.lfs_enabled?
       content_tag(:span, class: 'lfs-enabled') do
-        '启用'
+        s_('LFSStatus|Enabled')
       end
     else
       content_tag(:span, class: 'lfs-disabled') do
-        '禁用'
+        s_('LFSStatus|Disabled')
       end
     end
   end
@@ -259,7 +270,7 @@ module ProjectsHelper
     if current_user
       current_user.name
     else
-      "Your name"
+      _("Your name")
     end
   end
 
@@ -296,17 +307,18 @@ module ProjectsHelper
     if project.last_activity_at
       time_ago_with_tooltip(project.last_activity_at, placement: 'bottom', html_class: 'last_activity_time_ago')
     else
-      "从未"
+      s_("ProjectLastActivity|Never")
     end
   end
 
   def add_special_file_path(project, file_name:, commit_message: nil, branch_name: nil, context: nil)
+    commit_message ||= s_("CommitMessage|Add %{file_name}") % { file_name: file_name.downcase }
     namespace_project_new_blob_path(
       project.namespace,
       project,
       project.default_branch || 'master',
       file_name:      file_name,
-      commit_message: commit_message || "添加 #{file_name.downcase}",
+      commit_message: commit_message,
       branch_name: branch_name,
       context: context
     )
@@ -318,7 +330,7 @@ module ProjectsHelper
       project,
       project.default_branch || 'master',
       file_name:      '.koding.yml',
-      commit_message: "添加 Koding stack 脚本",
+      commit_message: "Add Koding stack script",
       content: <<-CONTENT.strip_heredoc
         provider:
           aws:
@@ -443,9 +455,9 @@ module ProjectsHelper
 
   def project_feature_options
     {
-      '禁用' => ProjectFeature::DISABLED,
-      '只有团队成员' => ProjectFeature::PRIVATE,
-      '公开访问' => ProjectFeature::ENABLED
+      ProjectFeature::DISABLED => s_('ProjectFeature|Disabled'),
+      ProjectFeature::PRIVATE => s_('ProjectFeature|Only team members'),
+      ProjectFeature::ENABLED => s_('ProjectFeature|Everyone with access')
     }
   end
 

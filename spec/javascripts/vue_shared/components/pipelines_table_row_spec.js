@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import tableRowComp from '~/vue_shared/components/pipelines_table_row';
+import tableRowComp from '~/vue_shared/components/pipelines_table_row.vue';
 
 describe('Pipelines Table Row', () => {
   const jsonFixtureName = 'pipelines/pipelines.json';
@@ -76,7 +76,7 @@ describe('Pipelines Table Row', () => {
       it('should render user information', () => {
         expect(
           component.$el.querySelector('td:nth-child(2) a:nth-child(3)').getAttribute('href'),
-        ).toEqual(pipeline.user.web_url);
+        ).toEqual(pipeline.user.path);
 
         expect(
           component.$el.querySelector('td:nth-child(2) img').getAttribute('data-original-title'),
@@ -120,7 +120,7 @@ describe('Pipelines Table Row', () => {
       component = buildComponent(pipeline);
       const { commitAuthorLink, commitAuthorName } = findElements();
 
-      expect(commitAuthorLink).toEqual(pipeline.commit.author.web_url);
+      expect(commitAuthorLink).toEqual(pipeline.commit.author.path);
       expect(commitAuthorName).toEqual(pipeline.commit.author.username);
     });
 

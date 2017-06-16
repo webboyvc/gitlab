@@ -31,4 +31,6 @@
               %span.cgray
                 创建于 #{time_ago_with_tooltip(deploy_key.created_at)}
             %td
-              = link_to '删除', admin_deploy_key_path(deploy_key), data: { confirm: '确定要删除该部署密钥？'}, method: :delete, class: 'btn btn-sm btn-remove delete-key pull-right'
+              .pull-right
+                = link_to '编辑', edit_admin_deploy_key_path(deploy_key), class: 'btn btn-sm'
+                = link_to '删除', admin_deploy_key_path(deploy_key), data: { confirm: '确定要删除该部署密钥？'}, method: :delete, class: 'btn btn-sm btn-remove delete-key'

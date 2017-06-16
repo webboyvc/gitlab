@@ -36,10 +36,7 @@
               %li
                 = link_to admin_root_path, title: '管理区域', aria: { label: "管理区域" }, data: {toggle: 'tooltip', placement: 'bottom', container: 'body'} do
                   = icon('wrench fw')
-            - if current_user.can_create_project?
-              %li
-                = link_to new_project_path, title: '新建项目', aria: { label: "新建项目" }, data: {toggle: 'tooltip', placement: 'bottom', container: 'body'} do
-                  = icon('plus fw')
+            = render 'layouts/header/new_dropdown'
             - if Gitlab::Sherlock.enabled?
               %li
                 = link_to sherlock_transactions_path, title: 'Sherlock 事务',
@@ -74,12 +71,12 @@
                     @#{current_user.username}
                   %li.divider
                   %li
-                    = link_to "个人资料", current_user, class: 'profile-link', aria: { label: "个人资料" }, data: { user: current_user.username }
+                    = link_to "个人资料", current_user, class: 'profile-link', data: { user: current_user.username }
                   %li
-                    = link_to "设置", profile_path, aria: { label: "设置" }
+                    = link_to "设置", profile_path
                   %li.divider
                   %li
-                    = link_to "退出", destroy_user_session_path, method: :delete, class: "sign-out-link", aria: { label: "退出" }
+                    = link_to "退出", destroy_user_session_path, method: :delete, class: "sign-out-link"
           - else
             %li
               %div

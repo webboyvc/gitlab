@@ -3,7 +3,7 @@
 = render "projects/pipelines/head"
 
 %div{ class: container_class }
-  .top-area.adjust
+  .row.top-area.adjust
     .col-md-7
       %h3.page-title= @environment.name
     .col-md-5
@@ -30,14 +30,12 @@
         了解更多
     - else
       .table-holder
-        %table.table.ci-table.environments
-          %thead
-            %tr
-              %th ID
-              %th 提交
-              %th 作业
-              %th 创建于
-              %th.hidden-xs
+        .ci-table.environments{ role: 'grid' }
+          .gl-responsive-table-row.table-row-header{ role: 'row' }
+            .table-section.section-10{ role: 'columnheader' } ID
+            .table-section.section-40{ role: 'columnheader' } 提交
+            .table-section.section-15{ role: 'columnheader' } 作业
+            .table-section.section-15{ role: 'columnheader' } 创建于
 
           = render @deployments
 

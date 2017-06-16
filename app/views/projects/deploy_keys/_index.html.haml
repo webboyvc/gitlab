@@ -1,13 +1,15 @@
-.row.prepend-top-default
-  .col-lg-3.profile-settings-sidebar
-    %h4.prepend-top-0
+- expanded = Rails.env.test?
+%section.settings
+  .settings-header
+    %h4
       部署密钥
+    %button.btn.js-settings-toggle
+      = expanded ? '关闭' : '展开'
     %p
       使用部署密钥只读访问存储库。 部署密钥可用于 CI 集成，预发布或生产服务器获取版本仓库的代码。 您可以创建部署密钥或添加现有部署密钥。
-  .col-lg-9
+  .settings-content.no-animate{ class: ('expanded' if expanded) }
     %h5.prepend-top-0
       给当前项目创建一个新的部署密钥
     = render @deploy_keys.form_partial_path
-  .col-lg-9.col-lg-offset-3
     %hr
-  #js-deploy-keys{ data: { endpoint: namespace_project_deploy_keys_path } }
+    #js-deploy-keys{ data: { endpoint: namespace_project_deploy_keys_path } }

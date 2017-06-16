@@ -75,26 +75,32 @@
 </script>
 
 <template>
-  <div class="col-lg-9 col-lg-offset-3 append-bottom-default deploy-keys">
+  <div class="append-bottom-default deploy-keys">
     <loading-icon
       v-if="isLoading && !hasKeys"
       size="2"
       label="正在载入部署密钥"
-      />
+    />
     <div v-else-if="hasKeys">
       <keys-panel
         title="为此项目启用部署密钥"
         :keys="keys.enabled_keys"
-        :store="store" />
+        :store="store"
+        :endpoint="endpoint"
+      />
       <keys-panel
         title="从可访问的项目中部署密钥"
         :keys="keys.available_project_keys"
-        :store="store" />
+        :store="store"
+        :endpoint="endpoint"
+      />
       <keys-panel
         v-if="keys.public_keys.length"
         title="公共部署密钥可用于任何项目"
         :keys="keys.public_keys"
-        :store="store" />
+        :store="store"
+        :endpoint="endpoint"
+      />
     </div>
   </div>
 </template>

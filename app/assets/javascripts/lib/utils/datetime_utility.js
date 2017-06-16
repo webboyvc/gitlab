@@ -3,6 +3,11 @@
 import timeago from 'timeago.js';
 import dateFormat from 'vendor/date.format';
 
+import {
+  lang,
+  s__,
+} from '../../locale';
+
 window.timeago = timeago;
 window.dateFormat = dateFormat;
 
@@ -48,26 +53,45 @@ window.dateFormat = dateFormat;
       var locale;
 
       if (!timeagoInstance) {
+        const localeRemaining = function(number, index) {
+          return [
+            [s__('Timeago|less than a minute ago'), s__('Timeago|a while')],
+            [s__('Timeago|less than a minute ago'), s__('Timeago|%s seconds remaining')],
+            [s__('Timeago|about a minute ago'), s__('Timeago|1 minute remaining')],
+            [s__('Timeago|%s minutes ago'), s__('Timeago|%s minutes remaining')],
+            [s__('Timeago|about an hour ago'), s__('Timeago|1 hour remaining')],
+            [s__('Timeago|about %s hours ago'), s__('Timeago|%s hours remaining')],
+            [s__('Timeago|a day ago'), s__('Timeago|1 day remaining')],
+            [s__('Timeago|%s days ago'), s__('Timeago|%s days remaining')],
+            [s__('Timeago|a week ago'), s__('Timeago|1 week remaining')],
+            [s__('Timeago|%s weeks ago'), s__('Timeago|%s weeks remaining')],
+            [s__('Timeago|a month ago'), s__('Timeago|1 month remaining')],
+            [s__('Timeago|%s months ago'), s__('Timeago|%s months remaining')],
+            [s__('Timeago|a year ago'), s__('Timeago|1 year remaining')],
+            [s__('Timeago|%s years ago'), s__('Timeago|%s years remaining')]
+          ][index];
+        };
         locale = function(number, index) {
           return [
-            ['不到 1 分钟之前', '一会儿'],
-            ['不到 1 分钟之前', '在 %s 秒'],
-            ['大约 1 分钟之前', '在 1 分钟'],
-            ['%s 分钟之前', '在 %s 分钟'],
-            ['大约 1 小时之前', '在 1 小时'],
-            ['大约 %s 小时之前', '在 %s 小时'],
-            ['1 天之前', '在 1 天'],
-            ['%s 天之前', '在 %s 天'],
-            ['1 周之前', '在 1 周'],
-            ['%s 周之前', '在 %s 周'],
-            ['1 个月之前', '在 1 月'],
-            ['%s 个月之前', '在 %s 月'],
-            ['1 年之前', '在 1 年'],
-            ['%s 年之前', '在 %s 年']
+            [s__('Timeago|less than a minute ago'), s__('Timeago|a while')],
+            [s__('Timeago|less than a minute ago'), s__('Timeago|in %s seconds')],
+            [s__('Timeago|about a minute ago'), s__('Timeago|in 1 minute')],
+            [s__('Timeago|%s minutes ago'), s__('Timeago|in %s minutes')],
+            [s__('Timeago|about an hour ago'), s__('Timeago|in 1 hour')],
+            [s__('Timeago|about %s hours ago'), s__('Timeago|in %s hours')],
+            [s__('Timeago|a day ago'), s__('Timeago|in 1 day')],
+            [s__('Timeago|%s days ago'), s__('Timeago|in %s days')],
+            [s__('Timeago|a week ago'), s__('Timeago|in 1 week')],
+            [s__('Timeago|%s weeks ago'), s__('Timeago|in %s weeks')],
+            [s__('Timeago|a month ago'), s__('Timeago|in 1 month')],
+            [s__('Timeago|%s months ago'), s__('Timeago|in %s months')],
+            [s__('Timeago|a year ago'), s__('Timeago|in 1 year')],
+            [s__('Timeago|%s years ago'), s__('Timeago|in %s years')]
           ][index];
         };
 
-        timeago.register('gl_en', locale);
+        timeago.register(lang, locale);
+        timeago.register(`${lang}-remaining`, localeRemaining);
         timeagoInstance = timeago();
       }
 
@@ -79,13 +103,11 @@ window.dateFormat = dateFormat;
       if (!time) {
         return '';
       }
-      suffix || (suffix = 'remaining');
-      expiredLabel || (expiredLabel = 'Past due');
-      timefor = gl.utils.getTimeago().format(time).replace('in', '');
-      if (timefor.indexOf('ago') > -1) {
+      if (new Date(time) < new Date()) {
+        expiredLabel || (expiredLabel = s__('Timeago|Past due'));
         timefor = expiredLabel;
       } else {
-        timefor = timefor.trim() + ' ' + suffix;
+        timefor = gl.utils.getTimeago().format(time, `${lang}-remaining`).trim();
       }
       return timefor;
     };
@@ -102,7 +124,7 @@ window.dateFormat = dateFormat;
     };
 
     w.gl.utils.updateTimeagoText = function(el) {
-      const formattedDate = gl.utils.getTimeago().format(el.getAttribute('datetime'), 'gl_en');
+      const formattedDate = gl.utils.getTimeago().format(el.getAttribute('datetime'), lang);
 
       if (el.textContent !== formattedDate) {
         el.textContent = formattedDate;
@@ -124,3 +146,24 @@ window.dateFormat = dateFormat;
     };
   })(window);
 }).call(window);
+
+/**
+ * Port of ruby helper time_interval_in_words.
+ *
+ * @param  {Number} seconds
+ * @return {String}
+ */
+// eslint-disable-next-line import/prefer-default-export
+export function timeIntervalInWords(intervalInSeconds) {
+  const secondsInteger = parseInt(intervalInSeconds, 10);
+  const minutes = Math.floor(secondsInteger / 60);
+  const seconds = secondsInteger - (minutes * 60);
+  let text = '';
+
+  if (minutes >= 1) {
+    text = `${minutes} ${gl.text.pluralize('minute', minutes)} ${seconds} ${gl.text.pluralize('second', seconds)}`;
+  } else {
+    text = `${seconds} ${gl.text.pluralize('second', seconds)}`;
+  }
+  return text;
+}

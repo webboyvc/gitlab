@@ -1,6 +1,6 @@
 - @no_container = true
 - page_title "健康检查"
-= render 'admin/background_jobs/head'
+= render 'admin/monitoring/head'
 
 %div{ class: container_class }
   %h3.page-title
@@ -10,11 +10,10 @@
       %p
     访问授权码：
     %code#health-check-token= current_application_settings.health_check_access_token
-    = button_to reset_health_check_token_admin_application_settings_path,
-      method: :put, class: 'btn btn-default',
-      data: { confirm: '确定要重置健康检查访问授权码？' } do
-      = icon('spinner')
-      重置健康检查访问授权码
+    .prepend-top-10
+      = button_to "重置健康检查访问授权码", reset_health_check_token_admin_application_settings_path,
+        method: :put, class: 'btn btn-default',
+        data: { confirm: '确定要重置健康检查访问授权码？' }
   %p.light
     健康信息可以从以下终端检索。点击
     = link_to '这里', help_page_path('user/admin_area/monitoring/health_check')

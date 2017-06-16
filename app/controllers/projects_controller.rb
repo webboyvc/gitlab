@@ -34,7 +34,7 @@ class ProjectsController < Projects::ApplicationController
 
       redirect_to(
         project_path(@project),
-        notice: "项目 '#{@project.name}' 创建成功。"
+        notice: _("Project '%{project_name}' was successfully created.") % { project_name: @project.name }
       )
     else
       render 'new'
@@ -49,7 +49,7 @@ class ProjectsController < Projects::ApplicationController
 
     respond_to do |format|
       if result[:status] == :success
-        flash[:notice] = "项目 '#{@project.name}' 更新成功"
+        flash[:notice] = _("Project '%{project_name}' was successfully updated.") % { project_name: @project.name }
         format.html do
           redirect_to(edit_project_path(@project))
         end
@@ -76,7 +76,7 @@ class ProjectsController < Projects::ApplicationController
     return access_denied! unless can?(current_user, :remove_fork_project, @project)
 
     if ::Projects::UnlinkForkService.new(@project, current_user).execute
-      flash[:notice] = '派生关系被删除。'
+      flash[:notice] = _('The fork relationship has been removed.')
     end
   end
 
@@ -97,7 +97,7 @@ class ProjectsController < Projects::ApplicationController
     end
 
     if @project.pending_delete?
-      flash[:alert] = "项目 #{@project.name} 正在排队删除。"
+      flash[:alert] = _("Project '%{project_name}' queued for deletion.") % { project_name: @project.name }
     end
 
     respond_to do |format|
@@ -108,7 +108,7 @@ class ProjectsController < Projects::ApplicationController
 
       format.atom do
         load_events
-        render layout: false
+        render layout: 'xml.atom'
       end
     end
   end
@@ -117,11 +117,11 @@ class ProjectsController < Projects::ApplicationController
     return access_denied! unless can?(current_user, :remove_project, @project)
 
     ::Projects::DestroyService.new(@project, current_user, {}).async_execute
-    flash[:alert] = "项目 '#{@project.name_with_namespace}' 将被删除。"
+    flash[:alert] = _("Project '%{project_name}' will be deleted.") % { project_name: @project.name_with_namespace }
 
-    redirect_to dashboard_projects_path
+    redirect_to dashboard_projects_path, status: 302
   rescue Projects::DestroyService::DestroyError => ex
-    redirect_to edit_project_path(@project), alert: ex.message
+    redirect_to edit_project_path(@project), status: 302, alert: ex.message
   end
 
   def new_issue_address
@@ -156,7 +156,7 @@ class ProjectsController < Projects::ApplicationController
 
     redirect_to(
       project_path(@project),
-      notice: "维护已开启成功"
+      notice: _("Housekeeping successfully started")
     )
   rescue ::Projects::HousekeepingService::LeaseTaken => ex
     redirect_to(
@@ -170,7 +170,7 @@ class ProjectsController < Projects::ApplicationController
 
     redirect_to(
       edit_project_path(@project),
-      notice: "项目开始导出。将通过电子邮件发送下载链接。"
+      notice: _("Project export started. A download link will be sent by email.")
     )
   end
 
@@ -182,16 +182,16 @@ class ProjectsController < Projects::ApplicationController
     else
       redirect_to(
         edit_project_path(@project),
-        alert: "项目导出链接已过期。 请从您的项目设置中生成新的导出。"
+        alert: _("Project export link has expired. Please generate a new export from your project settings.")
       )
     end
   end
 
   def remove_export
     if @project.remove_exports
-      flash[:notice] = "项目导出已经被删除。"
+      flash[:notice] = _("Project export has been deleted.")
     else
-      flash[:alert] = "无法删除项目导出。"
+      flash[:alert] = _("Project export could not be deleted.")
     end
     redirect_to(edit_project_path(@project))
   end
@@ -202,7 +202,7 @@ class ProjectsController < Projects::ApplicationController
     else
       redirect_to(
         edit_project_path(@project),
-        alert: "无法删除项目导出。"
+        alert: _("Project export could not be deleted.")
       )
     end
   end
@@ -220,13 +220,13 @@ class ProjectsController < Projects::ApplicationController
     branches = BranchesFinder.new(@repository, params).execute.map(&:name)
 
     options = {
-      'Branches' => branches.take(100)
+      s_('RefSwitcher|Branches') => branches.take(100)
     }
 
     unless @repository.tag_count.zero?
       tags = TagsFinder.new(@repository, params).execute.map(&:name)
 
-      options['Tags'] = tags.take(100)
+      options[s_('RefSwitcher|Tags')] = tags.take(100)
     end
 
     # If reference is commit id - we should add it to branch/tag selectbox

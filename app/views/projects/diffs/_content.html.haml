@@ -1,27 +1,2 @@
-- blob = diff_file.blob
-
 .diff-content
-  - if diff_file.too_large?
-    .nothing-here-block 此文件的差异太大，无法显示。
-  - elsif blob.truncated?
-    .nothing-here-block 此文件太大，无法显示。
-  - elsif blob.readable_text?
-    - if !diff_file.repository.diffable?(blob)
-      .nothing-here-block 由于 .gitattributes 文件的设置，不显示此差异。
-    - elsif diff_file.collapsed?
-      - url = url_for(params.merge(action: :diff_for_path, old_path: diff_file.old_path, new_path: diff_file.new_path, file_identifier: diff_file.file_identifier))
-      .nothing-here-block.diff-collapsed{ data: { diff_for_path: url } }
-        此文件的差异被折叠，
-        %a.click-to-expand
-          点击展开。
-    - elsif diff_file.diff_lines.length > 0
-      = render "projects/diffs/viewers/text", diff_file: diff_file
-    - else
-      - if diff_file.mode_changed?
-        .nothing-here-block 文件属性发生变化
-      - elsif diff_file.renamed_file?
-        .nothing-here-block 文件被删除
-  - elsif blob.image?
-    = render "projects/diffs/viewers/image", diff_file: diff_file
-  - else
-    .nothing-here-block 此文件类型无法预览
+  = render 'projects/diffs/viewer', viewer: diff_file.rich_viewer || diff_file.simple_viewer

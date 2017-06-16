@@ -3,10 +3,10 @@
     %table.table#tree-slider{ class: "table_#{@hex_path} tree-table" }
       %thead
         %tr
-          %th 名称
+          %th= s_('ProjectFileTree|Name')
           %th.hidden-xs
-            .pull-left 最后更新
-          %th.text-right 最后提交
+            .pull-left= _('Last commit')
+          %th.text-right= _('Last Update')
       - if @path.present?
         %tr.tree-item
           %td.tree-item-file-name
@@ -20,7 +20,7 @@
     = render "projects/tree/readme", readme: tree.readme
 
 - if can_edit_tree?
-  = render 'projects/blob/upload', title: '上传新文件', placeholder: '上传新文件', button_title: '上传文件', form_path: namespace_project_create_blob_path(@project.namespace, @project, @id), method: :post
+  = render 'projects/blob/upload', title: _('Upload New File'), placeholder: _('Upload New File'), button_title: _('Upload file'), form_path: namespace_project_create_blob_path(@project.namespace, @project, @id), method: :post
   = render 'projects/blob/new_dir'
 
 :javascript

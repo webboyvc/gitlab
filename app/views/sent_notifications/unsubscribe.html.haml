@@ -1,16 +1,14 @@
 - noteable = @sent_notification.noteable
-- noteable_type = @sent_notification.noteable_type.humanize(capitalize: false)
+- noteable_type = @sent_notification.noteable_type.titleize.downcase
 - noteable_text = %(#{noteable.title} (#{noteable.to_reference}))
-
-- page_title "取消订阅", noteable_text, @sent_notification.noteable_type.humanize.pluralize, @sent_notification.project.name_with_namespace
-
+- page_title "取消订阅", noteable_text, noteable_type.pluralize, @sent_notification.project.name_with_namespace
 
 %h3.page-title
-  取消订阅 #{noteable_type} #{noteable_text}
+  Unsubscribe from #{noteable_type}
 
 %p
   = succeed '？' do
-    你确定要取消订阅 #{noteable_type}
+    你确定要取消订阅 #{noteable_type}:
     = link_to noteable_text, url_for([@sent_notification.project.namespace.becomes(Namespace), @sent_notification.project, noteable])
 
 %p

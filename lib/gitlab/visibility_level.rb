@@ -41,9 +41,9 @@ module Gitlab
 
       def options
         {
-          '私有'  => PRIVATE,
-          '内部' => INTERNAL,
-          '公开'   => PUBLIC
+          N_('VisibilityLevel|Private')  => PRIVATE,
+          N_('VisibilityLevel|Internal') => INTERNAL,
+          N_('VisibilityLevel|Public')   => PUBLIC
         }
       end
 
@@ -83,7 +83,7 @@ module Gitlab
       end
 
       def valid_level?(level)
-        options.has_value?(level)
+        options.value?(level)
       end
 
       def level_name(level)

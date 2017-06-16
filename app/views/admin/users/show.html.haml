@@ -177,7 +177,7 @@
             %p 删除用户有如下效果：
             = render 'users/deletion_guidance', user: @user
             %br
-            = link_to '删除用户', [:admin, @user], data: { confirm: "用户 #{@user.name} 将被删除！确定要继续么？" }, method: :delete, class: "btn btn-remove"
+            = link_to '删除用户', admin_user_path(@user), data: { confirm: "用户 #{@user.name} 将被删除！确定要继续么？" }, method: :delete, class: "btn btn-remove"
           - else
             - if @user.solo_owned_groups.present?
               %p
@@ -188,3 +188,22 @@
             - else
               %p
                 您没有删除此用户的权限。
+
+      .panel.panel-danger
+        .panel-heading
+          删除用户和贡献
+        .panel-body
+          - if can?(current_user, :destroy_user, @user)
+            %p
+              This option deletes the user and any contributions that
+              would usually be moved to the
+              = succeed "." do
+                = link_to "system ghost user", help_page_path("user/profile/account/delete_account")
+              As well as the user's personal projects, groups owned solely by
+              the user, and projects in them, will also be removed. Commits
+              to other projects are unaffected.
+            %br
+            = link_to 'Remove user and contributions', admin_user_path(@user, hard_delete: true), data: { confirm: "用户 #{@user.name} 将被删除！确定要继续么？" }, method: :delete, class: "btn btn-remove"
+          - else
+            %p
+              您没有删除此用户的权限。

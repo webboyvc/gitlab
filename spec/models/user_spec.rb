@@ -13,6 +13,10 @@ describe User, models: true do
     it { is_expected.to include_module(TokenAuthenticatable) }
   end
 
+  describe 'delegations' do
+    it { is_expected.to delegate_method(:path).to(:namespace).with_prefix }
+  end
+
   describe 'associations' do
     it { is_expected.to have_one(:namespace) }
     it { is_expected.to have_many(:snippets).dependent(:destroy) }
@@ -22,7 +26,7 @@ describe User, models: true do
     it { is_expected.to have_many(:deploy_keys).dependent(:destroy) }
     it { is_expected.to have_many(:events).dependent(:destroy) }
     it { is_expected.to have_many(:recent_events).class_name('Event') }
-    it { is_expected.to have_many(:issues).dependent(:restrict_with_exception) }
+    it { is_expected.to have_many(:issues).dependent(:destroy) }
     it { is_expected.to have_many(:notes).dependent(:destroy) }
     it { is_expected.to have_many(:merge_requests).dependent(:destroy) }
     it { is_expected.to have_many(:identities).dependent(:destroy) }
@@ -983,7 +987,7 @@ describe User, models: true do
 
     context 'when avatar file is uploaded' do
       let(:gitlab_host) { "http://#{Gitlab.config.gitlab.host}" }
-      let(:avatar_path) { "/uploads/user/avatar/#{user.id}/dk.png" }
+      let(:avatar_path) { "/uploads/system/user/avatar/#{user.id}/dk.png" }
 
       it 'shows correct avatar url' do
         expect(user.avatar_url).to eq(avatar_path)
@@ -1580,7 +1584,9 @@ describe User, models: true do
     end
 
     context 'user is member of the top group' do
-      before { group.add_owner(user) }
+      before do
+        group.add_owner(user)
+      end
 
       if Group.supports_nested_groups?
         it 'returns all groups' do
@@ -1598,7 +1604,9 @@ describe User, models: true do
     end
 
     context 'user is member of the first child (internal node), branch 1', :nested_groups do
-      before { nested_group_1.add_owner(user) }
+      before do
+        nested_group_1.add_owner(user)
+      end
 
       it 'returns the groups in the hierarchy' do
         is_expected.to match_array [
@@ -1609,7 +1617,9 @@ describe User, models: true do
     end
 
     context 'user is member of the first child (internal node), branch 2', :nested_groups do
-      before { nested_group_2.add_owner(user) }
+      before do
+        nested_group_2.add_owner(user)
+      end
 
       it 'returns the groups in the hierarchy' do
         is_expected.to match_array [
@@ -1620,7 +1630,9 @@ describe User, models: true do
     end
 
     context 'user is member of the last child (leaf node)', :nested_groups do
-      before { nested_group_1_1.add_owner(user) }
+      before do
+        nested_group_1_1.add_owner(user)
+      end
 
       it 'returns the groups in the hierarchy' do
         is_expected.to match_array [

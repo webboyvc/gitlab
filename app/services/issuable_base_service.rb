@@ -148,7 +148,7 @@ class IssuableBaseService < BaseService
         execute(params[:description], issuable)
 
     # Avoid a description already set on an issuable to be overwritten by a nil
-    params[:description] = description if params.has_key?(:description)
+    params[:description] = description if params.key?(:description)
 
     params.merge!(command_params)
   end
@@ -313,11 +313,13 @@ class IssuableBaseService < BaseService
     end
 
     if issuable.previous_changes.include?('description')
-      create_description_change_note(issuable)
-    end
-
-    if issuable.previous_changes.include?('description') && issuable.tasks?
-      create_task_status_note(issuable)
+      if issuable.tasks? && issuable.updated_tasks.any?
+        create_task_status_note(issuable)
+      else
+        # TODO: Show this note if non-task content was modified.
+        # https://gitlab.com/gitlab-org/gitlab-ce/issues/33577
+        create_description_change_note(issuable)
+      end
     end
 
     if issuable.previous_changes.include?('time_estimate')

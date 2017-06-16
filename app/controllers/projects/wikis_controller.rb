@@ -85,10 +85,9 @@ class Projects::WikisController < Projects::ApplicationController
     @page = @project_wiki.find_page(params[:id])
     WikiPages::DestroyService.new(@project, current_user).execute(@page)
 
-    redirect_to(
-      namespace_project_wiki_path(@project.namespace, @project, :home),
-      notice: "维基删除成功"
-    )
+    redirect_to namespace_project_wiki_path(@project.namespace, @project, :home),
+                status: 302,
+                notice: "维基页面删除成功"
   end
 
   def git_access

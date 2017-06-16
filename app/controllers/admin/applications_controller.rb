@@ -39,7 +39,7 @@ class Admin::ApplicationsController < Admin::ApplicationController
 
   def destroy
     @application.destroy
-    redirect_to admin_applications_url, notice: '应用销毁成功。'
+    redirect_to admin_applications_url, status: 302, notice: '应用销毁成功。'
   end
 
   private

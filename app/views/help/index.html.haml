@@ -1,10 +1,15 @@
 %div
+- if current_application_settings.help_page_text.present?
+  = markdown_field(current_application_settings, :help_page_text)
+  %hr
+
+- unless current_application_settings.help_page_hide_commercial_content?
   %h1
     GitLab
     社区版
     - if user_signed_in?
       %span= Gitlab::VERSION
-      %small= Gitlab::REVISION
+      %small= link_to Gitlab::REVISION, Gitlab::COM_URL + namespace_project_commits_path('gitlab-org', 'gitlab-ce', Gitlab::REVISION)
       = version_status_badge
   %p.slead
     GitLab 是用于代码协作的开源软件。
@@ -21,13 +26,9 @@
     %br
     需要改进中文翻译，请#{link_to '派生https://gitlab.com/xhang/gitlab 项目', 'https://gitlab.com/xhang/gitlab/forks/new'}，
     修改文件后提交#{link_to '合并请求', 'https://gitlab.com/xhang/gitlab/merge_requests/new'}。
-    - if current_application_settings.help_page_text.present?
-      %hr
-      = markdown_field(current_application_settings, :help_page_text)
+  %hr
 
-%hr
-
-.row
+.row.prepend-top-default
   .col-md-8
     .documentation-index
       = markdown(@help_index)
@@ -36,8 +37,8 @@
       .panel-heading
         快速帮助
       %ul.well-list
-        %li= link_to '查看我们的网站获取帮助', promo_url + '/getting-help/'
+        %li= link_to '查看我们的网站获取帮助', support_url
         %li= link_to '使用页面顶部的搜索功能', '#', onclick: 'Shortcuts.focusSearch(event)'
         %li= link_to '键盘快捷键', '#', onclick: 'Shortcuts.toggleHelp()'
-        %li= link_to '获取技术支持订阅', 'https://about.gitlab.com/pricing/'
-        %li= link_to '比较 GitLab 版本', 'https://about.gitlab.com/features/#compare'
+        - unless current_application_settings.help_page_hide_commercial_content?
+          %li= link_to '获取技术支持订阅', 'https://about.gitlab.com/pricing/'

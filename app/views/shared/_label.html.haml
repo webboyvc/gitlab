@@ -64,7 +64,7 @@
                 %a.js-subscribe-button{ data: { url: toggle_subscription_group_label_path(label.group, label) } }
                   群组层面
 
-    - if label.is_a?(ProjectLabel) && label.project.group && can?(current_user, :admin_group, label.project.group)
+    - if label.is_a?(ProjectLabel) && label.project.group && can?(current_user, :admin_label, label.project.group)
       = link_to promote_namespace_project_label_path(label.project.namespace, label.project, label), title: "提升到群组标记", class: 'btn btn-transparent btn-action', data: {confirm: "提升此标签将使此标签可用到此组内的所有项目。并将合并具有相同名称的现有项目标签。是否确定？", toggle: "tooltip"}, method: :post do
         %span.sr-only 提升到群组
         = icon('level-up')

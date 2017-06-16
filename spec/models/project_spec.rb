@@ -50,7 +50,7 @@ describe Project, models: true do
     it { is_expected.to have_one(:external_wiki_service).dependent(:destroy) }
     it { is_expected.to have_one(:project_feature).dependent(:destroy) }
     it { is_expected.to have_one(:statistics).class_name('ProjectStatistics').dependent(:delete) }
-    it { is_expected.to have_one(:import_data).class_name('ProjectImportData').dependent(:destroy) }
+    it { is_expected.to have_one(:import_data).class_name('ProjectImportData').dependent(:delete) }
     it { is_expected.to have_one(:last_event).class_name('Event') }
     it { is_expected.to have_one(:forked_from_project).through(:forked_project_link) }
     it { is_expected.to have_many(:commit_statuses) }
@@ -812,7 +812,7 @@ describe Project, models: true do
 
     context 'when avatar file is uploaded' do
       let(:project) { create(:empty_project, :with_avatar) }
-      let(:avatar_path) { "/uploads/project/avatar/#{project.id}/dk.png" }
+      let(:avatar_path) { "/uploads/system/project/avatar/#{project.id}/dk.png" }
       let(:gitlab_host) { "http://#{Gitlab.config.gitlab.host}" }
 
       it 'shows correct url' do
@@ -1005,13 +1005,17 @@ describe Project, models: true do
     subject { project.shared_runners_enabled }
 
     context 'are enabled' do
-      before { stub_application_setting(shared_runners_enabled: true) }
+      before do
+        stub_application_setting(shared_runners_enabled: true)
+      end
 
       it { is_expected.to be_truthy }
     end
 
     context 'are disabled' do
-      before { stub_application_setting(shared_runners_enabled: false) }
+      before do
+        stub_application_setting(shared_runners_enabled: false)
+      end
 
       it { is_expected.to be_falsey }
     end
@@ -1107,7 +1111,9 @@ describe Project, models: true do
     subject { project.pages_deployed? }
 
     context 'if public folder does exist' do
-      before { allow(Dir).to receive(:exist?).with(project.public_pages_path).and_return(true) }
+      before do
+        allow(Dir).to receive(:exist?).with(project.public_pages_path).and_return(true)
+      end
 
       it { is_expected.to be_truthy }
     end
@@ -1365,7 +1371,9 @@ describe Project, models: true do
 
     subject { project.container_registry_url }
 
-    before { stub_container_registry_config(**registry_settings) }
+    before do
+      stub_container_registry_config(**registry_settings)
+    end
 
     context 'for enabled registry' do
       let(:registry_settings) do
@@ -1389,7 +1397,9 @@ describe Project, models: true do
     let(:project) { create(:empty_project) }
 
     context 'when container registry is enabled' do
-      before { stub_container_registry_config(enabled: true) }
+      before do
+        stub_container_registry_config(enabled: true)
+      end
 
       context 'when tags are present for multi-level registries' do
         before do
@@ -1427,7 +1437,9 @@ describe Project, models: true do
     end
 
     context 'when container registry is disabled' do
-      before { stub_container_registry_config(enabled: false) }
+      before do
+        stub_container_registry_config(enabled: false)
+      end
 
       it 'should not have image tags' do
         expect(project).not_to have_container_registry_tags
@@ -1446,15 +1458,12 @@ describe Project, models: true do
   end
 
   describe 'Project import job' do
-    let(:project) { create(:empty_project) }
-    let(:mirror) { false }
+    let(:project) { create(:empty_project, import_url: generate(:url)) }
 
     before do
       allow_any_instance_of(Gitlab::Shell).to receive(:import_repository)
         .with(project.repository_storage_path, project.path_with_namespace, project.import_url)
         .and_return(true)
-
-      allow(project).to receive(:repository_exists?).and_return(true)
 
       expect_any_instance_of(Repository).to receive(:after_import)
         .and_call_original
@@ -1463,8 +1472,7 @@ describe Project, models: true do
     it 'imports a project' do
       expect_any_instance_of(RepositoryImportWorker).to receive(:perform).and_call_original
 
-      project.import_start
-      project.add_import_job
+      project.import_schedule
 
       expect(project.reload.import_status).to eq('finished')
     end
@@ -1551,7 +1559,7 @@ describe Project, models: true do
 
   describe '#add_import_job' do
     context 'forked' do
-      let(:forked_project_link) { create(:forked_project_link) }
+      let(:forked_project_link) { create(:forked_project_link, :forked_to_empty_project) }
       let(:forked_from_project) { forked_project_link.forked_from_project }
       let(:project) { forked_project_link.forked_to_project }
 
@@ -1565,9 +1573,9 @@ describe Project, models: true do
     end
 
     context 'not forked' do
-      let(:project) { create(:empty_project) }
-
       it 'schedules a RepositoryImportWorker job' do
+        project = create(:empty_project, import_url: generate(:url))
+
         expect(RepositoryImportWorker).to receive(:perform_async).with(project.id)
 
         project.add_import_job
@@ -1949,7 +1957,9 @@ describe Project, models: true do
   describe '#parent_changed?' do
     let(:project) { create(:empty_project) }
 
-    before { project.namespace_id = 7 }
+    before do
+      project.namespace_id = 7
+    end
 
     it { expect(project.parent_changed?).to be_truthy }
   end

@@ -49,10 +49,10 @@
 
       .form-group
         = f.label :email, "邮箱", class: "label-light"
-        - if @user.ldap_user? && @user.ldap_email?
+        - if @user.external_email?
           = f.text_field :email, class: "form-control", required: true, readonly: true
           %span.help-block.light
-            LDAP 用户的邮箱自动设置。
+            您的邮箱将通过您的 #{email_provider_label} 账号自动设置。
         - else
           - if @user.temp_oauth_email?
             = f.text_field :email, class: "form-control", required: true, value: nil

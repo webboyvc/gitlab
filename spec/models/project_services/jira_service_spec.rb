@@ -10,7 +10,9 @@ describe JiraService, models: true do
 
   describe 'Validations' do
     context 'when service is active' do
-      before { subject.active = true }
+      before do
+        subject.active = true
+      end
 
       it { is_expected.to validate_presence_of(:url) }
       it { is_expected.to validate_presence_of(:project_key) }
@@ -18,7 +20,9 @@ describe JiraService, models: true do
     end
 
     context 'when service is inactive' do
-      before { subject.active = false }
+      before do
+        subject.active = false
+      end
 
       it { is_expected.not_to validate_presence_of(:url) }
     end
@@ -66,41 +70,6 @@ describe JiraService, models: true do
     it 'does not allow # on the code' do
       expect(subject.reference_pattern.match('#123')).to be_nil
       expect(subject.reference_pattern.match('1#23#12')).to be_nil
-    end
-  end
-
-  describe '#can_test?' do
-    let(:jira_service) { described_class.new }
-
-    it 'returns false if username is blank' do
-      allow(jira_service).to receive_messages(
-        url: 'http://jira.example.com',
-        username: '',
-        password: '12345678'
-      )
-
-      expect(jira_service.can_test?).to be_falsy
-    end
-
-    it 'returns false if password is blank' do
-      allow(jira_service).to receive_messages(
-        url: 'http://jira.example.com',
-        username: 'tester',
-        password: ''
-      )
-
-      expect(jira_service.can_test?).to be_falsy
-    end
-
-    it 'returns true if password and username are present' do
-      jira_service = described_class.new
-      allow(jira_service).to receive_messages(
-        url: 'http://jira.example.com',
-        username: 'tester',
-        password: '12345678'
-      )
-
-      expect(jira_service.can_test?).to be_truthy
     end
   end
 

@@ -22,6 +22,7 @@ module API
         optional :only_allow_merge_if_pipeline_succeeds, type: Boolean, desc: 'Only allow to merge if builds succeed'
         optional :only_allow_merge_if_all_discussions_are_resolved, type: Boolean, desc: 'Only allow to merge if all discussions are resolved'
         optional :tag_list, type: Array[String], desc: 'The list of tags for a project'
+        optional :avatar, type: File, desc: 'Avatar image for project'
       end
 
       params :optional_params do
@@ -109,7 +110,7 @@ module API
       end
       post do
         attrs = declared_params(include_missing: false)
-        attrs[:builds_enabled] = attrs.delete(:jobs_enabled) if attrs.has_key?(:jobs_enabled)
+        attrs[:builds_enabled] = attrs.delete(:jobs_enabled) if attrs.key?(:jobs_enabled)
         project = ::Projects::CreateService.new(current_user, attrs).execute
 
         if project.saved?
@@ -129,6 +130,7 @@ module API
       params do
         requires :name, type: String, desc: 'The name of the project'
         requires :user_id, type: Integer, desc: 'The ID of a user'
+        optional :path, type: String, desc: 'The path of the repository'
         optional :default_branch, type: String, desc: 'The default branch of the project'
         use :optional_params
         use :create_params
@@ -164,16 +166,6 @@ module API
         entity = current_user ? Entities::ProjectWithAccess : Entities::BasicProjectDetails
         present user_project, with: entity, current_user: current_user,
                               user_can_admin_project: can?(current_user, :admin_project, user_project), statistics: params[:statistics]
-      end
-
-      desc 'Get events for a single project' do
-        success Entities::Event
-      end
-      params do
-        use :pagination
-      end
-      get ":id/events" do
-        present paginate(user_project.events.recent), with: Entities::Event
       end
 
       desc 'Fork new project for the current user or provided namespace.' do
@@ -247,7 +239,7 @@ module API
         authorize! :rename_project, user_project if attrs[:name].present?
         authorize! :change_visibility_level, user_project if attrs[:visibility].present?
 
-        attrs[:builds_enabled] = attrs.delete(:jobs_enabled) if attrs.has_key?(:jobs_enabled)
+        attrs[:builds_enabled] = attrs.delete(:jobs_enabled) if attrs.key?(:jobs_enabled)
 
         result = ::Projects::UpdateService.new(user_project, current_user, attrs).execute
 

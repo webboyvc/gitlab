@@ -122,6 +122,8 @@ module MilestonesHelper
       merge_requests_namespace_project_milestone_path(@project.namespace, @project, milestone, format: :json)
     elsif @group
       merge_requests_group_milestone_path(@group, milestone.safe_title, title: milestone.title, format: :json)
+    else
+      merge_requests_dashboard_milestone_path(milestone, title: milestone.title, format: :json)
     end
   end
 
@@ -130,6 +132,8 @@ module MilestonesHelper
       participants_namespace_project_milestone_path(@project.namespace, @project, milestone, format: :json)
     elsif @group
       participants_group_milestone_path(@group, milestone.safe_title, title: milestone.title, format: :json)
+    else
+      participants_dashboard_milestone_path(milestone, title: milestone.title, format: :json)
     end
   end
 
@@ -138,6 +142,8 @@ module MilestonesHelper
       labels_namespace_project_milestone_path(@project.namespace, @project, milestone, format: :json)
     elsif @group
       labels_group_milestone_path(@group, milestone.safe_title, title: milestone.title, format: :json)
+    else
+      labels_dashboard_milestone_path(milestone, title: milestone.title, format: :json)
     end
   end
 end

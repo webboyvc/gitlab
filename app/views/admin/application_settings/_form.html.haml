@@ -181,11 +181,25 @@
       .col-sm-10
         = f.text_area :sign_in_text, class: 'form-control', rows: 4
         .help-block 允许使用 Markdown 格式
+
+  %fieldset
+    %legend Help Page
     .form-group
       = f.label :help_page_text, '帮助页面文字', class: 'control-label col-sm-2'
       .col-sm-10
         = f.text_area :help_page_text, class: 'form-control', rows: 4
         .help-block 允许使用 Markdown 格式
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        .checkbox
+          = f.label :help_page_hide_commercial_content do
+            = f.check_box :help_page_hide_commercial_content
+            Hide marketing-related entries from help
+    .form-group
+      = f.label :help_page_support_url, 'Support page URL', class: 'control-label col-sm-2'
+      .col-sm-10
+        = f.text_field :help_page_support_url, class: 'form-control', placeholder: 'http://company.example.com/getting-help', :'aria-describedby' => 'support_help_block'
+        %span.help-block#support_help_block Alternate support URL for help page
 
   %fieldset
     %legend 页面
@@ -233,7 +247,7 @@
           = f.number_field :container_registry_token_expire_delay, class: 'form-control'
 
   %fieldset
-    %legend 度量
+    %legend Metrics - Influx
     %p
       设置InfluxDB来测量各种统计信息，例如运行SQL查询所花费的时间。 这些设置需要
       = link_to '重新启动', help_page_path('administration/restart_gitlab')
@@ -291,6 +305,21 @@
         = f.number_field :metrics_packet_size, class: 'form-control'
         .help-block
           存储在单个UDP数据包中的点数。 增加点数可以减少发送次数，但会增加每个UDP数据包的大小。
+
+  %fieldset
+    %legend Metrics - Prometheus
+    %p
+      Setup Prometheus to measure a variety of statistics that partially overlap and complement Influx based metrics.
+      This setting requires a
+      = link_to 'restart', help_page_path('administration/restart_gitlab')
+      to take effect.
+      = link_to icon('question-circle'), help_page_path('administration/monitoring/performance/introduction')
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        .checkbox
+          = f.label :prometheus_metrics_enabled do
+            = f.check_box :prometheus_metrics_enabled
+            Enable Prometheus Metrics
 
   %fieldset
     %legend 后台作业

@@ -25,10 +25,6 @@ class GroupMember < Member
     source
   end
 
-  def access_field
-    access_level
-  end
-
   def real_source_type_zh
     '群组'
   end

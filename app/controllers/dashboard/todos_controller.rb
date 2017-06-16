@@ -15,7 +15,11 @@ class Dashboard::TodosController < Dashboard::ApplicationController
     TodoService.new.mark_todos_as_done_by_ids([params[:id]], current_user)
 
     respond_to do |format|
-      format.html { redirect_to dashboard_todos_path, notice: '待办事项已完成。' }
+      format.html do
+        redirect_to dashboard_todos_path,
+                    status: 302,
+                    notice: '待办事项已完成。'
+      end
       format.js { head :ok }
       format.json { render json: todos_counts }
     end
@@ -25,7 +29,7 @@ class Dashboard::TodosController < Dashboard::ApplicationController
     updated_ids = TodoService.new.mark_todos_as_done(@todos, current_user)
 
     respond_to do |format|
-      format.html { redirect_to dashboard_todos_path, notice: '所有待办事项都已完成。' }
+      format.html { redirect_to dashboard_todos_path, status: 302, notice: '所有待办事项都已完成。' }
       format.js { head :ok }
       format.json { render json: todos_counts.merge(updated_ids: updated_ids) }
     end
@@ -41,11 +45,6 @@ class Dashboard::TodosController < Dashboard::ApplicationController
     TodoService.new.mark_todos_as_pending_by_ids(params[:ids], current_user)
 
     render json: todos_counts
-  end
-
-  # Used in TodosHelper also
-  def self.todos_count_format(count)
-    count >= 100 ? '99+' : count
   end
 
   private

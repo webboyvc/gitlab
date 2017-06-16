@@ -95,12 +95,18 @@ describe Ci::Build, :models do
       it { is_expected.to be_truthy }
 
       context 'is expired' do
-        before { build.update(artifacts_expire_at: Time.now - 7.days)  }
+        before do
+          build.update(artifacts_expire_at: Time.now - 7.days)
+        end
+
         it { is_expected.to be_falsy }
       end
 
       context 'is not expired' do
-        before { build.update(artifacts_expire_at: Time.now + 7.days)  }
+        before do
+          build.update(artifacts_expire_at: Time.now + 7.days)
+        end
+
         it { is_expected.to be_truthy }
       end
     end
@@ -110,13 +116,17 @@ describe Ci::Build, :models do
     subject { build.artifacts_expired? }
 
     context 'is expired' do
-      before { build.update(artifacts_expire_at: Time.now - 7.days)  }
+      before do
+        build.update(artifacts_expire_at: Time.now - 7.days)
+      end
 
       it { is_expected.to be_truthy }
     end
 
     context 'is not expired' do
-      before { build.update(artifacts_expire_at: Time.now + 7.days)  }
+      before do
+        build.update(artifacts_expire_at: Time.now + 7.days)
+      end
 
       it { is_expected.to be_falsey }
     end
@@ -141,7 +151,9 @@ describe Ci::Build, :models do
     context 'when artifacts_expire_at is specified' do
       let(:expire_at) { Time.now + 7.days }
 
-      before { build.artifacts_expire_at = expire_at }
+      before do
+        build.artifacts_expire_at = expire_at
+      end
 
       it { is_expected.to be_within(5).of(expire_at - Time.now) }
     end
@@ -424,6 +436,42 @@ describe Ci::Build, :models do
         end
 
         it { is_expected.to eq('review/host') }
+      end
+    end
+
+    describe '#environment_url' do
+      subject { job.environment_url }
+
+      context 'when yaml environment uses $CI_COMMIT_REF_NAME' do
+        let(:job) do
+          create(:ci_build,
+                 ref: 'master',
+                 options: { environment: { url: 'http://review/$CI_COMMIT_REF_NAME' } })
+        end
+
+        it { is_expected.to eq('http://review/master') }
+      end
+
+      context 'when yaml environment uses yaml_variables containing symbol keys' do
+        let(:job) do
+          create(:ci_build,
+                 yaml_variables: [{ key: :APP_HOST, value: 'host' }],
+                 options: { environment: { url: 'http://review/$APP_HOST' } })
+        end
+
+        it { is_expected.to eq('http://review/host') }
+      end
+
+      context 'when yaml environment does not have url' do
+        let(:job) { create(:ci_build, environment: 'staging') }
+
+        let!(:environment) do
+          create(:environment, project: job.project, name: job.environment)
+        end
+
+        it 'returns the external_url from persisted environment' do
+          is_expected.to eq(environment.external_url)
+        end
       end
     end
 
@@ -918,6 +966,10 @@ describe Ci::Build, :models do
 
       it { is_expected.to eq(environment) }
     end
+
+    context 'when there is no environment' do
+      it { is_expected.to be_nil }
+    end
   end
 
   describe '#play' do
@@ -1031,7 +1083,9 @@ describe Ci::Build, :models do
 
   describe '#has_expiring_artifacts?' do
     context 'when artifacts have expiration date set' do
-      before { build.update(artifacts_expire_at: 1.day.from_now) }
+      before do
+        build.update(artifacts_expire_at: 1.day.from_now)
+      end
 
       it 'has expiring artifacts' do
         expect(build).to have_expiring_artifacts
@@ -1039,7 +1093,9 @@ describe Ci::Build, :models do
     end
 
     context 'when artifacts do not have expiration date set' do
-      before { build.update(artifacts_expire_at: nil) }
+      before do
+        build.update(artifacts_expire_at: nil)
+      end
 
       it 'does not have expiring artifacts' do
         expect(build).not_to have_expiring_artifacts
@@ -1139,6 +1195,7 @@ describe Ci::Build, :models do
         { key: 'CI_PROJECT_ID', value: project.id.to_s, public: true },
         { key: 'CI_PROJECT_NAME', value: project.path, public: true },
         { key: 'CI_PROJECT_PATH', value: project.full_path, public: true },
+        { key: 'CI_PROJECT_PATH_SLUG', value: project.full_path.parameterize, public: true },
         { key: 'CI_PROJECT_NAMESPACE', value: project.namespace.full_path, public: true },
         { key: 'CI_PROJECT_URL', value: project.web_url, public: true },
         { key: 'CI_PIPELINE_ID', value: pipeline.id.to_s, public: true },
@@ -1176,11 +1233,6 @@ describe Ci::Build, :models do
     end
 
     context 'when build has an environment' do
-      before do
-        build.update(environment: 'production')
-        create(:environment, project: build.project, name: 'production', slug: 'prod-slug')
-      end
-
       let(:environment_variables) do
         [
           { key: 'CI_ENVIRONMENT_NAME', value: 'production', public: true },
@@ -1188,7 +1240,56 @@ describe Ci::Build, :models do
         ]
       end
 
-      it { environment_variables.each { |v| is_expected.to include(v) } }
+      let!(:environment) do
+        create(:environment,
+          project: build.project,
+          name: 'production',
+          slug: 'prod-slug',
+          external_url: '')
+      end
+
+      before do
+        build.update(environment: 'production')
+      end
+
+      shared_examples 'containing environment variables' do
+        it { environment_variables.each { |v| is_expected.to include(v) } }
+      end
+
+      context 'when no URL was set' do
+        it_behaves_like 'containing environment variables'
+
+        it 'does not have CI_ENVIRONMENT_URL' do
+          keys = subject.map { |var| var[:key] }
+
+          expect(keys).not_to include('CI_ENVIRONMENT_URL')
+        end
+      end
+
+      context 'when an URL was set' do
+        let(:url) { 'http://host/test' }
+
+        before do
+          environment_variables <<
+            { key: 'CI_ENVIRONMENT_URL', value: url, public: true }
+        end
+
+        context 'when the URL was set from the job' do
+          before do
+            build.update(options: { environment: { url: 'http://host/$CI_JOB_NAME' } })
+          end
+
+          it_behaves_like 'containing environment variables'
+        end
+
+        context 'when the URL was not set from the job, but environment' do
+          before do
+            environment.update(external_url: url)
+          end
+
+          it_behaves_like 'containing environment variables'
+        end
+      end
     end
 
     context 'when build started manually' do

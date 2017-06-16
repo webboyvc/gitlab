@@ -20,50 +20,37 @@ module NotificationsHelper
     icon("#{notification_icon_class(level)} fw", text: text)
   end
 
-  def notification_levels
-    [
-        ['关闭', :disabled],
-        ['参与', :participating],
-        ['关注', :watch],
-        ['全局', :global],
-        ['被提及', :mention],
-        ['自定义', :custom]
-    ]
-  end
-
   def notification_title(level)
+    # Can be anything in `NotificationSetting.level:
     case level.to_sym
-    when :disabled
-      '关闭'
     when :participating
-      '参与'
-    when :watch
-      '关注'
+      s_('NotificationLevel|Participate')
     when :mention
-      '被提及'
-    when :global
-      '全局'
-    when :custom
-      '自定义'
+      s_('NotificationLevel|On mention')
     else
-      level.to_s.titlecase
+      N_('NotificationLevel|Global')
+      N_('NotificationLevel|Watch')
+      N_('NotificationLevel|Disabled')
+      N_('NotificationLevel|Custom')
+      level = "NotificationLevel|#{level.to_s.humanize}"
+      s_(level)
     end
   end
 
   def notification_description(level)
     case level.to_sym
     when :participating
-      '您将只收到您参与的主题的通知'
+      _('You will only receive notifications for threads you have participated in')
     when :mention
-      '您将只收到评论中提及(@)您的通知'
+      _('You will receive notifications only for comments in which you were @mentioned')
     when :watch
-      '您将收到所参与项目的所有活动通知'
+      _('You will receive notifications for any activity')
     when :disabled
-      '您将不会收到任何通知邮件'
+      _('You will not get any notifications via email')
     when :global
-      '使用您的全局通知设置'
+      _('Use your global notification setting')
     when :custom
-      '您将只收到您所选择的活动的通知'
+      _('You will only receive notifications for the events you choose')
     end
   end
 
@@ -95,33 +82,22 @@ module NotificationsHelper
   end
 
   def notification_event_name(event)
+    # All values from NotificationSetting::EMAIL_EVENTS
     case event
-    when :failed_pipeline
-      '流水线失败'
     when :success_pipeline
-      '流水线成功'
-    when :new_note
-      '新建评论'
-    when :new_issue
-      '新建问题'
-    when :reopen_issue
-      '重新打开问题'
-    when :close_issue
-      '关闭问题'
-    when :reassign_issue
-      '重新指派问题'
-    when :new_merge_request
-      '新建合并请求'
-    when :reopen_merge_request
-      '重新打开合并请求'
-    when :close_merge_request
-      '关闭合并请求'
-    when :reassign_merge_request
-      '重新指派合并请求'
-    when :merge_merge_request
-      '接受合并请求'
+      s_('NotificationEvent|Successful pipeline')
     else
-      event.to_s.humanize
+      N_('NotificationEvent|New note')
+      N_('NotificationEvent|New issue')
+      N_('NotificationEvent|Reopen issue')
+      N_('NotificationEvent|Close issue')
+      N_('NotificationEvent|Reassign issue')
+      N_('NotificationEvent|New merge request')
+      N_('NotificationEvent|Close merge request')
+      N_('NotificationEvent|Reassign merge request')
+      N_('NotificationEvent|Merge merge request')
+      N_('NotificationEvent|Failed pipeline')
+      s_(event.to_s.humanize)
     end
   end
 end

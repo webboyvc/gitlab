@@ -43,16 +43,18 @@ module CiStatusHelper
       return status.label
     end
 
-    case status
-    when 'success'
-      '成功'
-    when 'success_with_warnings'
-      '成功(有警告)'
-    when 'manual'
-      '等待手动操作'
-    else
-      ci_status_zh(status)
-    end
+    label = case status
+            when 'success'
+              'passed'
+            when 'success_with_warnings'
+              'passed with warnings'
+            when 'manual'
+              'waiting for manual action'
+            else
+              status
+            end
+    translation = "CiStatusLabel|#{label}"
+    s_(translation)
   end
 
   def ci_text_for_status(status)
@@ -62,13 +64,22 @@ module CiStatusHelper
 
     case status
     when 'success'
-      'passed'
+      s_('CiStatusText|passed')
     when 'success_with_warnings'
-      'passed'
+      s_('CiStatusText|passed')
     when 'manual'
-      'blocked'
+      s_('CiStatusText|blocked')
     else
-      status
+      # All states are already being translated inside the detailed statuses:
+      # :running => Gitlab::Ci::Status::Running
+      # :skipped => Gitlab::Ci::Status::Skipped
+      # :failed => Gitlab::Ci::Status::Failed
+      # :success => Gitlab::Ci::Status::Success
+      # :canceled => Gitlab::Ci::Status::Canceled
+      # The following states are customized above:
+      # :manual => Gitlab::Ci::Status::Manual
+      status_translation = "CiStatusText|#{status}"
+      s_(status_translation)
     end
   end
 
