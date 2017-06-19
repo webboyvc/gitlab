@@ -142,9 +142,9 @@ class IssuableBaseService < BaseService
     LabelsFinder.new(current_user, project_id: @project.id).execute
   end
 
-  def merge_slash_commands_into_params!(issuable)
+  def merge_quick_actions_into_params!(issuable)
     description, command_params =
-      SlashCommands::InterpretService.new(project, current_user).
+      QuickActions::InterpretService.new(project, current_user).
         execute(params[:description], issuable)
 
     # Avoid a description already set on an issuable to be overwritten by a nil
@@ -162,7 +162,7 @@ class IssuableBaseService < BaseService
   end
 
   def create(issuable)
-    merge_slash_commands_into_params!(issuable)
+    merge_quick_actions_into_params!(issuable)
     filter_params(issuable)
 
     params.delete(:state_event)
@@ -236,8 +236,9 @@ class IssuableBaseService < BaseService
         )
 
         if old_assignees != issuable.assignees
-          assignees = old_assignees + issuable.assignees.to_a
-          invalidate_cache_counts(assignees.compact, issuable)
+          new_assignees = issuable.assignees.to_a
+          affected_assignees = (old_assignees + new_assignees) - (old_assignees & new_assignees)
+          invalidate_cache_counts(affected_assignees.compact, issuable)
         end
 
         after_update(issuable)
