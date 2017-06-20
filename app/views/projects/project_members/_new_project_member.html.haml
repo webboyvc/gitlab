@@ -6,7 +6,9 @@
         = users_select_tag(:user_ids, multiple: true, class: "input-clamp", scope: :all, email_user: true, placeholder: "搜索要更新或邀请的成员")
       .form-group
         = label_tag :access_level, "选择角色权限", class: "label-light"
-        = select_tag :access_level, options_for_select(ProjectMember.access_level_roles, @project_member.access_level), class: "form-control project-access-select"
+        .select-wrapper
+          = select_tag :access_level, options_for_select(ProjectMember.access_level_roles, @project_member.access_level), class: "form-control project-access-select select-control"
+          = icon('chevron-down')
         .help-block.append-bottom-10
           = link_to "了解更多", help_page_path("user/permissions"), class: "vlink"
           关于角色权限的介绍。

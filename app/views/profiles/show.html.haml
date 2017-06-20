@@ -42,10 +42,17 @@
         - if current_user.ldap_user?
           部分设置对于 LDAP 账号无效
     .col-lg-9
-      .form-group
-        = f.label :name, "姓名", class: "label-light"
-        = f.text_field :name, class: "form-control", required: true
-        %span.help-block 输入你的名字，让其他人认识你。
+      .row
+        .form-group.col-md-9
+          = f.label :name, "姓名", class: "label-light"
+          = f.text_field :name, class: "form-control", required: true
+          %span.help-block Enter your name, so people you know can recognize you.
+
+        .form-group.col-md-3
+          = f.label :id, class: 'label-light' do
+            用户 ID
+          = f.text_field :id, class: 'form-control', readonly: true
+
 
       .form-group
         = f.label :email, "邮箱", class: "label-light"
