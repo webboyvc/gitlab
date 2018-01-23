@@ -4,7 +4,7 @@ function expandSectionParent($section, $content) {
 }
 
 function expandSection($section) {
-  $section.find('.js-settings-toggle').text('Collapse');
+  $section.find('.js-settings-toggle').text('折叠');
 
   const $content = $section.find('.settings-content');
   $content.addClass('expanded').off('scroll.expandSection').scrollTop(0);
@@ -17,7 +17,7 @@ function expandSection($section) {
 }
 
 function closeSection($section) {
-  $section.find('.js-settings-toggle').text('Expand');
+  $section.find('.js-settings-toggle').text('展开');
 
   const $content = $section.find('.settings-content');
   $content.removeClass('expanded').on('scroll.expandSection', () => expandSection($section));
