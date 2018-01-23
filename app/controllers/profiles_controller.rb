@@ -39,7 +39,7 @@ class ProfilesController < Profiles::ApplicationController
       user.reset_incoming_email_token!
     end
 
-    flash[:notice] = "Incoming email token was successfully reset"
+    flash[:notice] = "以成功重置入邮件令牌"
 
     redirect_to profile_account_path
   end
@@ -49,7 +49,7 @@ class ProfilesController < Profiles::ApplicationController
       user.reset_rss_token!
     end
 
-    flash[:notice] = "RSS token was successfully reset"
+    flash[:notice] = "已成功重置 RSS 令牌"
 
     redirect_to profile_account_path
   end
@@ -64,9 +64,9 @@ class ProfilesController < Profiles::ApplicationController
     result = Users::UpdateService.new(current_user, user: @user, username: user_params[:username]).execute
 
     options = if result[:status] == :success
-                { notice: "Username successfully changed" }
+                { notice: "已成功修改用户名" }
               else
-                { alert: "Username change failed - #{result[:message]}" }
+                { alert: "用户名修改失败 - #{result[:message]}" }
               end
 
     redirect_back_or_default(default: { action: 'show' }, options: options)
