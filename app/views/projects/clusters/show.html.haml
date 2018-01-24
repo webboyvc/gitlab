@@ -1,4 +1,4 @@
-- breadcrumb_title "Cluster"
+- breadcrumb_title "集群"
 - page_title _("Cluster")
 
 - status_path = status_namespace_project_cluster_path(@cluster.project.namespace, @cluster.project, @cluster.id, format: :json) if can?(current_user, :admin_cluster, @cluster) && @cluster.on_creation?
