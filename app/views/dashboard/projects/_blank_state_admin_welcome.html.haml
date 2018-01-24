@@ -3,22 +3,22 @@
     = custom_icon("add_new_user", size: 50)
   .blank-state-body
     %h3.blank-state-title
-      Add user
+      添加人员
     %p.blank-state-text
-      Add your team members and others to GitLab.
+      添加你的团队成员或者其它人到 GitLab。
     = link_to new_admin_user_path, class: "btn btn-new" do
-      New user
+      新建用户
 
 .blank-state
   .blank-state-icon
     = custom_icon("configure_server", size: 50)
   .blank-state-body
     %h3.blank-state-title
-      Configure GitLab
+      配置 GitLab
     %p.blank-state-text
-      Make adjustments to how your GitLab instance is set up.
+      对你的 GitLab 服务器的设置进行调整。
     = link_to admin_root_path, class: "btn btn-new" do
-      Configure
+      设置
 
 - if current_user.can_create_group?
   .blank-state
@@ -26,8 +26,8 @@
       = custom_icon("add_new_group", size: 50)
     .blank-state-body
       %h3.blank-state-title
-        Create a group
+        创建一个群组
       %p.blank-state-text
-        Groups are a great way to organize projects and people.
+        使用群组管理项目和人员是非常好的方式。
       = link_to new_group_path, class: "btn btn-new" do
-        New group
+        新建群组
