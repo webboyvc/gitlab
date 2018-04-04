@@ -38,6 +38,9 @@ class Project < ActiveRecord::Base
     attachments: 2
   }.freeze
 
+  # Valids ports to import from
+  VALID_IMPORT_PORTS = [22, 80, 443].freeze
+
   cache_markdown_field :description, pipeline: :description
 
   delegate :feature_available?, :builds_enabled?, :wiki_enabled?,
@@ -542,7 +545,7 @@ class Project < ActiveRecord::Base
     latest_pipeline = pipelines.latest_successful_for(ref)
 
     if latest_pipeline
-      latest_pipeline.builds.latest.with_artifacts
+      latest_pipeline.builds.latest.with_artifacts_archive
     else
       builds.none
     end
