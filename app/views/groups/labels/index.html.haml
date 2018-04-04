@@ -1,4 +1,4 @@
-- page_title 'Labels'
+- page_title '标记'
 
 - issuables = ['issues', 'merge requests']
 
@@ -8,7 +8,7 @@
 
   .nav-controls
     - if can?(current_user, :admin_label, @group)
-      = link_to "New label", new_group_label_path(@group), class: "btn btn-new"
+      = link_to "新建标记", new_group_label_path(@group), class: "btn btn-new"
 
 .labels
   .other-labels

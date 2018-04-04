@@ -113,7 +113,7 @@ export default () => {
           this.loading = false;
         })
         .catch(() => {
-          Flash('An error occurred while fetching the board lists. Please try again.');
+          Flash('获取看板列表出错，请重试。');
         });
     },
     methods: {
@@ -192,7 +192,7 @@ export default () => {
       },
       tooltipTitle() {
         if (this.disabled) {
-          return 'Please add a list to your board first';
+          return '请先在看板中添加一个列表';
         }
 
         return '';
@@ -236,7 +236,7 @@ export default () => {
           :aria-disabled="disabled"
           v-if="canAdminList"
           @click="openModal">
-          Add issues
+          添加问题
         </button>
       </div>
     `,

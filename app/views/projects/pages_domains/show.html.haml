@@ -10,14 +10,14 @@
       access is enabled.
 
 %h3.page-title
-  Pages Domain
+  网页域名
   = link_to 'Edit', edit_project_pages_domain_path(@project, @domain), class: 'btn btn-success pull-right'
 
 .table-holder
   %table.table
     %tr
       %td
-        Domain
+        域名
       %td
         = link_to @domain.domain, @domain.url
     %tr
@@ -47,11 +47,11 @@
 
     %tr
       %td
-        Certificate
+        证书
       %td
         - if @domain.certificate_text
           %pre
             = @domain.certificate_text
         - else
           .light
-            missing
+            丢失
