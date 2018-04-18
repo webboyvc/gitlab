@@ -40,17 +40,17 @@
     .prepend-top-20
     .empty_wrapper
       %h3#repo-command-line-instructions.page-title-empty
-        Command line instructions
+        命令行指令
       .git-empty
         %fieldset
-          %h5 Git global setup
+          %h5 Git 全局设置
           %pre.light-well
             :preserve
               git config --global user.name "#{h git_user_name}"
               git config --global user.email "#{h git_user_email}"
 
         %fieldset
-          %h5 Create a new repository
+          %h5 创建新版本库
           %pre.light-well
             :preserve
               git clone #{ content_tag(:span, default_url_to_repo, class: 'clone')}
@@ -61,7 +61,7 @@
               git push -u origin master
 
         %fieldset
-          %h5 Existing folder
+          %h5 已存在的文件夹
           %pre.light-well
             :preserve
               cd existing_folder
@@ -72,7 +72,7 @@
               git push -u origin master
 
         %fieldset
-          %h5 Existing Git repository
+          %h5 已存在的 Git 版本库
           %pre.light-well
             :preserve
               cd existing_repo
@@ -83,4 +83,4 @@
 
           - if can? current_user, :remove_project, @project
             .prepend-top-20
-              = link_to 'Remove project', [@project.namespace.becomes(Namespace), @project], data: { confirm: remove_project_message(@project)}, method: :delete, class: "btn btn-inverted btn-remove pull-right"
+              = link_to '删除项目', [@project.namespace.becomes(Namespace), @project], data: { confirm: remove_project_message(@project)}, method: :delete, class: "btn btn-inverted btn-remove pull-right"

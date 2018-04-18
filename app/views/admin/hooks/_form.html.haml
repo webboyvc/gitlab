@@ -9,34 +9,34 @@
   %p.help-block
     Use this token to validate received payloads
 .form-group
-  = form.label :url, 'Trigger', class: 'label-light'
+  = form.label :url, '触发器', class: 'label-light'
   %ul.list-unstyled
     %li
       .help-block
-        System hook will be triggered on set of events like creating project
-        or adding ssh key. But you can also enable extra triggers like Push events.
+        系统钩子将在创建项目和增加 SSH 密钥等事件发生时触发。
+        你可以额外开启推送等事件的触发。
 
     .prepend-top-default
       = form.check_box :repository_update_events, class: 'pull-left'
       .prepend-left-20
         = form.label :repository_update_events, class: 'list-label' do
-          %strong Repository update events
+          %strong 版本库更新事件
         %p.light
-          This URL will be triggered when repository is updated
+          此链接将在版本库每次更新时触发
     %li
       = form.check_box :push_events, class: 'pull-left'
       .prepend-left-20
         = form.label :push_events, class: 'list-label' do
-          %strong Push events
+          %strong 推送事件
         %p.light
-          This URL will be triggered for each branch updated to the repository
+          此链接将在推送新版本到版本库时触发
     %li
       = form.check_box :tag_push_events, class: 'pull-left'
       .prepend-left-20
         = form.label :tag_push_events, class: 'list-label' do
-          %strong Tag push events
+          %strong 标签推送事件
         %p.light
-          This URL will be triggered when a new tag is pushed to the repository
+          此链接将在推送新标签到版本仓库时触发
     %li
       = form.check_box :merge_requests_events, class: 'pull-left'
       .prepend-left-20
@@ -49,4 +49,4 @@
   .checkbox
     = form.label :enable_ssl_verification do
       = form.check_box :enable_ssl_verification
-      %strong Enable SSL verification
+      %strong 启用 SSL 证书验证

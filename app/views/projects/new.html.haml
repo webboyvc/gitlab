@@ -1,8 +1,8 @@
 - @breadcrumb_link = dashboard_projects_path
-- breadcrumb_title "Projects"
+- breadcrumb_title "项目"
 - @hide_top_links = true
-- page_title    'New Project'
-- header_title  "Projects", dashboard_projects_path
+- page_title    '新建项目'
+- header_title  "项目", dashboard_projects_path
 - visibility_level = params.dig(:project, :visibility_level) || default_project_visibility
 - active_tab = local_assigns.fetch(:active_tab, 'blank')
 
@@ -31,16 +31,16 @@
       %ul.nav-links.gitlab-tabs{ role: 'tablist' }
         %li{ class: active_when(active_tab == 'blank'), role: 'presentation' }
           %a{ href: '#blank-project-pane', id: 'blank-project-tab', data: { toggle: 'tab' }, role: 'tab' }
-            %span.hidden-xs Blank project
-            %span.visible-xs Blank
+            %span.hidden-xs 空白项目
+            %span.visible-xs 空白
         %li{ class: active_when(active_tab == 'template'), role: 'presentation' }
           %a{ href: '#create-from-template-pane', id: 'create-from-template-tab', data: { toggle: 'tab' }, role: 'tab' }
-            %span.hidden-xs Create from template
-            %span.visible-xs Template
+            %span.hidden-xs 从模板创建
+            %span.visible-xs 模板
         %li{ class: active_when(active_tab == 'import'), role: 'presentation' }
           %a{ href: '#import-project-pane', id: 'import-project-tab', data: { toggle: 'tab' }, role: 'tab' }
-            %span.hidden-xs Import project
-            %span.visible-xs Import
+            %span.hidden-xs 导入项目
+            %span.visible-xs 导入
 
       .tab-content.gitlab-tab-content
         .tab-pane{ id: 'blank-project-pane', class: active_when(active_tab == 'blank'), role: 'tabpanel' }
@@ -61,7 +61,7 @@
                 .col-lg-12
                   .form-group.import-btn-container.clearfix
                     = f.label :visibility_level, class: 'label-light' do #the label here seems wrong
-                      Import project from
+                      导入项目
                     .import-buttons
                       - if gitlab_project_import_enabled?
                         .import_gitlab_project.has-tooltip{ data: { container: 'body' } }
@@ -99,7 +99,7 @@
                       %div
                         - if git_import_enabled?
                           %button.btn.js-toggle-button.js-import-git-toggle-button{ type: "button", data: { toggle_open_class: 'active' } }
-                            = icon('git', text: 'Repo by URL')
+                            = icon('git', text: '其它仓库链接')
                 .col-lg-12
                   .js-toggle-content.toggle-import-form{ class: ('hide' if active_tab != 'import') }
                     %hr
@@ -110,5 +110,5 @@
   .center
     %h2
       %i.fa.fa-spinner.fa-spin
-      Creating project &amp; repository.
-    %p Please wait a moment, this page will automatically refresh when ready.
+      正在创建项目 &amp; 版本库。
+    %p 请稍候，页面会处理完成后自动刷新。

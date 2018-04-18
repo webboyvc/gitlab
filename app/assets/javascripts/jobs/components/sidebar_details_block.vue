@@ -85,7 +85,7 @@
           class="js-new-issue btn btn-new btn-inverted"
           :href="job.new_issue_path"
         >
-          New issue
+          新建问题
         </a>
         <a
           v-if="job.retry_path"
@@ -94,7 +94,7 @@
           data-method="post"
           rel="nofollow"
         >
-          Retry
+          重试
         </a>
       </div>
       <div :class="{block : renderBlock }">
@@ -103,7 +103,7 @@
           v-if="job.merge_request"
         >
           <span class="build-light-text">
-            Merge Request:
+            合并请求:
           </span>
           <a :href="job.merge_request.path">
             !{{ job.merge_request.iid }}
@@ -113,25 +113,25 @@
         <detail-row
           class="js-job-duration"
           v-if="job.duration"
-          title="Duration"
+          title="持续时间"
           :value="duration"
         />
         <detail-row
           class="js-job-finished"
           v-if="job.finished_at"
-          title="Finished"
+          title="完成时间"
           :value="timeFormated(job.finished_at)"
         />
         <detail-row
           class="js-job-erased"
           v-if="job.erased_at"
-          title="Erased"
+          title="擦除时间"
           :value="timeFormated(job.erased_at)"
         />
         <detail-row
           class="js-job-queued"
           v-if="job.queued"
-          title="Queued"
+          title="排队中"
           :value="queued"
         />
         <detail-row
@@ -150,7 +150,7 @@
         <detail-row
           class="js-job-coverage"
           v-if="job.coverage"
-          title="Coverage"
+          title="覆盖率"
           :value="coverage"
         />
         <p
@@ -158,7 +158,7 @@
           v-if="job.tags.length"
         >
           <span class="build-light-text">
-            Tags:
+            标签:
           </span>
           <span
             v-for="(tag, i) in job.tags"
@@ -178,7 +178,7 @@
             data-method="post"
             rel="nofollow"
           >
-            Cancel
+            取消
           </a>
         </div>
       </div>

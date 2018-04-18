@@ -15,9 +15,9 @@ export default function projectSelect() {
     this.withIssuesEnabled = $(select).data('withIssuesEnabled');
     this.withMergeRequestsEnabled = $(select).data('withMergeRequestsEnabled');
 
-    placeholder = "Search for project";
+    placeholder = "搜索项目";
     if (this.includeGroups) {
-      placeholder += " or group";
+      placeholder += "或群组";
     }
 
     $(select).select2({

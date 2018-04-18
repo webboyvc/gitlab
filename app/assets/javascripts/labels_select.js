@@ -152,13 +152,13 @@ export default class LabelsSelect {
                 if (showNo) {
                   extraData.unshift({
                     id: 0,
-                    title: 'No Label'
+                    title: '没有标记'
                   });
                 }
                 if (showAny) {
                   extraData.unshift({
                     isAny: true,
-                    title: 'Any Label'
+                    title: '所有标记'
                   });
                 }
                 if (extraData.length) {
@@ -252,7 +252,7 @@ export default class LabelsSelect {
 
           if (selected.id === 0) {
             this.selected = [];
-            return 'No Label';
+            return '无标记';
           }
           else if (isSelected) {
             this.selected.push(title);

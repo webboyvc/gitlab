@@ -22,7 +22,7 @@ module Projects
       end
 
       unless allowed_fork?(forked_from_project_id)
-        @project.errors.add(:forked_from_project_id, 'is forbidden')
+        @project.errors.add(:forked_from_project_id, '禁止')
         return @project
       end
 
@@ -69,7 +69,7 @@ module Projects
     protected
 
     def deny_namespace
-      @project.errors.add(:namespace, "is not valid")
+      @project.errors.add(:namespace, "是无效的")
     end
 
     def allowed_fork?(source_project_id)
@@ -85,7 +85,7 @@ module Projects
     end
 
     def after_create_actions
-      log_info("#{@project.owner.name} created a new project \"#{@project.full_name}\"")
+      log_info("#{@project.owner.name} 创建了一个新项目 \"#{@project.full_name}\"")
 
       unless @project.gitlab_project_import?
         @project.write_repository_config
@@ -127,17 +127,17 @@ module Projects
           end
 
           unless @project.import?
-            raise 'Failed to create repository' unless @project.create_repository
+            raise '版本库创建失败' unless @project.create_repository
           end
         end
       end
     end
 
     def fail(error:)
-      message = "Unable to save project. Error: #{error}"
+      message = "无法保存项目. 错误: #{error}"
       log_message = message.dup
 
-      log_message << " Project ID: #{@project.id}" if @project&.id
+      log_message << " 项目 ID: #{@project.id}" if @project&.id
       Rails.logger.error(log_message)
 
       if @project
