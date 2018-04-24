@@ -252,7 +252,7 @@ class Commit
   end
 
   def notes_with_associations
-    notes.includes(:author)
+    notes.includes(:author, :award_emoji)
   end
 
   def merge_requests
