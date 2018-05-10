@@ -7,18 +7,17 @@
         .checkbox
           = f.label :koding_enabled do
             = f.check_box :koding_enabled
-            Enable Koding
+            开启 Koding
         .help-block
-          Koding integration has been deprecated since GitLab 10.0. If you disable your Koding integration, you will not be able to enable it again.
+          从 Gitlab 10.0 开始，Koding 集成服务已经被淘汰了，如果您禁用了您的 Koding 集成服务，您将无法再重启启用。
     .form-group
       = f.label :koding_url, 'Koding URL', class: 'control-label col-sm-2'
       .col-sm-10
         = f.text_field :koding_url, class: 'form-control', placeholder: 'http://gitlab.your-koding-instance.com:8090'
         .help-block
-          Koding has integration enabled out of the box for the
+          Koding已经为
           %strong gitlab
-          team, and you need to provide that team's URL here. Learn more in the
-          = succeed "." do
-            = link_to "Koding administration documentation", help_page_path("administration/integration/koding")
-
-  = f.submit 'Save changes', class: "btn btn-success"
+          集成提供了支持，您需要在这里提供Koding团队的URL。点击
+          = link_to "Koding 管理文档", help_page_path("administration/integration/koding")
+          了解更多的信息。
+  = f.submit '保存修改', class: "btn btn-success"

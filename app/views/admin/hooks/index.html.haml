@@ -30,6 +30,6 @@
                 - SystemHook.triggers.each_value do |event|
                   - if hook.public_send(event)
                     %span.label.label-gray= event.to_s.titleize
-                %span.label.label-gray SSL Verification: #{hook.enable_ssl_verification ? 'enabled' : 'disabled'}
+                %span.label.label-gray SSL 验证: #{hook.enable_ssl_verification ? '已启用' : '已禁用'}
 
 = render 'shared/plugins/index'
