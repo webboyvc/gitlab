@@ -2,7 +2,7 @@
 - @content_class = "limit-container-width" unless fluid_layout
 - add_to_breadcrumbs "Merge Requests", project_merge_requests_path(@project)
 - breadcrumb_title @merge_request.to_reference
-- page_title "#{@merge_request.title} (#{@merge_request.to_reference})", "Merge Requests"
+- page_title "#{@merge_request.title} (#{@merge_request.to_reference})", "合并请求"
 - page_description @merge_request.description
 - page_card_attributes @merge_request.card_attributes
 
@@ -34,21 +34,21 @@
             %ul.merge-request-tabs
               %li.notes-tab
                 = tab_link_for @merge_request, :show, force_link: @commit.present? do
-                  Discussion
+                  讨论
                   %span.badge= @merge_request.related_notes.user.count
               - if @merge_request.source_project
                 %li.commits-tab
                   = tab_link_for @merge_request, :commits do
-                    Commits
+                    提交
                     %span.badge= @commits_count
               - if @pipelines.any?
                 %li.pipelines-tab
                   = tab_link_for @merge_request, :pipelines do
-                    Pipelines
+                    流水线
                     %span.badge.js-pipelines-mr-count= @pipelines.size
               %li.diffs-tab
                 = tab_link_for @merge_request, :diffs do
-                  Changes
+                  变更
                   %span.badge= @merge_request.diff_size
 
         - if has_vue_discussions_cookie?

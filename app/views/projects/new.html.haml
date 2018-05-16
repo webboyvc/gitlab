@@ -1,8 +1,8 @@
 - @breadcrumb_link = dashboard_projects_path
-- breadcrumb_title "Projects"
+- breadcrumb_title "项目"
 - @hide_top_links = true
-- page_title    'New Project'
-- header_title  "Projects", dashboard_projects_path
+- page_title    '新建项目'
+- header_title  "项目", dashboard_projects_path
 - visibility_level = params.dig(:project, :visibility_level) || default_project_visibility
 - active_tab = local_assigns.fetch(:active_tab, 'blank')
 
@@ -31,16 +31,16 @@
       %ul.nav-links.gitlab-tabs{ role: 'tablist' }
         %li{ class: active_when(active_tab == 'blank'), role: 'presentation' }
           %a{ href: '#blank-project-pane', id: 'blank-project-tab', data: { toggle: 'tab' }, role: 'tab' }
-            %span.hidden-xs Blank project
-            %span.visible-xs Blank
+            %span.hidden-xs 空白项目
+            %span.visible-xs 空白
         %li{ class: active_when(active_tab == 'template'), role: 'presentation' }
           %a{ href: '#create-from-template-pane', id: 'create-from-template-tab', data: { toggle: 'tab' }, role: 'tab' }
-            %span.hidden-xs Create from template
-            %span.visible-xs Template
+            %span.hidden-xs 从模板创建
+            %span.visible-xs 模板
         %li{ class: active_when(active_tab == 'import'), role: 'presentation' }
           %a{ href: '#import-project-pane', id: 'import-project-tab', data: { toggle: 'tab' }, role: 'tab' }
-            %span.hidden-xs Import project
-            %span.visible-xs Import
+            %span.hidden-xs 导入项目
+            %span.visible-xs 导入
 
       .tab-content.gitlab-tab-content
         .tab-pane{ id: 'blank-project-pane', class: active_when(active_tab == 'blank'), role: 'tabpanel' }
@@ -60,12 +60,12 @@
               = render 'import_project_pane', f: f, active_tab: active_tab
             - else
               .nothing-here-block
-                %h4 No import options available
-                %p Contact an administrator to enable options for importing your project.
+                %h4 没有可用的导入项目
+                %p 联系您的管理员启用项目导入功能。
 
 .save-project-loader.hide
   .center
     %h2
       %i.fa.fa-spinner.fa-spin
-      Creating project &amp; repository.
-    %p Please wait a moment, this page will automatically refresh when ready.
+      正在创建项目 &amp; 版本库。
+    %p 请稍候，页面会处理完成后自动刷新。

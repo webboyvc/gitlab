@@ -13,7 +13,7 @@ class ProfilesController < Profiles::ApplicationController
       result = Users::UpdateService.new(current_user, user_params.merge(user: @user)).execute
 
       if result[:status] == :success
-        message = "Profile was successfully updated"
+        message = "个人资料已成功更新"
 
         format.html { redirect_back_or_default(default: { action: 'show' }, options: { notice: message }) }
         format.json { render json: { message: message } }
@@ -29,7 +29,7 @@ class ProfilesController < Profiles::ApplicationController
       user.reset_incoming_email_token!
     end
 
-    flash[:notice] = "Incoming email token was successfully reset"
+    flash[:notice] = "以成功重置入邮件令牌"
 
     redirect_to profile_personal_access_tokens_path
   end
@@ -39,7 +39,7 @@ class ProfilesController < Profiles::ApplicationController
       user.reset_rss_token!
     end
 
-    flash[:notice] = "RSS token was successfully reset"
+    flash[:notice] = "已成功重置 RSS 令牌"
 
     redirect_to profile_personal_access_tokens_path
   end

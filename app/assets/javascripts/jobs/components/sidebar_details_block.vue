@@ -152,25 +152,25 @@ export default {
         <detail-row
           class="js-job-duration"
           v-if="job.duration"
-          title="Duration"
+          title="持续时间"
           :value="duration"
         />
         <detail-row
           class="js-job-finished"
           v-if="job.finished_at"
-          title="Finished"
+          title="完成时间"
           :value="timeFormated(job.finished_at)"
         />
         <detail-row
           class="js-job-erased"
           v-if="job.erased_at"
-          title="Erased"
+          title="擦除时间"
           :value="timeFormated(job.erased_at)"
         />
         <detail-row
           class="js-job-queued"
           v-if="job.queued"
-          title="Queued"
+          title="排队中"
           :value="queued"
         />
         <detail-row
@@ -189,7 +189,7 @@ export default {
         <detail-row
           class="js-job-coverage"
           v-if="job.coverage"
-          title="Coverage"
+          title="覆盖率"
           :value="coverage"
         />
         <p
