@@ -13,7 +13,7 @@
         %th 非活动用户
         %th 活跃度汇总
         - @cohorts[:months_included].times do |i|
-          %th 月份 #{i}
+          %th #{i} 月
     %tbody
       - @cohorts[:cohorts].each do |cohort|
         %tr

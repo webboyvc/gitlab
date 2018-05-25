@@ -19,7 +19,7 @@
         显示归档的项目
     %li
       = link_to filter_projects_path(archived: 'only'), class: ("is-active" if params[:archived] == 'only') do
-        Show archived projects only
+        仅显示归档的项目
     - if current_user
       %li.divider
       %li

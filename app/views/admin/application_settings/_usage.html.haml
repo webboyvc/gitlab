@@ -7,31 +7,29 @@
         .checkbox
           = f.label :version_check_enabled do
             = f.check_box :version_check_enabled
-            Enable version check
+            启用版本检查
           .help-block
-            GitLab will inform you if a new version is available.
-            = link_to 'Learn more', help_page_path("user/admin_area/settings/usage_statistics", anchor: "version-check")
-            about what information is shared with GitLab Inc.
+            GitLab 将会在新版本可用的时候发出通知。
+            = link_to '查看这里', help_page_path("user/admin_area/settings/usage_statistics", anchor: "version-check")
+            了解 GitLab 公司所分享的信息。
     .form-group
       .col-sm-offset-2.col-sm-10
         - can_be_configured = @application_setting.usage_ping_can_be_configured?
         .checkbox
           = f.label :usage_ping_enabled do
             = f.check_box :usage_ping_enabled, disabled: !can_be_configured
-            Enable usage ping
+            启用使用量报告
           .help-block
             - if can_be_configured
-              To help improve GitLab and its user experience, GitLab will
-              periodically collect usage information.
-              = link_to 'Learn more', help_page_path("user/admin_area/settings/usage_statistics", anchor: "usage-ping")
-              about what information is shared with GitLab Inc. Visit
-              = link_to 'Cohorts', admin_cohorts_path(anchor: 'usage-ping')
-              to see the JSON payload sent.
+              为了帮助 GitLab 及其用户体验，GitLab 将定期收集使用信息。
+              = link_to '查看这里', help_page_path("user/admin_area/settings/usage_statistics", anchor: "usage-ping")
+              了解 GitLab 公司所分享的信息。查看
+              = link_to '活跃度', admin_cohorts_path(anchor: 'usage-ping')
+              来查看发送的 JSON 数据。
             - else
-              The usage ping is disabled, and cannot be configured through this
-              form. For more information, see the documentation on
+              已禁用使用量报告，无法通过这个表单来配置。要查看更多信息，请看文档
               = succeed '.' do
                 = link_to 'deactivating the usage ping', help_page_path('user/admin_area/settings/usage_statistics', anchor: 'deactivate-the-usage-ping')
 
-  = f.submit 'Save changes', class: "btn btn-success"
+  = f.submit _('Save changes'), class: "btn btn-success"
 

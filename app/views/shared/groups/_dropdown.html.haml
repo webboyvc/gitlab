@@ -24,10 +24,10 @@
       %li.divider
       %li.js-filter-archived-projects
         = link_to filter_groups_path(archived: nil), class: ("is-active" unless params[:archived].present?) do
-          Hide archived projects
+          隐藏归档的项目
       %li.js-filter-archived-projects
         = link_to filter_groups_path(archived: true), class: ("is-active" if Gitlab::Utils.to_boolean(params[:archived])) do
-          Show archived projects
+          显示归档的项目
       %li.js-filter-archived-projects
         = link_to filter_groups_path(archived: 'only'), class: ("is-active" if params[:archived] == 'only') do
-          Show archived projects only
+          仅显示归档的项目

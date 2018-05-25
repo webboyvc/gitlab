@@ -7,19 +7,20 @@
         .checkbox
           = f.label :recaptcha_enabled do
             = f.check_box :recaptcha_enabled
-            Enable reCAPTCHA
-          %span.help-block#recaptcha_help_block Helps prevent bots from creating accounts
+            启用 reCAPTCHA
+          %span.help-block#recaptcha_help_block 帮助阻止机器人创建账户
 
     .form-group
-      = f.label :recaptcha_site_key, 'reCAPTCHA Site Key', class: 'control-label col-sm-2'
+      = f.label :recaptcha_site_key, 'reCAPTCHA 站点密钥', class: 'control-label col-sm-2'
       .col-sm-10
         = f.text_field :recaptcha_site_key, class: 'form-control'
         .help-block
-          Generate site and private keys at
+          在
           %a{ href: 'http://www.google.com/recaptcha', target: 'blank' } http://www.google.com/recaptcha
+          生成站点和私钥。
 
     .form-group
-      = f.label :recaptcha_private_key, 'reCAPTCHA Private Key', class: 'control-label col-sm-2'
+      = f.label :recaptcha_private_key, 'reCAPTCHA 私钥', class: 'control-label col-sm-2'
       .col-sm-10
         = f.text_field :recaptcha_private_key, class: 'form-control'
 
@@ -28,38 +29,39 @@
         .checkbox
           = f.label :akismet_enabled do
             = f.check_box :akismet_enabled
-            Enable Akismet
-          %span.help-block#akismet_help_block Helps prevent bots from creating issues
+            启用 Akismet
+          %span.help-block#akismet_help_block 帮助阻止机器人创建问题
 
     .form-group
       = f.label :akismet_api_key, 'Akismet API Key', class: 'control-label col-sm-2'
       .col-sm-10
         = f.text_field :akismet_api_key, class: 'form-control'
         .help-block
-          Generate API key at
+          在
           %a{ href: 'http://www.akismet.com', target: 'blank' } http://www.akismet.com
+          创建 API Key
 
     .form-group
       .col-sm-offset-2.col-sm-10
         .checkbox
           = f.label :unique_ips_limit_enabled do
             = f.check_box :unique_ips_limit_enabled
-            Limit sign in from multiple ips
+            限制从多个 IP 登录
           %span.help-block#unique_ip_help_block
-            Helps prevent malicious users hide their activity
+            帮助阻止恶意用户隐藏其活动
 
     .form-group
-      = f.label :unique_ips_limit_per_user, 'IPs per user', class: 'control-label col-sm-2'
+      = f.label :unique_ips_limit_per_user, '每用户的 IP 数', class: 'control-label col-sm-2'
       .col-sm-10
         = f.number_field :unique_ips_limit_per_user, class: 'form-control'
         .help-block
-          Maximum number of unique IPs per user
+          每个用户最多的唯一 IP 数量
 
     .form-group
-      = f.label :unique_ips_limit_time_window, 'IP expiration time', class: 'control-label col-sm-2'
+      = f.label :unique_ips_limit_time_window, 'IP 过期时间', class: 'control-label col-sm-2'
       .col-sm-10
         = f.number_field :unique_ips_limit_time_window, class: 'form-control'
         .help-block
-          How many seconds an IP will be counted towards the limit
+          只计算多少秒以内的 IP 数量。
 
-  = f.submit 'Save changes', class: "btn btn-success"
+  = f.submit _('Save changes'), class: "btn btn-success"

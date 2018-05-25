@@ -7,52 +7,52 @@
         .checkbox
           = f.label :signup_enabled do
             = f.check_box :signup_enabled
-            Sign-up enabled
+            启用注册
     .form-group
       .col-sm-offset-2.col-sm-10
         .checkbox
           = f.label :send_user_confirmation_email do
             = f.check_box :send_user_confirmation_email
-            Send confirmation email on sign-up
+            注册时发送确认邮件
     .form-group
-      = f.label :domain_whitelist, 'Whitelisted domains for sign-ups', class: 'control-label col-sm-2'
+      = f.label :domain_whitelist, '允许注册的域名白名单', class: 'control-label col-sm-2'
       .col-sm-10
         = f.text_area :domain_whitelist_raw, placeholder: 'domain.com', class: 'form-control', rows: 8
-        .help-block ONLY users with e-mail addresses that match these domain(s) will be able to sign-up. Wildcards allowed. Use separate lines for multiple entries. Ex: domain.com, *.domain.com
+        .help-block 进允许邮件地址域名属于所列出的域名的用户注册。可以使用通配符。每一条记录用换行来分割。如: domain.com, *.domain.com
     .form-group
-      = f.label :domain_blacklist_enabled, 'Domain Blacklist', class: 'control-label col-sm-2'
+      = f.label :domain_blacklist_enabled, '域名黑名单', class: 'control-label col-sm-2'
       .col-sm-10
         .checkbox
           = f.label :domain_blacklist_enabled do
             = f.check_box :domain_blacklist_enabled
-            Enable domain blacklist for sign ups
+            启用注册域名黑名单
     .form-group
       .col-sm-offset-2.col-sm-10
         .radio
           = label_tag :blacklist_type_file do
             = radio_button_tag :blacklist_type, :file
             .option-title
-              Upload blacklist file
+              上传黑名单列表
         .radio
           = label_tag :blacklist_type_raw do
             = radio_button_tag :blacklist_type, :raw, @application_setting.domain_blacklist.present? || @application_setting.domain_blacklist.blank?
             .option-title
-              Enter blacklist manually
+              手动输入黑名单
     .form-group.blacklist-file
-      = f.label :domain_blacklist_file, 'Blacklist file', class: 'control-label col-sm-2'
+      = f.label :domain_blacklist_file, '黑名单文件', class: 'control-label col-sm-2'
       .col-sm-10
         = f.file_field :domain_blacklist_file, class: 'form-control', accept: '.txt,.conf'
-        .help-block Users with e-mail addresses that match these domain(s) will NOT be able to sign-up. Wildcards allowed. Use separate lines or commas for multiple entries.
+        .help-block 使用黑名单列表中的域名的邮件不允许注册。可以使用通配符。每一条记录用换行来分割。
     .form-group.blacklist-raw
-      = f.label :domain_blacklist, 'Blacklisted domains for sign-ups', class: 'control-label col-sm-2'
+      = f.label :domain_blacklist, '不允许注册的黑名单', class: 'control-label col-sm-2'
       .col-sm-10
         = f.text_area :domain_blacklist_raw, placeholder: 'domain.com', class: 'form-control', rows: 8
-        .help-block Users with e-mail addresses that match these domain(s) will NOT be able to sign-up. Wildcards allowed. Use separate lines for multiple entries. Ex: domain.com, *.domain.com
+        .help-block 使用黑名单列表中的域名的邮件不允许注册。可以使用通配符。每一条记录用换行来分割。如: domain.com, *.domain.com
 
     .form-group
       = f.label :after_sign_up_text, class: 'control-label col-sm-2'
       .col-sm-10
         = f.text_area :after_sign_up_text, class: 'form-control', rows: 4
-        .help-block Markdown enabled
+        .help-block 启用 Markdown
 
-  = f.submit 'Save changes', class: "btn btn-success"
+  = f.submit _("Save changes"), class: "btn btn-success"

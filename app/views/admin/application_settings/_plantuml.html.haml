@@ -7,14 +7,14 @@
         .checkbox
           = f.label :plantuml_enabled do
             = f.check_box :plantuml_enabled
-            Enable PlantUML
+            启用 PlantUML
     .form-group
-      = f.label :plantuml_url, 'PlantUML URL', class: 'control-label col-sm-2'
+      = f.label :plantuml_url, 'PlantUML 连接', class: 'control-label col-sm-2'
       .col-sm-10
         = f.text_field :plantuml_url, class: 'form-control', placeholder: 'http://gitlab.your-plantuml-instance.com:8080'
         .help-block
-          Allow rendering of
+          允许使用外部 PlantUML 服务来渲染 Asciidoc 文档中的
           = link_to "PlantUML", "http://plantuml.com"
-          diagrams in Asciidoc documents using an external PlantUML service.
+          图。
 
-  = f.submit 'Save changes', class: "btn btn-success"
+  = f.submit _('Save changes'), class: "btn btn-success"
