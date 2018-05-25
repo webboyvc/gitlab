@@ -3,28 +3,28 @@
 
   %fieldset
     %p
-      These settings require a
-      = link_to 'restart', help_page_path('administration/restart_gitlab')
-      to take effect.
+      这些设置需要
+      = link_to '重新启动', help_page_path('administration/restart_gitlab')
+      以生效。
     .form-group
       .col-sm-offset-2.col-sm-10
         .checkbox
           = f.label :sidekiq_throttling_enabled do
             = f.check_box :sidekiq_throttling_enabled
-            Enable Sidekiq Job Throttling
+            启用 Sidekiq 任务节流
           .help-block
-            Limit the amount of resources slow running jobs are assigned.
+            限制缓慢运行任务的资源分配量。
     .form-group
-      = f.label :sidekiq_throttling_queues, 'Sidekiq queues to throttle', class: 'control-label col-sm-2'
+      = f.label :sidekiq_throttling_queues, '节流的 Sidekiq 队列', class: 'control-label col-sm-2'
       .col-sm-10
         = f.select :sidekiq_throttling_queues, sidekiq_queue_options_for_select, { include_hidden: false }, multiple: true, class: 'select2 select-wide', data: { field: 'sidekiq_throttling_queues' }
         .help-block
-          Choose which queues you wish to throttle.
+          选择哪些队列希望被节流。
     .form-group
-      = f.label :sidekiq_throttling_factor, 'Throttling Factor', class: 'control-label col-sm-2'
+      = f.label :sidekiq_throttling_factor, '节流因素', class: 'control-label col-sm-2'
       .col-sm-10
         = f.number_field :sidekiq_throttling_factor, class: 'form-control', min: '0.01', max: '0.99', step: '0.01'
         .help-block
-          The factor by which the queues should be throttled. A value between 0.0 and 1.0, exclusive.
+          哪些队列被节流的决定因素。其值为 0 到 1 之间（不包含）
 
-  = f.submit 'Save changes', class: "btn btn-success"
+  = f.submit _('Save changes'), class: "btn btn-success"

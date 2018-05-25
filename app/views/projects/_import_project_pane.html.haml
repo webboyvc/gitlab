@@ -5,7 +5,7 @@
   .col-lg-12
     .form-group.import-btn-container.clearfix
       = f.label :visibility_level, class: 'label-light' do #the label here seems wrong
-        Import project from
+        从下列来源导入项目
       .import-buttons
         - if gitlab_project_import_enabled?
           .import_gitlab_project.has-tooltip{ data: { container: 'body' } }

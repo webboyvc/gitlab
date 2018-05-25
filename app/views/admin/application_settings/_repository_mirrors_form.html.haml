@@ -3,14 +3,14 @@
 
   %fieldset
     .form-group
-      = f.label :mirror_available, 'Enable mirror configuration', class: 'control-label col-sm-2'
+      = f.label :mirror_available, '启用镜像配置', class: 'control-label col-sm-2'
       .col-sm-10
         .checkbox
           = f.label :mirror_available do
             = f.check_box :mirror_available
-            Allow mirrors to be setup for projects
+            允许项目设置镜像
         %span.help-block
-          If disabled, only admins will be able to setup mirrors in projects.
+          如果禁用该选项，只有管理员才可以在项目中设置镜像。
           = link_to icon('question-circle'), help_page_path('workflow/repository_mirroring')
 
-  = f.submit 'Save changes', class: "btn btn-success"
+  = f.submit _('Save changes'), class: "btn btn-success"

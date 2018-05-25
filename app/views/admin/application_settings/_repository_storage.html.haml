@@ -8,18 +8,17 @@
           .checkbox
             = f.label :hashed_storage_enabled do
               = f.check_box :hashed_storage_enabled
-              Create new projects using hashed storage paths
+              使用哈希后的存储路径以创建新项目
             .help-block
-              Enable immutable, hash-based paths and repository names to store repositories on disk. This prevents
-              repositories from having to be moved or renamed when the Project URL changes and may improve disk I/O performance.
+              在磁盘上启用不可改变的、基于哈希的路径和代码库的名字来存储代码库。这将避免由于项目 URL 改变而导致项目在磁盘上被移动或改名，这样可能可以提高磁盘 I/O 性能。
               %em (EXPERIMENTAL)
       .form-group
-        = f.label :repository_storages, 'Storage paths for new projects', class: 'control-label col-sm-2'
+        = f.label :repository_storages, '新项目的存储路径', class: 'control-label col-sm-2'
         .col-sm-10
           = f.select :repository_storages, repository_storages_options_for_select(@application_setting.repository_storages),
             {include_hidden: false}, multiple: true, class: 'form-control'
           .help-block
-            Manage repository storage paths. Learn more in the
+            管理代码库的存储路径。想了解更多请看
             = succeed "." do
               = link_to "repository storages documentation", help_page_path("administration/repository_storage_paths")
     .sub-section
@@ -55,4 +54,4 @@
           .help-block
             = circuitbreaker_failure_reset_time_help_text
 
-  = f.submit 'Save changes', class: "btn btn-success"
+  = f.submit _('Save changes'), class: "btn btn-success"
