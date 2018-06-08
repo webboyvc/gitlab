@@ -32,7 +32,7 @@ module ServicesHelper
   def service_save_button(service)
     button_tag(class: 'btn btn-save', type: 'submit', disabled: service.deprecated?) do
       icon('spinner spin', class: 'hidden js-btn-spinner') +
-        content_tag(:span, 'Save changes', class: 'js-btn-label')
+        content_tag(:span, '保存修改', class: 'js-btn-label')
     end
   end
 

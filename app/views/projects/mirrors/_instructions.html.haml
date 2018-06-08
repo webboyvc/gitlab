@@ -1,10 +1,10 @@
 .account-well.prepend-top-default.append-bottom-default
   %ul
     %li
-      The repository must be accessible over <code>http://</code>, <code>https://</code>, <code>ssh://</code> or <code>git://</code>.
+      版本库必须支持通过这些协议访问 <code>http://</code>, <code>https://</code>, <code>ssh://</code> or <code>git://</code>.
     %li
-      Include the username in the URL if required: <code>https://username@gitlab.company.com/group/project.git</code>.
+      如果有必要，请在 URL 中包含用户名: <code>https://username@gitlab.company.com/group/project.git</code>.
     %li
-      The update action will time out after 10 minutes. For big repositories, use a clone/push combination.
+      更新超时时间为10分钟，对于大的版本库，使用 clone/push 组合。
     %li
-      The Git LFS objects will <strong>not</strong> be synced.
+      Git LFS <strong>不会</strong> 被同步。
