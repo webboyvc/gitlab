@@ -100,14 +100,14 @@ export default {
           v-if="error"
         >
           <div class="flash-alert">
-            An error occurred. Please try again.
+            出现错误，请重试。
           </div>
         </div>
         <label
           class="label-light"
           :for="list.id + '-title'"
         >
-          Title
+          标题
         </label>
         <input
           class="form-control"
@@ -128,14 +128,14 @@ export default {
             :disabled="disabled"
             ref="submit-button"
           >
-            Submit issue
+            提交问题
           </button>
           <button
             class="btn btn-default float-right"
             type="button"
             @click="cancel"
           >
-            Cancel
+            取消
           </button>
         </div>
       </form>

@@ -7,33 +7,34 @@
         .form-check
           = f.check_box :gravatar_enabled, class: 'form-check-input'
           = f.label :gravatar_enabled, class: 'form-check-label' do
-            Gravatar enabled
+            启用 Gravatar 头像
     .form-group.row
       = f.label :default_projects_limit, class: 'col-form-label col-sm-2'
       .col-sm-10
         = f.number_field :default_projects_limit, class: 'form-control'
+      = f.label :max_attachment_size, '最大附件大小 (MB)', class: 'control-label col-sm-2'
     .form-group.row
       = f.label :max_attachment_size, 'Maximum attachment size (MB)', class: 'col-form-label col-sm-2'
       .col-sm-10
         = f.number_field :max_attachment_size, class: 'form-control'
     .form-group.row
-      = f.label :session_expire_delay, 'Session duration (minutes)', class: 'col-form-label col-sm-2'
+      = f.label :session_expire_delay, '会话时间 (分钟)', class: 'col-form-label col-sm-2'
       .col-sm-10
         = f.number_field :session_expire_delay, class: 'form-control'
         %span.form-text.text-muted#session_expire_delay_help_block GitLab restart is required to apply changes
     .form-group.row
-      = f.label :user_oauth_applications, 'User OAuth applications', class: 'col-form-label col-sm-2'
+      = f.label :user_oauth_applications, '用户 OAuth 应用', class: 'col-form-label col-sm-2'
       .col-sm-10
         .form-check
           = f.check_box :user_oauth_applications, class: 'form-check-input'
           = f.label :user_oauth_applications, class: 'form-check-label' do
-            Allow users to register any application to use GitLab as an OAuth provider
+            允许用户注册任何应用来使用 GitLab 作为 OAuth 认证方
     .form-group.row
-      = f.label :user_default_external, 'New users set to external', class: 'col-form-label col-sm-2'
+      = f.label :user_default_external, '新建用户默认为外部用户', class: 'col-form-label col-sm-2'
       .col-sm-10
         .form-check
           = f.check_box :user_default_external, class: 'form-check-input'
           = f.label :user_default_external, class: 'form-check-label' do
-            Newly registered users will by default be external
+            新注册的用户将默认被设为外部用户
 
-  = f.submit 'Save changes', class: 'btn btn-success'
+  = f.submit _("Save changes"), class: 'btn btn-success'
