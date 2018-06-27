@@ -1,4 +1,4 @@
-= link_to params.merge(rss_url_options), class: 'btn btn-default append-right-10 has-tooltip', title: '订阅' do
+= link_to safe_params.merge(rss_url_options), class: 'btn btn-default append-right-10 has-tooltip', title: '订阅' do
   = icon('rss')
 - if @can_bulk_update
   = button_tag "编辑问题", class: "btn btn-default append-right-10 js-bulk-update-toggle"

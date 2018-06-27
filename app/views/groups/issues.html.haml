@@ -1,6 +1,6 @@
 - page_title "问题"
 = content_for :meta_tags do
-  = auto_discovery_link_tag(:atom, params.merge(rss_url_options), title: "#{@group.name} 问题")
+  = auto_discovery_link_tag(:atom, safe_params.merge(rss_url_options).to_h, title: "#{@group.name} 问题")
 
 - if group_issues_count(state: 'all').zero?
   = render 'shared/empty_states/issues', project_select_button: true

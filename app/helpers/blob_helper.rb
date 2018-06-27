@@ -259,7 +259,7 @@ module BlobHelper
     options = []
 
     if error == :collapsed
-      options << link_to('仍然加载', url_for(params.merge(viewer: viewer.type, expanded: true, format: nil)))
+      options << link_to('仍然加载', url_for(safe_params.merge(viewer: viewer.type, expanded: true, format: nil)))
     end
 
     # If the error is `:server_side_but_stored_externally`, the simple viewer will show the same error,
@@ -277,12 +277,12 @@ module BlobHelper
     options = []
 
     if can?(current_user, :create_issue, project)
-      options << link_to("submit an issue", new_project_issue_path(project))
+      options << link_to("提交问题", new_project_issue_path(project))
     end
 
     merge_project = merge_request_source_project_for_project(@project)
     if merge_project
-      options << link_to("create a merge request", project_new_merge_request_path(project))
+      options << link_to("创建合并请求", project_new_merge_request_path(project))
     end
 
     options
