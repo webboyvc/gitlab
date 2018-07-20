@@ -21,7 +21,8 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['commitId', 'discussionsByLineCode']),
+    ...mapGetters('diffs', ['commitId']),
+    ...mapGetters(['discussionsByLineCode']),
     ...mapState({
       diffLineCommentForms: state => state.diffs.diffLineCommentForms,
     }),
@@ -92,17 +93,17 @@ export default {
           v-for="(line, index) in parallelDiffLines"
         >
           <parallel-diff-table-row
-            :diff-file="diffFile"
+            :file-hash="diffFile.fileHash"
+            :context-lines-path="diffFile.contextLinesPath"
             :line="line"
             :is-bottom="index + 1 === diffLinesLength"
             :key="index"
           />
           <parallel-diff-comment-row
             v-if="shouldRenderCommentRow(line)"
-            :key="line.left.lineCode || line.right.lineCode"
+            :key="`dcr-${index}`"
             :line="line"
-            :diff-file="diffFile"
-            :diff-lines="parallelDiffLines"
+            :diff-file-hash="diffFile.fileHash"
             :line-index="index"
           />
         </template>

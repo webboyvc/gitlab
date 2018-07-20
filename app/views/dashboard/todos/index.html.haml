@@ -30,13 +30,7 @@
 
   .todos-filters
     .row-content-block.second-block
-      = form_tag todos_filter_path(without: [:project_id, :author_id, :type, :action_id]), method: :get, class: 'filter-form d-sm-flex' do
-        .filter-categories.flex-fill
-          .filter-item.inline
-            - if params[:group_id].present?
-              = hidden_field_tag(:group_id, params[:group_id])
-            = dropdown_tag(group_dropdown_label(params[:group_id], 'Group'), options: { toggle_class: 'js-group-search js-filter-submit', title: 'Filter by group', filter: true, filterInput: 'input#group-search', dropdown_class: 'dropdown-menu-selectable dropdown-menu-group js-filter-submit',
-              placeholder: '搜索群组', data: { data: todo_group_options, default_label: 'Group', display: 'static' } })
+      = form_tag todos_filter_path(without: [:project_id, :author_id, :type, :action_id]), method: :get, class: 'filter-form' do
           .filter-item.inline
             - if params[:project_id].present?
               = hidden_field_tag(:project_id, params[:project_id])
