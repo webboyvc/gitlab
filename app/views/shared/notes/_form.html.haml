@@ -35,10 +35,10 @@
       = render 'shared/notes/hints', supports_quick_actions: supports_quick_actions
       .error-alert
 
-  .note-form-actions.clearfix
-    = render partial: 'shared/notes/comment_button'
+    .note-form-actions.clearfix
+      = render partial: 'shared/notes/comment_button'
 
-    = yield(:note_actions)
+      = yield(:note_actions)
 
       %a.btn.btn-cancel.js-note-discard{ role: "button", data: {cancel_text: "取消" } }
         丢弃草稿
