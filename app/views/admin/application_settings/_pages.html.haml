@@ -3,18 +3,17 @@
 
   %fieldset
     .form-group
-      = f.label :max_pages_size, 'Maximum size of pages (MB)', class: 'label-bold'
+      = f.label :max_pages_size, '页面大小限制 (MB)', class: 'label-bold'
       = f.number_field :max_pages_size, class: 'form-control'
-      .form-text.text-muted 0 for unlimited
+      .form-text.text-muted 设为0则不限制大小
     .form-group
       .form-check
         = f.check_box :pages_domain_verification_enabled, class: 'form-check-input'
         = f.label :pages_domain_verification_enabled, class: 'form-check-label' do
-          Require users to prove ownership of custom domains
+          要求用户提供自定义域名的所有权证明
       .form-text.text-muted
-        Domain verification is an essential security measure for public GitLab
-        sites. Users are required to demonstrate they control a domain before
-        it is enabled
+        域名验证是公共 GitLab 站点的一项重要安全措施。
+        用户必须在启用前证明具有该域名的所有权。
         = link_to icon('question-circle'), help_page_path('user/project/pages/getting_started_part_three.md', anchor: 'dns-txt-record')
 
-  = f.submit 'Save changes', class: "btn btn-success"
+  = f.submit '保存修改', class: "btn btn-success"

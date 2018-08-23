@@ -9,7 +9,7 @@
 = form_tag import_gitlab_project_path, class: 'new_project', multipart: true do
   .row
     .form-group.col-12.col-sm-6
-      = label_tag :namespace_id, 'Project path', class: 'label-bold'
+      = label_tag :namespace_id, '项目路径', class: 'label-bold'
       .form-group
         .input-group
           - if current_user.can_select_namespace?
