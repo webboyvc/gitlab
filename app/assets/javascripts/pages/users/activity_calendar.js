@@ -29,9 +29,9 @@ function formatTooltipText({ date, count }) {
   const dateDayName = getDayName(dateObject);
   const dateText = dateFormat(dateObject, 'mmm d, yyyy');
 
-  let contribText = 'No contributions';
+  let contribText = '没有贡献';
   if (count > 0) {
-    contribText = `${count} contribution${count > 1 ? 's' : ''}`;
+    contribText = `${count} 次贡献`;
   }
   return `${contribText}<br />${dateDayName} ${dateText}`;
 }

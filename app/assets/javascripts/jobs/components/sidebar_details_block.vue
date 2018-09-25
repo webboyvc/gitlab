@@ -163,25 +163,25 @@ export default {
           v-if="job.duration"
           :value="duration"
           class="js-job-duration"
-          title="Duration"
+          title="持续时间"
         />
         <detail-row
           v-if="job.finished_at"
           :value="timeFormated(job.finished_at)"
           class="js-job-finished"
-          title="Finished"
+          title="完成时间"
         />
         <detail-row
           v-if="job.erased_at"
           :value="timeFormated(job.erased_at)"
           class="js-job-erased"
-          title="Erased"
+          title="擦除时间"
         />
         <detail-row
           v-if="job.queued"
           :value="queued"
           class="js-job-queued"
-          title="Queued"
+          title="排队中"
         />
         <detail-row
           v-if="hasTimeout"
@@ -200,7 +200,7 @@ export default {
           v-if="job.coverage"
           :value="coverage"
           class="js-job-coverage"
-          title="Coverage"
+          title="覆盖率"
         />
         <p
           v-if="job.tags.length"
