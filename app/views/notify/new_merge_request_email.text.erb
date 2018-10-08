@@ -5,6 +5,6 @@
 <%= merge_path_description(@merge_request, 'to') %>
 作者:    <%= @merge_request.author_name %>
 指派给:  <%= @merge_request.assignee_name %>
-<%= render_if_exists 'notify/merge_request_approvers', merge_request: @merge_request %>
+<%= render_if_exists 'notify/merge_request_approvers', presenter: @mr_presenter %>
 
 <%= @merge_request.description %>
