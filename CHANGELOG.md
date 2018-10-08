@@ -2,6 +2,27 @@
 documentation](doc/development/changelog.md) for instructions on adding your own
 entry.
 
+## 11.2.5 (2018-10-05)
+
+### Security (3 changes)
+
+- Filter user sensitive data from discussions JSON. !2538
+- Properly filter private references from system notes.
+- Markdown API no longer displays confidential title references unless authorized.
+
+
+## 11.2.4 (2018-09-26)
+
+### Security (6 changes)
+
+- Redact confidential events in the API.
+- Set timeout for syntax highlighting.
+- Sanitize JSON data properly to fix XSS on Issue details page.
+- Fix stored XSS in merge requests from imported repository.
+- Fix xss vulnerability sourced from package.json.
+- Block loopback addresses in UrlBlocker.
+
+
 ## 11.2.3 (2018-08-28)
 
 - No changes.
