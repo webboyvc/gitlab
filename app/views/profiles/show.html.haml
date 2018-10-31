@@ -86,7 +86,7 @@
       - if @user.read_only_attribute?(:email)
         = f.text_field :email, required: true, readonly: true, help: s_("Profiles|Your email address was automatically set based on your %{provider_label} account.") % { provider_label: attribute_provider_label(:email) }
       - else
-        = f.text_field :email, required: true, value: (@user.email unless @user.temp_oauth_email?),
+        = f.text_field :email, required: true, label: '电子邮箱', value: (@user.email unless @user.temp_oauth_email?),
           help: user_email_help_text(@user)
       = f.select :public_email, options_for_select(@user.all_emails, selected: @user.public_email),
         { help: s_("Profiles|This email will be displayed on your public profile."), include_blank: s_("Profiles|Do not show on profile") },

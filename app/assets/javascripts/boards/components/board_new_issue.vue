@@ -102,14 +102,14 @@ export default {
           class="flash-container"
         >
           <div class="flash-alert">
-            An error occurred. Please try again.
+            出现错误，请重试。
           </div>
         </div>
         <label
           :for="list.id + '-title'"
           class="label-bold"
         >
-          Title
+          标题
         </label>
         <input
           :id="list.id + '-title'"
@@ -132,7 +132,7 @@ export default {
             variant="success"
             type="submit"
           >
-            Submit issue
+            提交问题
           </gl-button>
           <gl-button
             class="float-right"
@@ -140,7 +140,7 @@ export default {
             variant="default"
             @click="cancel"
           >
-            Cancel
+            取消
           </gl-button>
         </div>
       </form>

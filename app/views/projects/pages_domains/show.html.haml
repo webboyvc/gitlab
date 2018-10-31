@@ -13,13 +13,13 @@
 
 %h3.page-title.with-button
   = link_to 'Edit', edit_project_pages_domain_path(@project, @domain), class: 'btn btn-success float-right'
-  Pages Domain
+  网页域名
 
 .table-holder
   %table.table
     %tr
       %td
-        Domain
+        域名
       %td
         = link_to @domain.url do
           = @domain.url
@@ -59,11 +59,11 @@
 
     %tr
       %td
-        Certificate
+        证书
       %td
         - if @domain.certificate_text
           %pre
             = @domain.certificate_text
         - else
           .light
-            missing
+            丢失

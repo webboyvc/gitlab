@@ -1,7 +1,7 @@
 - @no_container = true
 - add_to_breadcrumbs "Jobs", project_jobs_path(@project)
 - breadcrumb_title "##{@build.id}"
-- page_title "#{@build.name} (##{@build.id})", "Jobs"
+- page_title "#{@build.name} (##{@build.id})", "作业"
 
 - content_for :page_specific_javascripts do
   = stylesheet_link_tag 'page_bundles/xterm'
@@ -22,7 +22,7 @@
           .controllers.float-right
             - if @build.has_trace?
               = link_to raw_project_job_path(@project, @build),
-                      title: 'Show complete raw',
+                      title: '显示完整日志',
                       data: { placement: 'top', container: 'body' },
                       class: 'js-raw-link-controller has-tooltip controllers-buttons' do
                 = icon('file-text-o')
@@ -30,8 +30,8 @@
             - if @build.erasable? && can?(current_user, :erase_build, @build)
               = link_to erase_project_job_path(@project, @build),
                         method: :post,
-                        data: { confirm: 'Are you sure you want to erase this build?', placement: 'top', container: 'body' },
-                        title: 'Erase job log',
+                        data: { confirm: '您确定要擦除这个构建？', placement: 'top', container: 'body' },
+                        title: '擦除作业日志',
                         class: 'has-tooltip js-erase-link controllers-buttons' do
                 = icon('trash')
             .has-tooltip.controllers-buttons{ title: 'Scroll to top', data: { placement: 'top', container: 'body'} }

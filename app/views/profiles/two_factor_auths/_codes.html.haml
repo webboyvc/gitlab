@@ -1,8 +1,8 @@
 %p.slead
-  Should you ever lose your phone or access to your one time password secret, each of these recovery codes can be used one
-  time each to regain access to your account. Please save them in a safe place, or you
-  %b will
-  lose access to your account.
+  如果丢失了手机，可以使用下面的恢复代码重新访问你的账户。
+  请将其保存到安全的地方，否则你
+  %b 将
+  会无法访问你的账户。
 
 .codes.card
   %ul
@@ -11,5 +11,5 @@
         %span.monospace= code
 
 .d-flex
-  = link_to 'Proceed', profile_account_path, class: 'btn btn-success append-right-10'
-  = link_to 'Download codes', "data:text/plain;charset=utf-8,#{CGI.escape(@codes.join("\n"))}", download: "gitlab-recovery-codes.txt", class: 'btn btn-default'
+  = link_to '继续', profile_account_path, class: 'btn btn-success append-right-10'
+  = link_to '下载代码', "data:text/plain;charset=utf-8,#{CGI.escape(@codes.join("\n"))}", download: "gitlab-recovery-codes.txt", class: 'btn btn-default'
