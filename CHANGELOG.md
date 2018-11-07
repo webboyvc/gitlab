@@ -2,6 +2,50 @@
 documentation](doc/development/changelog.md) for instructions on adding your own
 entry.
 
+## 11.4.5 (2018-11-04)
+
+### Fixed (4 changes, 1 of them is from the community)
+
+- fix link to enable usage ping from convdev index. !22545 (Anand Capur)
+- Update gitlab-ui dependency to 1.8.0-hotfix.1 to fix IE11 bug.
+- Remove duplicate escape in job sidebar.
+- Fixed merge request fill tree toggling not respecting fluid width preference.
+
+### Other (1 change)
+
+- Fix stage dropdown not rendering in different languages.
+
+
+## 11.4.4 (2018-10-30)
+
+### Security (1 change)
+
+- Monkey kubeclient to not follow any redirects.
+
+
+## 11.4.3 (2018-10-26)
+
+- No changes.
+
+## 11.4.2 (2018-10-25)
+
+### Security (5 changes)
+
+- Escape entity title while autocomplete template rendering to prevent XSS. !2571
+- Persist only SHA digest of PersonalAccessToken#token.
+- Redact personal tokens in unsubscribe links.
+- Block loopback addresses in UrlBlocker.
+- Validate Wiki attachments are valid temporary files.
+
+
+## 11.4.1 (2018-10-23)
+
+### Security (2 changes)
+
+- Fix XSS in merge request source branch name.
+- Prevent SSRF attacks in HipChat integration.
+
+
 ## 11.4.0 (2018-10-22)
 
 ### Security (9 changes)
