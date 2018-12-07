@@ -1,5 +1,5 @@
-- breadcrumb_title "è®¿é—®ä»¤ç‰Œ"
-- page_title "ä¸ªäººè®¿é—®ä»¤ç‰Œ"
+- breadcrumb_title "·ÃÎÊÁîÅÆ"
+- page_title "¸öÈË·ÃÎÊÁîÅÆ"
 - @content_class = "limit-container-width" unless fluid_layout
 
 .row.prepend-top-default
@@ -7,24 +7,14 @@
     %h4.prepend-top-0
       = page_title
     %p
-      æ‚¨å¯ä»¥ä¸ºéœ€è¦è®¿é—®GitLab APIçš„æ¯ä¸ªåº”ç”¨ç¨‹åºç”Ÿæˆä¸ªäººè®¿é—®ä»¤ç‰Œã€‚
+      Äú¿ÉÒÔÎªĞèÒª·ÃÎÊGitLab APIµÄÃ¿¸öÓ¦ÓÃ³ÌĞòÉú³É¸öÈË·ÃÎÊÁîÅÆ¡£
     %p
-      æ‚¨è¿˜å¯ä»¥ä½¿ç”¨ä¸ªäººè®¿é—®ä»¤ç‰Œé€šè¿‡HTTPè¿›è¡ŒGitéªŒè¯ã€‚
-      å½“æ‚¨å¯ç”¨ä¸¤æ­¥è®¤è¯ï¼ˆ2FAï¼‰æ—¶ï¼Œå®ƒä»¬æ˜¯å”¯ä¸€å¯æ¥å—çš„å¯†ç ã€‚
+      Äú»¹¿ÉÒÔÊ¹ÓÃ¸öÈË·ÃÎÊÁîÅÆÍ¨¹ıHTTP½øĞĞGitÑéÖ¤¡£
+      µ±ÄúÆôÓÃÁ½²½ÈÏÖ¤£¨2FA£©Ê±£¬ËüÃÇÊÇÎ¨Ò»¿É½ÓÊÜµÄÃÜÂë¡£
 
   .col-lg-8
     - if @new_personal_access_token
-      .created-personal-access-token-container
-        %h5.prepend-top-0
-          ä½ çš„æ–°ä¸ªäººè®¿é—®ä»¤ç‰Œ
-        .form-group
-          .input-group
-            = text_field_tag 'created-personal-access-token', @new_personal_access_token, readonly: true, class: "form-control js-select-on-focus", 'aria-describedby' => "created-personal-access-token-help-block"
-            %span.input-group-append
-              = clipboard_button(text: @new_personal_access_token, title: "å¤åˆ¶ä¸ªäººè®¿é—®ä»¤ç‰Œåˆ°å‰ªè´´æ¿", placement: "left", class: "input-group-text btn-default btn-clipboard")
-          %span#created-personal-access-token-help-block.form-text.text-muted.text-danger è¯·ç¡®ä¿æ‚¨å·²ç»ä¿å­˜å¥½ä»¤ç‰Œ(è¯¥ä»¤ç‰Œå°†ä¸å†æ˜¾ç¤º)ã€‚
-
-      %hr
+      = render "shared/personal_access_tokens_created_container", new_token_value: @new_personal_access_token
 
     = render "shared/personal_access_tokens_form", path: profile_personal_access_tokens_path, impersonation: false, token: @personal_access_token, scopes: @scopes
 
@@ -34,18 +24,18 @@
 .row.prepend-top-default
   .col-lg-4.profile-settings-sidebar
     %h4.prepend-top-0
-      Feed ä»¤ç‰Œ
+      Feed ÁîÅÆ
     %p
-      å½“ä½ çš„ RSS é˜…è¯»å™¨åŠ è½½ä¸ªäºº RSS ç§å­çš„æ—¶å€™å°†ä½¿ç”¨ä½ çš„ RSS ä»¤ç‰Œæ¥è¿›è¡Œè®¤è¯ï¼Œå¹¶ä¸”ä¼šåŒ…å«åœ¨ä½ çš„ä¸ªäºº RSS ç§å­çš„ URL é‡Œã€‚
+      µ±ÄãµÄ RSS ÔÄ¶ÁÆ÷¼ÓÔØ¸öÈË RSS ÖÖ×ÓµÄÊ±ºò½«Ê¹ÓÃÄãµÄ RSS ÁîÅÆÀ´½øĞĞÈÏÖ¤£¬²¢ÇÒ»á°üº¬ÔÚÄãµÄ¸öÈË RSS ÖÖ×ÓµÄ URL Àï¡£
     %p
-      è¯¥ä»¤ç‰Œæ— æ³•ç”¨äºè®¿é—®å…¶å®ƒæ•°æ®ã€‚
+      ¸ÃÁîÅÆÎŞ·¨ÓÃÓÚ·ÃÎÊÆäËüÊı¾İ¡£
   .col-lg-8.feed-token-reset
     = label_tag :feed_token, 'Feed token', class: "label-bold"
     = text_field_tag :feed_token, current_user.feed_token, class: 'form-control', readonly: true, onclick: 'this.select()'
     %p.form-text.text-muted
-      è¯·ç¡®ä¿è¯¥ä»¤ç‰Œçš„å®‰å…¨ã€‚ä»»ä½•æŒæœ‰è¯¥ä»¤ç‰Œçš„äººï¼Œéƒ½å¯ä»¥ä»¥ä½ çš„èº«ä»½æ¥é€šè¿‡ RSS ç§å­é˜…è¯»ä½ çš„æ´»åŠ¨ä»¥åŠé—®é¢˜åˆ—è¡¨ä¿¡æ¯ã€‚
-      å¦‚æœä»¤ç‰Œæ³„éœ²ï¼Œä½ åº”è¯¥
-      = link_to 'é‡ç½®ä»¤ç‰Œ', [:reset, :feed_token, :profile], method: :put, data: { confirm: 'ä½ ç¡®å®šè¦é‡ç½® RSS ä»¤ç‰Œä¹ˆï¼Ÿæ‰€æœ‰å½“å‰ä½¿ç”¨è¯¥ä»¤ç‰Œçš„ RSS é“¾æ¥éƒ½å°†å¤±æ•ˆã€‚' }
+      ÇëÈ·±£¸ÃÁîÅÆµÄ°²È«¡£ÈÎºÎ³ÖÓĞ¸ÃÁîÅÆµÄÈË£¬¶¼¿ÉÒÔÒÔÄãµÄÉí·İÀ´Í¨¹ı RSS ÖÖ×ÓÔÄ¶ÁÄãµÄ»î¶¯ÒÔ¼°ÎÊÌâÁĞ±íĞÅÏ¢¡£
+      Èç¹ûÁîÅÆĞ¹Â¶£¬ÄãÓ¦¸Ã
+      = link_to 'ÖØÖÃÁîÅÆ', [:reset, :feed_token, :profile], method: :put, data: { confirm: 'ÄãÈ·¶¨ÒªÖØÖÃ RSS ÁîÅÆÃ´£¿ËùÓĞµ±Ç°Ê¹ÓÃ¸ÃÁîÅÆµÄ RSS Á´½Ó¶¼½«Ê§Ğ§¡£' }
       if that ever happens.
 
 - if incoming_email_token_enabled?
@@ -53,16 +43,16 @@
   .row.prepend-top-default
     .col-lg-4.profile-settings-sidebar
       %h4.prepend-top-0
-        è¿›å…¥é‚®ä»¶ä»¤ç‰Œ
+        ½øÈëÓÊ¼şÁîÅÆ
       %p
-        å½“ä½ ä½¿ç”¨ç”µå­é‚®ä»¶åˆ›å»ºæ–°çš„é—®é¢˜çš„æ—¶å€™ï¼Œå°†ä½¿ç”¨è¿›å…¥ç”µå­é‚®ä»¶ä»¤ç‰Œè¿›è¡ŒéªŒè¯ï¼Œè¯¥ä»¤ç‰ŒåŒ…å«åœ¨ä½ çš„ä¸ªäººçš„é¡¹ç›®ç›¸å…³çš„ç”µå­é‚®ä»¶åœ°å€ä¸­ã€‚
+        µ±ÄãÊ¹ÓÃµç×ÓÓÊ¼ş´´½¨ĞÂµÄÎÊÌâµÄÊ±ºò£¬½«Ê¹ÓÃ½øÈëµç×ÓÓÊ¼şÁîÅÆ½øĞĞÑéÖ¤£¬¸ÃÁîÅÆ°üº¬ÔÚÄãµÄ¸öÈËµÄÏîÄ¿Ïà¹ØµÄµç×ÓÓÊ¼şµØÖ·ÖĞ¡£
       %p
-        è¯¥ä»¤ç‰Œæ— æ³•ç”¨äºè®¿é—®å…¶å®ƒæ•°æ®ã€‚
+        ¸ÃÁîÅÆÎŞ·¨ÓÃÓÚ·ÃÎÊÆäËüÊı¾İ¡£
     .col-lg-8.incoming-email-token-reset
-      = label_tag :incoming_email_token, 'è¿›å…¥ç”µå­é‚®ä»¶ä»¤ç‰Œ', class: "label-bold"
+      = label_tag :incoming_email_token, '½øÈëµç×ÓÓÊ¼şÁîÅÆ', class: "label-bold"
       = text_field_tag :incoming_email_token, current_user.incoming_email_token, class: 'form-control', readonly: true, onclick: 'this.select()'
       %p.form-text.text-muted
-        è¯·ç¡®ä¿è¯¥ä»¤ç‰Œçš„å®‰å…¨ã€‚ä»»ä½•æŒæœ‰è¯¥ä»¤ç‰Œçš„äººï¼Œéƒ½å¯ä»¥ä»¥ä½ çš„èº«ä»½æ¥åˆ›å»ºé—®é¢˜ã€‚
-        å¦‚æœä»¤ç‰Œæ³„éœ²ï¼Œä½ åº”è¯¥
-        = link_to 'é‡ç½®ä»¤ç‰Œ', [:reset, :incoming_email_token, :profile], method: :put, data: { confirm: 'ä½ ç¡®å®šè¦é‡ç½®è¿›å…¥ç”µå­é‚®ä»¶ä»¤ç‰Œä¹ˆï¼Ÿæ‰€ä»¥ä½¿ç”¨å½“å‰ä»¤ç‰Œçš„ç”µå­é‚®ä»¶åœ°å€éƒ½å°†åœæ­¢å·¥ä½œã€‚' }
-        ã€‚
+        ÇëÈ·±£¸ÃÁîÅÆµÄ°²È«¡£ÈÎºÎ³ÖÓĞ¸ÃÁîÅÆµÄÈË£¬¶¼¿ÉÒÔÒÔÄãµÄÉí·İÀ´´´½¨ÎÊÌâ¡£
+        Èç¹ûÁîÅÆĞ¹Â¶£¬ÄãÓ¦¸Ã
+        = link_to 'ÖØÖÃÁîÅÆ', [:reset, :incoming_email_token, :profile], method: :put, data: { confirm: 'ÄãÈ·¶¨ÒªÖØÖÃ½øÈëµç×ÓÓÊ¼şÁîÅÆÃ´£¿ËùÒÔÊ¹ÓÃµ±Ç°ÁîÅÆµÄµç×ÓÓÊ¼şµØÖ·¶¼½«Í£Ö¹¹¤×÷¡£' }
+        ¡£

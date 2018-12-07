@@ -1,22 +1,20 @@
-- type = impersonation ? "æ‰®æ¼”" : "ä¸ªäººè®¿é—®"
+- type = impersonation ? "°çÑİ" : "¸öÈË·ÃÎÊ"
 %hr
 
-%h5 æ´»åŠ¨çš„ #{type} ä»¤ç‰Œ (#{active_tokens.length})
+%h5 »î¶¯µÄ #{type} ÁîÅÆ (#{active_tokens.length})
 - if impersonation
   %p.profile-settings-content
-    è¦æŸ¥çœ‹æ‰€æœ‰ç”¨æˆ·çš„ä¸ªäººè®¿é—®ä»¤ç‰Œï¼Œæ‚¨å¿…é¡»é¦–å…ˆæ‰®æ¼”æˆä»–ä»¬ã€‚
+    Òª²é¿´ËùÓĞÓÃ»§µÄ¸öÈË·ÃÎÊÁîÅÆ£¬Äú±ØĞëÊ×ÏÈ°çÑİ³ÉËûÃÇ¡£
 
 - if active_tokens.present?
   .table-responsive
     %table.table.active-tokens
       %thead
         %tr
-          %th åç§°
-          %th åˆ›å»ºäº
-          %th è¿‡æœŸäº
-          %th èŒƒå›´
-          - if impersonation
-            %th ä»¤ç‰Œ
+          %th Ãû³Æ
+          %th ´´½¨ÓÚ
+          %th ¹ıÆÚÓÚ
+          %th ·¶Î§
           %th
       %tbody
         - active_tokens.each do |token|
@@ -26,16 +24,12 @@
             %td
               - if token.expires?
                 %span{ class: ('text-warning' if token.expires_soon?) }
-                  äº #{distance_of_time_in_words_to_now(token.expires_at)}
+                  ÓÚ #{distance_of_time_in_words_to_now(token.expires_at)}
               - else
-                %span.token-never-expires-label æ°¸ä¸
+                %span.token-never-expires-label ÓÀ²»
             %td= token.scopes.present? ? token.scopes.join(", ") : "<no scopes selected>"
-            - if impersonation
-              %td.token-token-container
-                = text_field_tag 'impersonation-token-token', token.token, readonly: true, class: "form-control"
-                = clipboard_button(text: token.token)
             - path = impersonation ? revoke_admin_user_impersonation_token_path(token.user, token) : revoke_profile_personal_access_token_path(token)
-            %td= link_to "æ’¤é”€", path, method: :put, class: "btn btn-danger float-right", data: { confirm: "æ‚¨ç¡®å®šè¦æ’¤é”€è¿™ä¸ª #{type} ä»¤ç‰Œ? è¯¥æ“ä½œæ— æ— æ³•æ¢å¤ã€‚" }
+            %td= link_to "³·Ïú", path, method: :put, class: "btn btn-danger float-right", data: { confirm: "ÄúÈ·¶¨Òª³·ÏúÕâ¸ö #{type} ÁîÅÆ? ¸Ã²Ù×÷ÎŞÎŞ·¨»Ö¸´¡£" }
 - else
   .settings-message.text-center
-    è¯¥ç”¨æˆ·æ²¡æœ‰æ´»åŠ¨çš„ #{type} ä»¤ç‰Œã€‚
+    ¸ÃÓÃ»§Ã»ÓĞ»î¶¯µÄ #{type} ÁîÅÆ¡£
