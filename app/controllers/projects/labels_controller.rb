@@ -77,7 +77,7 @@ class Projects::LabelsController < Projects::ApplicationController
 
     redirect_to project_labels_path(@project),
                 status: 302,
-                notice: 'Label was removed'
+                notice: '标记已删除'
   end
 
   def remove_priority
@@ -132,7 +132,7 @@ class Projects::LabelsController < Projects::ApplicationController
       respond_to do |format|
         format.html do
           redirect_to(project_labels_path(@project),
-                      notice: 'Failed to promote label due to internal error. Please contact administrators.')
+                      notice: '由于内部错误，提升标签失败。请与管理员联系。')
         end
         format.js
       end

@@ -348,8 +348,8 @@ import Cookies from 'js-cookie';
     },
 
     getCommitButtonText() {
-      const initial = 'Commit to source branch';
-      const inProgress = 'Committing...';
+      const initial = '提交并解决冲突';
+      const inProgress = '正在提交...';
 
       return this.state ? (this.state.isSubmitting ? inProgress : initial) : initial;
     },

@@ -25,7 +25,7 @@ export default {
     submitText() {
       const count = ModalStore.selectedCount();
 
-      return `Add ${count > 0 ? count : ''} ${pluralize('issue', count)}`;
+      return `添加 ${count > 0 ? count : ''} ${pluralize('问题', count)}`;
     },
   },
   methods: {
@@ -76,7 +76,7 @@ export default {
         {{ submitText }}
       </button>
       <span class="inline add-issues-footer-to-list">
-        to list
+        到列表
       </span>
       <lists-dropdown/>
     </div>
@@ -85,7 +85,7 @@ export default {
       type="button"
       @click="toggleModal(false)"
     >
-      Cancel
+      取消
     </button>
   </footer>
 </template>

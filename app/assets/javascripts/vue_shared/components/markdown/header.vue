@@ -74,7 +74,7 @@ export default {
           type="button"
           @click="writeMarkdownTab($event)"
         >
-          Write
+          编写
         </button>
       </li>
       <li
@@ -87,7 +87,7 @@ export default {
           type="button"
           @click="previewMarkdownTab($event)"
         >
-          Preview
+          预览
         </button>
       </li>
       <li

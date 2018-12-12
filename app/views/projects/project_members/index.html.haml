@@ -1,9 +1,9 @@
-- page_title "Members"
+- page_title "成员"
 
 .row.prepend-top-default
   .col-lg-12
     %h4
-      Project members
+      项目成员
     - if can?(current_user, :admin_project_member, @project)
       %p
         You can invite a new member to
@@ -11,10 +11,11 @@
         or invite another group.
     - else
       %p
-        Members can be added by project
-        %i Maintainers
-        or
-        %i Owners
+        成员可以被项目
+        %i 主程序员
+        或
+        %i 拥有者
+        添加
     .light
       - if can?(current_user, :admin_project_member, @project)
         %ul.nav-links.nav.nav-tabs.gitlab-tabs{ role: 'tablist' }
@@ -33,7 +34,7 @@
         = render 'shared/members/requests', membership_source: @project, requesters: @requesters
         .clearfix
           %h5.member.existing-title
-            Existing members and groups
+            现有用户和群组
         - if @group_links.any?
           = render 'projects/project_members/groups', group_links: @group_links
 

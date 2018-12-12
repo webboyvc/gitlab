@@ -69,7 +69,7 @@ export default {
       class="btn btn-success float-left qa-save-button"
       type="submit"
       @click.prevent="updateIssuable">
-      Save changes
+      保存修改
       <i
         v-if="formState.updateLoading"
         class="fa fa-spinner fa-spin"
@@ -80,7 +80,7 @@ export default {
       class="btn btn-default float-right"
       type="button"
       @click="closeForm">
-      Cancel
+      取消
     </button>
     <button
       v-if="shouldShowDeleteButton"
@@ -89,7 +89,7 @@ export default {
       class="btn btn-danger float-right append-right-default qa-delete-button"
       type="button"
       @click="deleteIssuable">
-      Delete
+      删除
       <i
         v-if="deleteLoading"
         class="fa fa-spinner fa-spin"
