@@ -234,7 +234,7 @@ class Projects::IssuesController < Projects::ApplicationController
   def authenticate_new_issue!
     return if current_user
 
-    notice = "Please sign in to create the new issue."
+    notice = "请登录后创建新问题。"
 
     redirect_to new_user_session_path, notice: notice
   end

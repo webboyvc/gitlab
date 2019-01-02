@@ -21,7 +21,7 @@ class Admin::LabelsController < Admin::ApplicationController
     @label = Labels::CreateService.new(label_params).execute(template: true)
 
     if @label.persisted?
-      redirect_to admin_labels_url, notice: "Label was created"
+      redirect_to admin_labels_url, notice: "标记已创建"
     else
       render :new
     end
@@ -31,7 +31,7 @@ class Admin::LabelsController < Admin::ApplicationController
     @label = Labels::UpdateService.new(label_params).execute(@label)
 
     if @label.valid?
-      redirect_to admin_labels_path, notice: 'Label was successfully updated.'
+      redirect_to admin_labels_path, notice: '标记更新成功。'
     else
       render :edit
     end
@@ -43,7 +43,7 @@ class Admin::LabelsController < Admin::ApplicationController
 
     respond_to do |format|
       format.html do
-        redirect_to admin_labels_path, status: 302, notice: 'Label was removed'
+        redirect_to admin_labels_path, status: 302, notice: '标记已删除'
       end
       format.js
     end

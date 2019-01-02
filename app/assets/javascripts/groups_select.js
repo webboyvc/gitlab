@@ -16,7 +16,7 @@ export default function groupsSelect() {
       : Api.groupsPath;
 
     $select.select2({
-      placeholder: 'Search for a group',
+      placeholder: '搜索群组',
       allowClear: $select.hasClass('allowClear'),
       multiple: $select.hasClass('multiselect'),
       minimumInputLength: 0,

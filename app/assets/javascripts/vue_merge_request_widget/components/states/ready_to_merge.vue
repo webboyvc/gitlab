@@ -83,12 +83,12 @@ export default {
     },
     mergeButtonText() {
       if (this.isMergingImmediately) {
-        return 'Merge in progress';
+        return '合并进行中';
       } else if (this.shouldShowMergeWhenPipelineSucceedsText) {
-        return 'Merge when pipeline succeeds';
+        return '当流水线成功后合并';
       }
 
-      return 'Merge';
+      return '合并';
     },
     shouldShowMergeOptionsDropdown() {
       return this.mr.isPipelineActive && !this.mr.onlyAllowMergeIfPipelineSucceeds;
@@ -163,7 +163,7 @@ export default {
         })
         .catch(() => {
           this.isMakingRequest = false;
-          new Flash('Something went wrong. Please try again.'); // eslint-disable-line
+          new Flash('出现了错误。请重试。'); // eslint-disable-line
         });
     },
     handleUpdateSquash(val) {
@@ -202,7 +202,7 @@ export default {
           }
         })
         .catch(() => {
-          new Flash('Something went wrong while merging this merge request. Please try again.'); // eslint-disable-line
+          new Flash('合并出现了错误。请重试。'); // eslint-disable-line
         });
     },
     initiateRemoveSourceBranchPolling() {
@@ -231,7 +231,7 @@ export default {
           }
         })
         .catch(() => {
-          new Flash('Something went wrong while removing the source branch. Please try again.'); // eslint-disable-line
+          new Flash('删除源分支出现了错误，请重试。'); // eslint-disable-line
         });
     },
   },
@@ -316,7 +316,7 @@ export default {
             />
 
             <span v-if="mr.ffOnlyEnabled" class="js-fast-forward-message">
-              Fast-forward merge without a merge commit
+              无合并提交的快进式合并
             </span>
             <button
               v-else
@@ -325,19 +325,19 @@ export default {
               type="button"
               @click="toggleCommitMessageEditor"
             >
-              Modify commit message
+              修改提交信息
             </button>
           </template>
           <template v-else>
             <span class="bold js-resolve-mr-widget-items-message">
-              You can only merge once the items above are resolved
+              您只能在以上冲突都解决后才能合并
             </span>
           </template>
         </div>
       </div>
       <div v-if="showCommitMessageEditor" class="prepend-top-default commit-message-editor">
         <div class="form-group clearfix">
-          <label class="col-form-label" for="commit-message"> Commit message </label>
+          <label class="col-form-label" for="commit-message"> 提交信息 </label>
           <div class="col-sm-10">
             <div class="commit-message-container">
               <div class="max-width-marker"></div>
@@ -347,11 +347,11 @@ export default {
                 class="form-control js-commit-message"
                 required="required"
                 rows="14"
-                name="Commit message"
+                name="提交信息"
               ></textarea>
             </div>
             <p class="hint">
-              Try to keep the first line under 52 characters and the others under 72
+              尝试保持第一行不超过52个字符，其它行不超过72个字符。
             </p>
             <div class="hint">
               <a href="#" @click.prevent="updateCommitMessage"> {{ commitMessageLinkTitle }} </a>

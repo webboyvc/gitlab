@@ -41,7 +41,7 @@ module IssuablesHelper
     if current_labels && current_labels.any?
       title = current_labels.first.try(:title)
       if current_labels.size > 1
-        "#{title} +#{current_labels.size - 1} more"
+        "超前 #{title} +#{current_labels.size - 1}"
       else
         title
       end
@@ -75,12 +75,12 @@ module IssuablesHelper
   end
 
   def template_dropdown_tag(issuable, &block)
-    title = selected_template(issuable) || "Choose a template"
+    title = selected_template(issuable) || "选择模板"
     options = {
       toggle_class: 'js-issuable-selector',
       title: title,
       filter: true,
-      placeholder: 'Filter',
+      placeholder: '过滤器',
       footer_content: true,
       data: {
         data: issuable_templates(issuable),
@@ -99,7 +99,7 @@ module IssuablesHelper
   def users_dropdown_label(selected_users)
     case selected_users.length
     when 0
-      "Unassigned"
+      "未指派"
     when 1
       selected_users[0].name
     else
@@ -110,7 +110,7 @@ module IssuablesHelper
   # rubocop: disable CodeReuse/ActiveRecord
   def user_dropdown_label(user_id, default_label)
     return default_label if user_id.nil?
-    return "Unassigned" if user_id == "0"
+    return "未指派" if user_id == "0"
 
     user = User.find_by(id: user_id)
 
@@ -125,7 +125,7 @@ module IssuablesHelper
   # rubocop: disable CodeReuse/ActiveRecord
   def project_dropdown_label(project_id, default_label)
     return default_label if project_id.nil?
-    return "Any project" if project_id == "0"
+    return "任何项目" if project_id == "0"
 
     project = Project.find_by(id: project_id)
 
@@ -176,7 +176,7 @@ module IssuablesHelper
 
   def issuable_meta(issuable, project, text)
     output = []
-    output << "Opened #{time_ago_with_tooltip(issuable.created_at)} by ".html_safe
+    output << "在 #{time_ago_with_tooltip(issuable.created_at)} 由 ".html_safe
 
     output << content_tag(:strong) do
       author_output = link_to_member(project, issuable.author, size: 24, mobile_classes: "d-none d-sm-inline")
@@ -220,7 +220,10 @@ module IssuablesHelper
 
   def issuables_state_counter_text(issuable_type, state, display_count)
     titles = {
-      opened: "Open"
+      opened: "未关闭",
+      closed: "已关闭",
+      merged: "已合并",
+      all: "所有"
     }
 
     state_title = titles[state] || state.to_s.humanize
@@ -353,7 +356,7 @@ module IssuablesHelper
   end
 
   def issuable_display_type(issuable)
-    issuable.model_name.human.downcase
+    issuable.zh_name
   end
 
   def selected_labels
@@ -388,8 +391,8 @@ module IssuablesHelper
 
   def issuable_todo_button_data(issuable, todo, is_collapsed)
     {
-      todo_text: "Add todo",
-      mark_text: "Mark todo as done",
+      todo_text: "添加待办",
+      mark_text: "已完成",
       todo_icon: (is_collapsed ? sprite_icon('todo-add') : nil),
       mark_icon: (is_collapsed ? sprite_icon('todo-done', css_class: 'todo-undone') : nil),
       issuable_id: issuable.id,

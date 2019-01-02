@@ -98,9 +98,9 @@ export default {
     <div class="board-card">
       <form @submit="submit($event);">
         <div v-if="error" class="flash-container">
-          <div class="flash-alert">An error occurred. Please try again.</div>
+          <div class="flash-alert">出现错误，请重试。</div>
         </div>
-        <label :for="list.id + '-title'" class="label-bold"> Title </label>
+        <label :for="list.id + '-title'" class="label-bold"> 标题 </label>
         <input
           :id="list.id + '-title'"
           ref="input"
@@ -119,10 +119,10 @@ export default {
             variant="success"
             type="submit"
           >
-            Submit issue
+            提交问题
           </gl-button>
           <gl-button class="float-right" type="button" variant="default" @click="cancel">
-            Cancel
+            取消
           </gl-button>
         </div>
       </form>

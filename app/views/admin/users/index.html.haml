@@ -1,5 +1,5 @@
 - @no_container = true
-- page_title "Users"
+- page_title "用户"
 
 %div{ class: container_class }
   .prepend-top-default
@@ -8,7 +8,7 @@
         = hidden_field_tag "filter", h(params[:filter])
       .search-holder
         .search-field-holder
-          = search_field_tag :search_query, params[:search_query], placeholder: 'Search by name, email or username', class: 'form-control search-text-input js-search-input', spellcheck: false
+          = search_field_tag :search_query, params[:search_query], placeholder: '按姓名，电子邮件或用户名搜索', class: 'form-control search-text-input js-search-input', spellcheck: false
           - if @sort.present?
             = hidden_field_tag :sort, @sort
           = icon("search", class: "search-icon")
@@ -18,12 +18,12 @@
           = dropdown_toggle(toggle_text, { toggle: 'dropdown' })
           %ul.dropdown-menu.dropdown-menu-right
             %li.dropdown-header
-              Sort by
+              排序方式
             %li
               - users_sort_options_hash.each do |value, title|
                 = link_to admin_users_path(sort: value, filter: params[:filter], search_query: params[:search_query]) do
                   = title
-        = link_to 'New user', new_admin_user_path, class: 'btn btn-success btn-search'
+        = link_to '新建用户', new_admin_user_path, class: 'btn btn-success btn-search'
 
     .top-area.scrolling-tabs-container.inner-page-scroll-tabs
       .fade-left
@@ -33,37 +33,37 @@
       %ul.nav-links.nav.nav-tabs.scrolling-tabs
         = nav_link(html_options: { class: active_when(params[:filter].nil?) }) do
           = link_to admin_users_path do
-            Active
+            活动
             %small.badge.badge-pill= limited_counter_with_delimiter(User.active)
         = nav_link(html_options: { class: active_when(params[:filter] == 'admins') }) do
           = link_to admin_users_path(filter: "admins") do
-            Admins
+            管理
             %small.badge.badge-pill= limited_counter_with_delimiter(User.admins)
         = nav_link(html_options: { class: "#{active_when(params[:filter] == 'two_factor_enabled')} filter-two-factor-enabled" }) do
           = link_to admin_users_path(filter: 'two_factor_enabled') do
-            2FA Enabled
+            两步验证启用
             %small.badge.badge-pill= limited_counter_with_delimiter(User.with_two_factor)
         = nav_link(html_options: { class: "#{active_when(params[:filter] == 'two_factor_disabled')} filter-two-factor-disabled" }) do
           = link_to admin_users_path(filter: 'two_factor_disabled') do
-            2FA Disabled
+            两步验证禁用
             %small.badge.badge-pill= limited_counter_with_delimiter(User.without_two_factor)
         = nav_link(html_options: { class: active_when(params[:filter] == 'external') }) do
           = link_to admin_users_path(filter: 'external') do
-            External
+            外部
             %small.badge.badge-pill= limited_counter_with_delimiter(User.external)
         = nav_link(html_options: { class: active_when(params[:filter] == 'blocked') }) do
           = link_to admin_users_path(filter: "blocked") do
-            Blocked
+            禁用
             %small.badge.badge-pill= limited_counter_with_delimiter(User.blocked)
         = nav_link(html_options: { class: active_when(params[:filter] == 'wop') }) do
           = link_to admin_users_path(filter: "wop") do
-            Without projects
+            无项目
             %small.badge.badge-pill= limited_counter_with_delimiter(User.without_projects)
 
   %ul.flex-list.content-list
     - if @users.empty?
       %li
-        .nothing-here-block No users found.
+        .nothing-here-block 找不到用户
     - else
       = render partial: 'admin/users/user', collection: @users
 

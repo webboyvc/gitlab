@@ -21,10 +21,10 @@ class Import::GitlabProjectsController < Import::BaseController
     if @project.saved?
       redirect_to(
         project_path(@project),
-        notice: "Project '#{@project.name}' is being imported."
+        notice: "正在导入项目 '#{@project.name}' 。"
       )
     else
-      redirect_back_or_default(options: { alert: "Project could not be imported: #{@project.errors.full_messages.join(', ')}" })
+      redirect_back_or_default(options: { alert: "项目无法被导入： #{@project.errors.full_messages.join(', ')}" })
     end
   end
 
