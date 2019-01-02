@@ -18,12 +18,13 @@ module MembersHelper
         "将 #{member.user.name} 从 #{member.source.human_name} #{member.real_source_type_zh} 中移除？"
       end
 
-    "#{text} #{action}"
+    "#{text} #{action} the #{member.source.human_name} #{source_text(member)}?"
   end
 
   def remove_member_title(member)
-    action = member.request? ? '拒绝用户加入 #{member.real_source_type_zh}' : '从 #{member.real_source_type_zh} 中删除用户'
-    "#{action}"
+    action = member.request? ? 'Deny access request' : 'Remove user'
+
+    "#{action} from #{source_text(member)}"
   end
 
   def leave_confirmation_message(member_source)
@@ -35,4 +36,14 @@ module MembersHelper
     options = params.slice(:search, :sort).merge(options)
     "#{request.path}?#{options.to_param}"
   end
+
+  private
+
+  def source_text(member)
+    type = member.real_source_type.humanize(capitalize: false)
+
+    return type if member.request? || member.invite? || type != 'group'
+
+    'group and any subresources'
+end
 end
