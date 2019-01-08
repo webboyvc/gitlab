@@ -47,4 +47,3 @@ module MembersHelper
     'group and any subresources'
   end
 end
-end
