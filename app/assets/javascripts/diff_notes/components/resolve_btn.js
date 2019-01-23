@@ -57,7 +57,7 @@ const ResolveBtn = Vue.extend({
       if (this.isResolved) {
         return `Resolved by ${this.resolvedByName}`;
       } else if (this.canResolve) {
-        return 'Mark as resolved';
+        return '标记为已解决';
       }
 
       return 'Unable to resolve';

@@ -19,9 +19,9 @@ export default function projectSelect() {
     this.includeProjectsInSubgroups = $(select).data('includeProjectsInSubgroups') || false;
     this.allowClear = $(select).data('allowClear') || false;
 
-    placeholder = 'Search for project';
+    placeholder = '搜索项目';
     if (this.includeGroups) {
-      placeholder += ' or group';
+      placeholder += '或群组';
     }
 
     $(select).select2({

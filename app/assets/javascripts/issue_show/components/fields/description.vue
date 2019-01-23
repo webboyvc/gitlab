@@ -44,7 +44,7 @@ export default {
 
 <template>
   <div class="common-note-form">
-    <label class="sr-only" for="issue-description"> Description </label>
+    <label class="sr-only" for="issue-description"> 描述 </label>
     <markdown-field
       :markdown-preview-path="markdownPreviewPath"
       :markdown-docs-path="markdownDocsPath"
@@ -60,8 +60,8 @@ export default {
         class="note-textarea js-gfm-input js-autosize markdown-area
         qa-description-textarea"
         data-supports-quick-actions="false"
-        aria-label="Description"
-        placeholder="Write a comment or drag your files here…"
+        aria-label="描述"
+        placeholder="撰写评论或拖放文件到此处..."
         @keydown.meta.enter="updateIssuable"
         @keydown.ctrl.enter="updateIssuable"
       >
