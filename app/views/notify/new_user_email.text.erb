@@ -1,4 +1,4 @@
-你好 <%= @user.name %>!
+<%= sanitize_name(@user.name) %> 您好！
 
 管理员创建了你的账号。现在你已是 GitLab 应用的成员。
 

@@ -2,6 +2,69 @@
 documentation](doc/development/changelog.md) for instructions on adding your own
 entry.
 
+## 11.7.5 (2019-02-06)
+
+### Fixed (8 changes)
+
+- Fix import handling errors in Bitbucket Server importer. !24499
+- Adjusts suggestions unable to be applied. !24603
+- Fix 500 errors with legacy appearance logos. !24615
+- Fix form functionality for edit tag page. !24645
+- Update Workhorse to v8.0.2. !24870
+- Downcase aliased OAuth2 callback providers. !24877
+- Fix Detect Host Keys not working. !24884
+- Changed external wiki query method to prevent attribute caching. !24907
+
+
+## 11.7.4 (2019-02-04)
+
+### Security (1 change)
+
+- Use sanitized user status message for user popover.
+
+
+## 11.7.3 (2019-01-30)
+
+- No changes.
+
+## 11.7.2 (2019-01-29)
+
+### Security (24 changes)
+
+- Make potentially malicious links more visible in the UI and scrub RTLO chars from links. !2770
+- Don't process MR refs for guests in the notes. !2771
+- Sanitize user full name to clean up any URL to prevent mail clients from auto-linking URLs. !2828
+- Fixed XSS content in KaTex links.
+- Disallows unauthorized users from accessing the pipelines section.
+- Verify that LFS upload requests are genuine.
+- Extract GitLab Pages using RubyZip.
+- Prevent awarding emojis to notes whose parent is not visible to user.
+- Prevent unauthorized replies when discussion is locked or confidential.
+- Disable git v2 protocol temporarily.
+- Fix showing ci status for guest users when public pipline are not set.
+- Fix contributed projects info still visible when user enable private profile.
+- Add subresources removal to member destroy service.
+- Add more LFS validations to prevent forgery.
+- Use common error for unauthenticated users when creating issues.
+- Fix slow regex in project reference pattern.
+- Fix private user email being visible in push (and tag push) webhooks.
+- Fix wiki access rights when external wiki is enabled.
+- Group guests are no longer able to see merge requests they don't have access to at group level.
+- Fix path disclosure on project import error.
+- Restrict project import visibility based on its group.
+- Expose CI/CD trigger token only to the trigger owner.
+- Notify only users who can access the project on project move.
+- Alias GitHub and BitBucket OAuth2 callback URLs.
+
+### Fixed (1 change)
+
+- Fix uninitialized constant with GitLab Pages.
+
+
+## 11.7.1 (2019-01-28)
+
+- Unreleased due to quality assurance failure.
+
 ## 11.7.0 (2019-01-22)
 
 ### Security (14 changes, 1 of them is from the community)

@@ -1109,7 +1109,9 @@ module API
 
     class Release < TagRelease
       expose :name
-      expose :description_html
+      expose :description_html do |entity|
+        MarkupHelper.markdown_field(entity, :description)
+      end
       expose :created_at
       expose :author, using: Entities::UserBasic, if: -> (release, _) { release.author.present? }
       expose :commit, using: Entities::Commit
@@ -1216,8 +1218,11 @@ module API
     end
 
     class Trigger < Grape::Entity
+      include ::API::Helpers::Presentable
+
       expose :id
-      expose :token, :description
+      expose :token
+      expose :description
       expose :created_at, :updated_at, :last_used
       expose :owner, using: Entities::UserBasic
     end

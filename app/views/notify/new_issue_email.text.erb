@@ -1,7 +1,7 @@
 新问题已创建。
 
 问题 <%= @issue.iid %>: <%= url_for(project_issue_url(@issue.project, @issue)) %>
-作者:    <%= @issue.author_name %>
+作者:    <%= sanitize_name(@issue.author_name) %>
 指派给:  <%= @issue.assignee_list %>
 
 <%= @issue.description %>

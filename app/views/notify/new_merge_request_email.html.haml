@@ -7,7 +7,7 @@
 
 - if @merge_request.assignee_id.present?
   %p
-    指派给: #{@merge_request.assignee_name}
+    指派给: #{sanitize_name(@merge_request.assignee_name)}
 
 = render_if_exists 'notify/merge_request_approvers', presenter: @mr_presenter
 
