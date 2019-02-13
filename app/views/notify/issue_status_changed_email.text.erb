@@ -1,4 +1,4 @@
-问题被 <%= @updated_by.name %> 更新为 <%= @issue_status %>
+问题被 <%= sanitize_name(@updated_by.name) %> 更新为 <%= @issue_status %>
 
 问题 <%= @issue.iid %>: <%= url_for(project_issue_url(@issue.project, @issue)) %>
 

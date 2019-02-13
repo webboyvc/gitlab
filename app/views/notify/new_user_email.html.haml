@@ -1,5 +1,5 @@
 %p
-  你好 #{@user['name']}!
+  您好 #{sanitize_name(@user['name'])}!
 %p
   - if Gitlab::CurrentSettings.allow_signup?
     你的账号创建成功。

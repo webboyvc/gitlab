@@ -2,5 +2,5 @@
 
 <%= url_for([@issue.project.namespace.becomes(Namespace), @issue.project, @issue, { only_path: false }]) %>
 
-委托人变更为 <%= "from #{@previous_assignees.map(&:name).to_sentence}" if @previous_assignees.any? -%>
- to <%= "#{@issue.assignees.any? ? @issue.assignee_list : '未指派'}" %>
+指派者 <%= "由 #{sanitize_name(@previous_assignees.map(&:name).to_sentence)}" if @previous_assignees.any? -%>
+ 变更为 <%= "#{@issue.assignees.any? ? @issue.assignee_list : '未指派'}" %>
