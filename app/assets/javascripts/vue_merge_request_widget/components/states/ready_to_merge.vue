@@ -330,7 +330,7 @@ export default {
           </template>
           <template v-else>
             <span class="bold js-resolve-mr-widget-items-message">
-              您只能在以上冲突都解决后才能合并
+              您只能在上述问题都解决后才能合并
             </span>
           </template>
         </div>
