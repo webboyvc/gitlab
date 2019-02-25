@@ -65,7 +65,7 @@ $(document).on(
     }
 
     const $this = $(this);
-    const title = isMac() ? 'You can also press &#8984;-Enter' : 'You can also press Ctrl-Enter';
+    const title = isMac() ? '您也可以按 &#8984;-Enter' : '您也可以按 Ctrl-Enter';
 
     $this.tooltip({
       container: 'body',

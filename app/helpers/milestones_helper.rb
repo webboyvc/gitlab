@@ -115,14 +115,14 @@ module MilestonesHelper
   end
 
   def milestone_time_for(date, date_type)
-    title = date_type == :start ? "Start date" : "End date"
+    title = date_type == :start ? "开始日期" : "结束日期"
 
     if date
       time_ago = time_ago_in_words(date).sub("about ", "")
       state = if date.past?
-                "ago"
+                "以前"
               else
-                "remaining"
+                "剩余"
               end
 
       content = [
@@ -178,15 +178,15 @@ module MilestonesHelper
       "#{milestone.start_date.to_s(:medium)}–#{milestone.due_date.to_s(:medium)}"
     elsif milestone.due_date
       if milestone.due_date.past?
-        "expired on #{milestone.due_date.to_s(:medium)}"
+        "已于 #{milestone.due_date.to_s(:medium)} 过期"
       else
-        "expires on #{milestone.due_date.to_s(:medium)}"
+        "将于 #{milestone.due_date.to_s(:medium)} 过期"
       end
     elsif milestone.start_date
       if milestone.start_date.past?
-        "started on #{milestone.start_date.to_s(:medium)}"
+        "已于 #{milestone.start_date.to_s(:medium)} 开始"
       else
-        "starts on #{milestone.start_date.to_s(:medium)}"
+        "将于 #{milestone.start_date.to_s(:medium)} 开始"
       end
     end
   end

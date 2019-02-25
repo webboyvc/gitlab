@@ -8,7 +8,7 @@
           .form-check
             = f.check_box :auto_devops_enabled, class: 'form-check-input'
             = f.label :auto_devops_enabled, class: 'form-check-label' do
-              Default to Auto DevOps pipeline for all projects
+              为项目默认启用自动集成部署(Auto DevOps)
             .form-text.text-muted
               = s_('CICD|The Auto DevOps pipeline will run if no alternative CI configuration file is found.')
               = link_to _('More information'), help_page_path('topics/autodevops/index.md'), target: '_blank'
@@ -21,23 +21,23 @@
       .form-check
         = f.check_box :shared_runners_enabled, class: 'form-check-input'
         = f.label :shared_runners_enabled, class: 'form-check-label' do
-          Enable shared runners for new projects
+          为新的项目启用共享的 Runner
     .form-group
       = f.label :shared_runners_text, class: 'label-bold'
       = f.text_area :shared_runners_text, class: 'form-control', rows: 4
-      .form-text.text-muted Markdown enabled
+      .form-text.text-muted Markdown 已启用
     .form-group
-      = f.label :max_artifacts_size, 'Maximum artifacts size (MB)', class: 'label-bold'
+      = f.label :max_artifacts_size, '最大结果尺寸 (MB)', class: 'label-bold'
       = f.number_field :max_artifacts_size, class: 'form-control'
       .form-text.text-muted
-        Set the maximum file size for each job's artifacts
+        设置每个任务的运行结果的最大文件大小
         = link_to icon('question-circle'), help_page_path('user/admin_area/settings/continuous_integration', anchor: 'maximum-artifacts-size')
     .form-group
       = f.label :default_artifacts_expire_in, 'Default artifacts expiration', class: 'label-bold'
       = f.text_field :default_artifacts_expire_in, class: 'form-control'
       .form-text.text-muted
-        Set the default expiration time for each job's artifacts.
-        0 for unlimited.
+        设置每个任务的运行结果的默认过期时间。
+        设置为 0 则没有限制。
         The default unit is in seconds, but you can define an alternative. For example:
         <code>4 mins 2 sec</code>, <code>2h42min</code>.
         = link_to icon('question-circle'), help_page_path('user/admin_area/settings/continuous_integration', anchor: 'default-artifacts-expiration')
@@ -57,4 +57,4 @@
       .form-text.text-muted
         = s_('AdminSettings|When creating a new environment variable it will be protected by default.')
 
-  = f.submit 'Save changes', class: "btn btn-success"
+  = f.submit _('Save changes'), class: "btn btn-success"

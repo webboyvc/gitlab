@@ -12,10 +12,10 @@
     %ul.nav.nav-tabs.nav-links.clearfix
       %li.md-header-tab.active
         %button.js-md-write-button{ tabindex: -1 }
-          Write
+          编写
       %li.md-header-tab
         %button.js-md-preview-button{ tabindex: -1 }
-          Preview
+          预览
 
       %li.md-header-toolbar.active
         = render 'projects/blob/markdown_buttons', show_fullscreen_button: true
@@ -29,8 +29,8 @@
     .referenced-users.hide
       %span
         = icon("exclamation-triangle")
-        You are about to add
+        您添加了
         %strong
           %span.js-referenced-users-count 0
-          people
-        to the discussion. Proceed with caution.
+          人
+        到此讨论。请谨慎行事。

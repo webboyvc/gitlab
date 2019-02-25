@@ -11,7 +11,7 @@ class AsanaService < Service
   end
 
   def description
-    'Asana - Teamwork without email'
+    'Asana - 无电子邮件团队协作'
   end
 
   def help
@@ -73,7 +73,7 @@ http://app.asana.com/-/account_api'
     project_name = project.full_name
 
     data[:commits].each do |commit|
-      push_msg = "#{user} pushed to branch #{branch} of #{project_name} ( #{commit[:url]} ):"
+      push_msg = "#{user} 推送了 #{project_name} 的 #{branch} 分支 ( #{commit[:url]} )："
       check_commit(commit[:message], push_msg)
     end
   end

@@ -1,10 +1,10 @@
 %p
-  Assignee changed
+  指派变更
   - if @previous_assignee
-    from
+    从
     %strong= sanitize_name(@previous_assignee.name)
-  to
+  变更为
   - if @merge_request.assignee_id
     %strong= sanitize_name(@merge_request.assignee_name)
   - else
-    %strong Unassigned
+    %strong 未指派
