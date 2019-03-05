@@ -1,6 +1,9 @@
 %p
   问题已经被移动到另一个项目。
-%p
-  新问题:
-  = link_to project_issue_url(@new_project, @new_issue) do
-    = @new_issue.title
+- if @can_access_project
+  %p
+    新问题:
+    = link_to project_issue_url(@new_project, @new_issue) do
+      = @new_issue.title
+- else
+  您没有访问项目的权限。
