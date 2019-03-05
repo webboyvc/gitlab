@@ -1,4 +1,8 @@
 问题已经被移动到其它的项目。
 
+<% if @can_access_project %>
 新的问题位置:
 <%= project_issue_url(@new_project, @new_issue) %>
+<% else %>
+您没有访问这个项目的权限。
+<% end %>
