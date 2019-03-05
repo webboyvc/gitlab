@@ -23,9 +23,3 @@
       %strong 登录
       于
       = l(active_session.created_at, format: :short)
-
-  - unless is_current_session
-    .float-right
-      = link_to profile_active_session_path(active_session.session_id), data: { confirm: '你确定吗？这个设备将会从 GitLab 注销。' }, method: :delete, class: "btn btn-danger prepend-left-10" do
-        %span.sr-only 撤销
-        撤销
