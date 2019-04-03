@@ -2,6 +2,27 @@
 documentation](doc/development/changelog.md) for instructions on adding your own
 entry.
 
+## 11.7.10 (2019-03-28)
+
+### Security (7 changes)
+
+- Disallow guest users from accessing Releases.
+- Fix PDF.js vulnerability.
+- Hide "related branches" when user does not have permission.
+- Fix XSS in resolve conflicts form.
+- Added rake task for removing EXIF data from existing uploads.
+- Disallow updating namespace when updating a project.
+- Use UntrustedRegexp for matching refs policy.
+
+
+## 11.7.9 (2019-03-27)
+
+- Unreleased due to QA failure.
+
+## 11.7.8 (2019-03-26)
+
+- Unreleased due to QA failure.
+
 ## 11.7.7 (2019-03-19)
 
 ### Security (2 changes)
