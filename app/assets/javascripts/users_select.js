@@ -218,7 +218,7 @@ function UsersSelect(currentUser, els, options = {}) {
               tooltipTitle = _.escape(user.name);
             } else {
               user = {
-                name: 'Unassigned',
+                name: '未指派',
                 username: '',
                 avatar: '',
               };
@@ -688,7 +688,7 @@ UsersSelect.prototype.initSelection = function(element, callback) {
   id = $(element).val();
   if (id === '0') {
     nullUser = {
-      name: 'Unassigned',
+      name: '未指派',
     };
     return callback(nullUser);
   } else if (id !== '') {

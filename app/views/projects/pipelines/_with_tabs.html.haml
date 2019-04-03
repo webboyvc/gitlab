@@ -24,17 +24,17 @@
         %table.table.ci-table.pipeline
           %thead
             %tr
-              %th Status
+              %th 状态
               %th Job ID
-              %th Name
+              %th 名称
               %th
-              %th Coverage
+              %th 覆盖率
               %th
           = render partial: "projects/stage/stage", collection: pipeline.legacy_stages, as: :stage
 
     - elsif pipeline.project.builds_enabled? && !pipeline.ci_yaml_file
       .bs-callout.bs-callout-warning
-        \.gitlab-ci.yml not found in this commit
+        未在本次提交中找到 .gitlab-ci.yml 文件
 
   - if @pipeline.failed_builds.present?
     #js-tab-failures.build-failures.tab-pane.build-page

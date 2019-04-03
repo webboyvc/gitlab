@@ -629,7 +629,7 @@ class MergeRequest < ActiveRecord::Base
     return true unless source_project_missing?
 
     errors.add :validate_fork,
-               'Source project is not a fork of the target project'
+               '源项目不是从目标项目派生而来'
   end
 
   def merge_ongoing?
@@ -915,7 +915,7 @@ class MergeRequest < ActiveRecord::Base
     if target_project
       target_project.full_path
     else
-      "(removed)"
+      "(已删除)"
     end
   end
 
@@ -923,7 +923,7 @@ class MergeRequest < ActiveRecord::Base
     if source_project
       source_project.full_path
     else
-      "(removed)"
+      "(已删除)"
     end
   end
 
@@ -931,7 +931,7 @@ class MergeRequest < ActiveRecord::Base
     if source_project && source_project.namespace
       source_project.namespace.full_path
     else
-      "(removed)"
+      "(已删除)"
     end
   end
 
@@ -939,7 +939,7 @@ class MergeRequest < ActiveRecord::Base
     if target_project && target_project.namespace
       target_project.namespace.full_path
     else
-      "(removed)"
+      "(已删除)"
     end
   end
 
@@ -961,16 +961,16 @@ class MergeRequest < ActiveRecord::Base
     end
 
     message = [
-      "Merge branch '#{source_branch}' into '#{target_branch}'",
+      "合并分支 '#{source_branch}' 到 '#{target_branch}'",
       title
     ]
 
     if !include_description && closes_issues_references.present?
-      message << "Closes #{closes_issues_references.to_sentence}"
+      message << "关闭 #{closes_issues_references.to_sentence}"
     end
 
     message << "#{description}" if include_description && description.present?
-    message << "See merge request #{to_reference(full: true)}"
+    message << "查看合并请求 #{to_reference(full: true)}"
 
     message.join("\n\n")
   end
@@ -1067,12 +1067,16 @@ class MergeRequest < ActiveRecord::Base
 
   def state_human_name
     if merged?
-      "Merged"
+      "已合并"
     elsif closed?
-      "Closed"
+      "已关闭"
     else
-      "Open"
+      "未关闭"
     end
+  end
+
+  def zh_name
+    '合并请求'
   end
 
   def state_icon_name

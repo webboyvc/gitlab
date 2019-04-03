@@ -54,9 +54,9 @@ class Projects::ServicesController < Projects::ApplicationController
 
   def success_message
     if @service.active?
-      "#{@service.title} activated."
+      "#{@service.title} 已激活。"
     else
-      "#{@service.title} settings saved, but not activated."
+      "#{@service.title} 设置已保存，但未激活。"
     end
   end
 
