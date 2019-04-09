@@ -2,7 +2,7 @@
 documentation](doc/development/changelog.md) for instructions on adding your own
 entry.
 
-## 11.9.5 (2019-04-03)
+## 11.9.6 (2019-04-04)
 
 ### Fixed (3 changes)
 
@@ -14,6 +14,10 @@ entry.
 
 - Force a full GC after importing a project. !26803
 
+
+## 11.9.5 (2019-04-03)
+
+- Unreleased due to QA failure.
 
 ## 11.9.4 (2019-03-28)
 
