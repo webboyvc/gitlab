@@ -3,7 +3,7 @@
     #{link_to @merge_request.author_name, user_url(@merge_request.author)} 创建合并请求:
 
 %p.details
-  != merge_path_description(@merge_request, '&rarr;')
+  = merge_path_description(@merge_request, '→')
 
 - if @merge_request.assignee_id.present?
   %p
