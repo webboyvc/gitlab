@@ -1817,7 +1817,7 @@ export default class Notes {
     $editingNote
       .find('.note-headline-meta a')
       .html(
-        '<i class="fa fa-spinner fa-spin" aria-label="Comment is being updated" aria-hidden="true"></i>',
+        '<i class="fa fa-spinner fa-spin" aria-label="评论已经更新" aria-hidden="true"></i>',
       );
 
     // Make request to update comment on server
