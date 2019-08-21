@@ -2,7 +2,7 @@
   %td
     - if trigger.has_token_exposed?
       %span= trigger.token
-      = clipboard_button(text: trigger.token, title: "Copy trigger token to clipboard")
+      = clipboard_button(text: trigger.token, title: "复制触发器令牌到剪贴板")
     - else
       %span= trigger.short_token
 
@@ -30,7 +30,7 @@
     - if trigger.last_used
       = time_ago_with_tooltip trigger.last_used
     - else
-      Never
+      从未
 
   %td.text-right.trigger-actions
     - take_ownership_confirmation = "By taking ownership you will bind this trigger to your user account. With this the trigger will have access to all your projects as if it was you. Are you sure?"
@@ -38,7 +38,7 @@
     - if trigger.owner != current_user && can?(current_user, :manage_trigger, trigger)
       = link_to 'Take ownership', take_ownership_project_trigger_path(@project, trigger), data: { confirm: take_ownership_confirmation }, method: :post, class: "btn btn-default btn-sm btn-trigger-take-ownership"
     - if can?(current_user, :admin_trigger, trigger)
-      = link_to edit_project_trigger_path(@project, trigger), method: :get, title: "Edit", class: "btn btn-default btn-sm" do
+      = link_to edit_project_trigger_path(@project, trigger), method: :get, title: "编辑", class: "btn btn-default btn-sm" do
         %i.fa.fa-pencil
     - if can?(current_user, :manage_trigger, trigger)
       = link_to project_trigger_path(@project, trigger), data: { confirm: revoke_trigger_confirmation }, method: :delete, title: "Revoke", class: "btn btn-default btn-warning btn-sm btn-trigger-revoke" do
