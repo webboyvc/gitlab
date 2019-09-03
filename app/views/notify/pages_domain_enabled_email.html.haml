@@ -1,10 +1,10 @@
 %p
-  Following a verification check, your GitLab Pages custom domain has been
-  enabled. You should now be able to view your content at #{link_to @domain.url, @domain.url}
+  通过验证检查后， 您的 Gitlab 自定义域名已被
+  启用。 你可以通过 #{link_to @domain.url, @domain.url} 访问您的内容。
 %p
-  Project: #{link_to @project.human_name, project_url(@project)}
+  项目: #{link_to @project.human_name, project_url(@project)}
 %p
-  Domain: #{link_to @domain.domain, project_pages_domain_url(@project, @domain)}
+  域名: #{link_to @domain.domain, project_pages_domain_url(@project, @domain)}
 %p
   Please visit
   = link_to 'these instructions', help_page_url('user/project/pages/custom_domains_ssl_tls_certification/index.md', anchor: 'steps')
