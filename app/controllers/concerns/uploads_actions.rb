@@ -90,7 +90,7 @@ module UploadsActions
     return unless uploader = build_uploader
 
     upload_paths = uploader.upload_paths(params[:filename])
-    upload = Upload.find_by(uploader: uploader_class.to_s, path: upload_paths)
+    upload = Upload.find_by(model: model, uploader: uploader_class.to_s, path: upload_paths)
     upload&.build_uploader
   end
   # rubocop: enable CodeReuse/ActiveRecord
@@ -126,5 +126,9 @@ module UploadsActions
 
   def model
     strong_memoize(:model) { find_model }
+  end
+
+  def workhorse_authorize_request?
+    action_name == 'authorize'
   end
 end

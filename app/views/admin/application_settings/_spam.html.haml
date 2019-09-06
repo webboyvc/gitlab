@@ -8,9 +8,15 @@
         = f.label :recaptcha_enabled, class: 'form-check-label' do
           启用 reCAPTCHA
         %span.form-text.text-muted#recaptcha_help_block Helps prevent bots from creating accounts
-
     .form-group
-      = f.label :recaptcha_site_key, 'reCAPTCHA 站点密钥', class: 'label-bold'
+      .form-check
+        = f.check_box :login_recaptcha_protection_enabled, class: 'form-check-input'
+        = f.label :login_recaptcha_protection_enabled, class: 'form-check-label' do
+          登录时启用 reCAPTCHA
+        %span.form-text.text-muted#recaptcha_help_block
+          = _('Helps prevent bots from brute-force attacks.')
+    .form-group
+      = f.label :recaptcha_site_key, 'reCAPTCHA 站点秘钥', class: 'label-bold'
       = f.text_field :recaptcha_site_key, class: 'form-control'
       .form-text.text-muted
         Generate site and private keys at
@@ -19,6 +25,7 @@
 
     .form-group
       = f.label :recaptcha_private_key, 'reCAPTCHA 私钥', class: 'label-bold'
+    .form-group
       = f.text_field :recaptcha_private_key, class: 'form-control'
 
     .form-group
