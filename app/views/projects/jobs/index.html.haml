@@ -1,4 +1,4 @@
-- page_title "Jobs"
+- page_title "作业"
 
 .top-area
   - build_path_proc = ->(scope) { project_jobs_path(@project, scope: scope) }
@@ -7,7 +7,7 @@
   .nav-controls
     - if can?(current_user, :update_build, @project)
       - unless @repository.gitlab_ci_yml
-        = link_to 'Get started with Pipelines', help_page_path('ci/quick_start/README'), class: 'btn btn-info'
+        = link_to '开始使用流水线', help_page_path('ci/quick_start/README'), class: 'btn btn-info'
 
       = link_to project_ci_lint_path(@project), class: 'btn btn-default' do
         %span CI lint

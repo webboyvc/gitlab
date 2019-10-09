@@ -29,12 +29,12 @@ export default {
         .then(res => res.data)
         .then(data => {
           eventHub.$emit('UpdateWidgetData', data);
-          new window.Flash('The merge request can now be merged.', 'notice'); // eslint-disable-line
+          new window.Flash('该合并请求无法合并。', 'notice'); // eslint-disable-line
           $('.merge-request .detail-page-description .title').text(this.mr.title);
         })
         .catch(() => {
           this.isMakingRequest = false;
-          new window.Flash('Something went wrong. Please try again.'); // eslint-disable-line
+          new window.Flash('出现了错误，请重试。'); // eslint-disable-line
         });
     },
   },

@@ -1,8 +1,8 @@
 - add_to_breadcrumbs "Labels", project_labels_path(@project)
 - breadcrumb_title "New"
-- page_title "New Label"
+- page_title "新建标记"
 
 %h3.page-title
-  New Label
+  新建标记
 %hr
 = render 'shared/labels/form', url: project_labels_path(@project), back_path: project_labels_path(@project)

@@ -1,6 +1,6 @@
 - @can_bulk_update = can?(current_user, :admin_merge_request, @group) && @group.feature_available?(:group_bulk_edit)
 
-- page_title "Merge Requests"
+- page_title "合并请求"
 
 - if group_merge_requests_count(state: 'all').zero?
   = render 'shared/empty_states/merge_requests', project_select_button: true
@@ -12,7 +12,7 @@
         - if @can_bulk_update
           = render_if_exists 'shared/issuable/bulk_update_button', type: :merge_requests
 
-        = render 'shared/new_project_item_select', path: 'merge_requests/new', label: "New merge request", type: :merge_requests, with_feature_enabled: 'merge_requests', with_shared: false, include_projects_in_subgroups: true
+        = render 'shared/new_project_item_select', path: 'merge_requests/new', label: "新建合并请求", type: :merge_requests, with_feature_enabled: 'merge_requests', with_shared: false, include_projects_in_subgroups: true
 
   = render 'shared/issuable/search_bar', type: :merge_requests
 
