@@ -33,7 +33,10 @@ export default function renderMermaid($els) {
         flowchart: {
           htmlLabels: false,
         },
+        securityLevel: 'strict',
       });
+
+      let renderedChars = 0;
 
       $els.each((i, el) => {
         // Mermaid doesn't like `<br />` tags, so collapse all like tags into `<br>`, which is parsed correctly.
@@ -44,7 +47,7 @@ export default function renderMermaid($els) {
          * prevent mermaidjs from hanging up the entire thread and
          * causing a DoS.
          */
-        if (source && source.length > MAX_CHAR_LIMIT) {
+        if ((source && source.length > MAX_CHAR_LIMIT) || renderedChars > MAX_CHAR_LIMIT) {
           el.textContent = sprintf(
             __(
               'Cannot render the image. Maximum character count (%{charLimit}) has been exceeded.',
@@ -54,6 +57,7 @@ export default function renderMermaid($els) {
           return;
         }
 
+        renderedChars += source.length;
         // Remove any extra spans added by the backend syntax highlighting.
         Object.assign(el, { textContent: source });
 

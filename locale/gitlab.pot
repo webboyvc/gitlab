@@ -3901,6 +3901,9 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
+msgid "Email not verified. Please verify your email in Salesforce."
+msgstr ""
+
 msgid "Email patch"
 msgstr ""
 
@@ -8965,6 +8968,9 @@ msgid "Repository: %{counter_repositories} / Wikis: %{counter_wikis} / Build Art
 msgstr ""
 
 msgid "Request Access"
+msgstr ""
+
+msgid "Request to link SAML account must be authorized"
 msgstr ""
 
 msgid "Requested %{time_ago}"
